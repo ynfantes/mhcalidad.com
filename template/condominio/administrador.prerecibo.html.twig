@@ -1,0 +1,254 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+<div class="col-md-12 col-sm-12">
+<!-- BREADCRUMBS -->
+<div id="breadcrumb">
+<ul>
+<li class="home"><a href="{{ constant('URL_SISTEMA') }}/administracion">MH Calidad Condominios</a></li>
+<li>Soportes de Facturación</li>
+</ul>
+</div>
+<div class="row show-grid clear-both">
+<!-- BEGIN ARTICLE CONTENT AREA -->
+<div class="col-md-12 col-sm-12 main-column">
+<article>
+<h2><a href="#">Mantenimiento soportes facturación</a></h2> 
+{% if resultado is defined %}
+{% include 'misc/resultado.html.twig' %}
+{% endif %}
+<form id="listadoForm" action="{{constant('URL_SISTEMA')}}/administracion/prerecibo" method="post" class="form-horizontal contact-agent-form">
+<div class="container">
+<div class="row">
+<div class="control-group col-md-6 col-sm-6">
+<label class="control-label" for="inputName">Condominio<sup>*</sup></label>
+<select class="required form-control" name="id_inmueble" style="height: 40px">
+<option value="">Seleccione</option>
+{% for inmueble in inmuebles %}
+<option value="{{inmueble.id}}" {%if inmueble.id==id_inmueble %}selected{%endif%}>{{inmueble.nombre_inmueble}}</option>
+{% endfor %}
+</select>
+</div>                                         
+</div>
+<div class="row">
+<div class="control-group col-md-6 col-sm-6">
+<label for="textarea" class="control-label">Períodos<sup>*</sup></label>
+<select class="required form-control" name="periodo" style="height: 40px">
+<option value="">Seleccione</option>
+{% for p in periodos %}
+<option value="{{p.periodo}}" {%if p.periodo==periodo %}selected{%endif%}>{{p.periodo| date("m-Y")}}</option>
+{% endfor %}
+</select>
+</div>
+</div>
+<div class="row">
+<div class="control-group form-button-offset col-md-6 col-sm-6">
+<input type="submit" value="Consultar" class="btn btn-default">
+</div>
+</div>
+</div>
+</form>
+<br />
+{% if detalle %}
+<table id="detalle-prerecibo" class="table table-bordered table-striped" data-url="{{constant("URL_SISTEMA")}}/administracion/eliminar-itemprerecibo">
+<thead>
+<tr>
+<th>Codigo Gasto</th>
+<th>Descripcion</th>
+<th>Monto</th>
+<th>Soporte</th>
+<th>Eliminar</th>
+</tr>
+</thead>
+<tbody>
+{% for item in detalle %}
+<tr id="fila{{ item.id }}">
+<td>{{item.codigo_gasto}}</td>
+<td>
+    {% if item.existe %}
+        <a href="{{constant('URL_SISTEMA')}}/prerecibo/{{item.archivo}}" target='_blank'>{{item.descripcion}}</a>
+        &nbsp;&nbsp;<a href='#' name='eliminar-archivo' data-id='{{item.id}}' data-file='{{item.archivo}}' class='badge btn-danger'>Eliminar Soporte</a>
+    {% else %}
+        {{item.descripcion}}
+    {% endif %}
+</td>
+<td><div class="pull-right">{{format_number(item.total)}}</div></td>
+<td>
+    <a data-id="{{item.id}}" href="#" data-toggle="modal" data-target="#archivo-modal">Publicar</a>
+    
+</td>
+<td align="center"><input type="checkbox" name="id[]" value="{{item.id}}"></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<div class="row">
+<button id="guardar" class="btn btn-primary">Guardar Soportes</button>
+<button id="eliminar" class="btn btn-danger">Eliminar Seleccionados</button>
+</div>
+<br />
+{% endif %}
+<div class="text-divider5">
+<span></span>
+</div>
+</article>
+<!-- END ARTICLE CONTENT AREA -->
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Login Modal -->
+<div class="modal modal-auth" id="archivo-modal" tabindex="-1" role="dialog" aria-labelledby="archivoModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 id="loginModalLabel" class="modal-title text-center">Publicar Soporte</h4>
+</div>
+<div class="modal-body">
+<div id="login-messages" class="text-center"></div>
+<div class="login-form-container">
+<form id="publicacion" action="{{constant('URL_SISTEMA')}}/administracion/publicar-soporte" method="post" class="form-horizontal contact-agent-form" enctype="multipart/form-data">
+<div class="form-group">
+<input name="id" type="hidden" value="">
+<input name="id_inmueble" type="hidden" value="">
+<input name="periodo" type="hidden" value="">
+<input type="file" id="archivo" name="archivo" accept="application/pdf">
+<div class="extra">
+</div><!--//extra-->
+</div><!--//form-group-->
+<button type="submit" class="btn btn-cta btn-block btn-primary" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Procesando..."><i class="fa fa-user"></i> Guardar</button>
+</form>
+</div><!--//login-form-container-->
+</div><!--//modal-body-->
+
+</div><!--//modal-content-->
+</div><!--//modal-dialog-->
+</div><!--//modal-->
+{% endblock %}
+{% block js %}
+{{parent()}}
+<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/jquery.validate.js"></script>
+<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+var monthNames = [
+    "01", "02", "03",
+    "04", "05", "06", 
+    "07", "08", "09", 
+    "10", "11", "12"
+  ];
+$("select[name='id_inmueble']").live('change', function() {
+$("select[name='periodo']").empty();
+var url = '{{constant("URL_SISTEMA")}}/administracion/periodos';
+$.post(url,{id: $(this).val()},
+function(data) {
+    if (data === null) {
+        $("select[name='periodo']").append("<option value=''>No hay prerecibos publicados</option>");
+    } else {
+        $("select[name='periodo']").append("<option value=''>Seleccione</option>");
+        $.each(data, function(index,prerecibo) {
+            var fecha = new Date(prerecibo.periodo);
+            var mes = monthNames[fecha.getMonth()];
+            var ano = fecha.getFullYear();
+            var periodo =  mes + '-' + ano;
+            $("select[name='periodo']").append("<option value=\"" + prerecibo.periodo + "\">" + periodo +"</option>");
+
+         });
+    }
+     
+},'json');
+return false;
+});
+
+$('a[name="eliminar-archivo"]').live('click', function() {
+var url = "{{constant('URL_SISTEMA')}}/administracion/eliminar-archivo";
+$.post(url,{id: $(this).attr('data-id'),filename : $(this).attr('data-file')});
+$("#listadoForm").submit();
+});
+
+$('a[data-toggle="modal"]').live('click',function() {
+    $("input[name='id']").val($(this).attr('data-id'));
+    $("input[name='id_inmueble']").val($("select[name='id_inmueble']").val());
+    $("input[name='periodo']").val($("select[name='periodo']").val());
+    $("input[name='archivo']").text('S76.pdf');
+});
+$("button#eliminar").live('click',function(){
+var url = $("#detalle-prerecibo").attr("data-url");
+$("input:checked").each(function() {
+    $.post(url,{id: $(this).val()}, function(data) {
+        $("tr#fila" + data ).css("display","none");
+        console.log(data);
+    });
+});
+return false;
+});
+
+$("#listadoForm").validate({
+        rules : {
+            id_inmueble : {
+                required : true
+            },
+            periodo : {
+                required : true
+            }
+        },
+
+        messages : {
+            id_inmueble: {
+            required: "Seleccione un condominio de la lista"
+            },
+            periodo : {
+            required: 'Debe seleccionar un período'
+            }
+        },
+        errorElement : 'span',
+        errorClass : 'error',
+        errorPlacement : function(error, element) {
+            if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                $(".error").show();
+            } else {
+                if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                } else {
+                        error.insertAfter(element);
+                }
+            }
+        }
+    });
+    
+$("#publicacion").validate({
+    rules : {
+        archivo : { required : true }
+    },
+    messages : {
+        archivo : {
+            required: 'Debe seleccionar un archivo'
+        }
+    },
+    errorElement : 'span',
+    errorClass : 'error',
+    errorPlacement : function(error, element) {
+        if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+            $(".error").show();
+        } else {
+            if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+            } else {
+                    error.insertAfter(element);
+            }
+        }
+    }
+});
+});
+</script>
+{%endblock%}

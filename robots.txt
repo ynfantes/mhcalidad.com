@@ -1,0 +1,3 @@
+User-agent: *
+
+sitemap: http://www.mhcalidadadministrativa.com/sitemap.xml

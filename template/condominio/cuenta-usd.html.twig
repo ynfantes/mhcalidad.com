@@ -1,0 +1,153 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+<div class="col-md-12 col-sm-12">
+<!-- BREADCRUMBS -->
+<div id="breadcrumb">
+    <ul>
+        <li class="home"><a href="{{ constant('ROOT') }}enlinea">MH Calidad Condominios</a></li>
+        <li>Estado de Cuenta</li>
+    </ul>
+</div>
+<div class="row show-grid clear-both">
+<!-- BEGIN ARTICLE CONTENT AREA -->
+<div class="col-md-9 col-sm-9 main-column two-columns-right">
+    {% if resultado is defined %}
+    {% include 'misc/resultado.html.twig' %}
+    {% endif %}
+    {% if cuentas %}
+    {% for cuenta in cuentas %}
+<table  class="table table-bordered table-striped responsive-utilities">
+    <caption style="text-align: left;"><h4>{{ cuenta.inmueble.nombre_inmueble }}</h4></caption>
+    <thead>
+        <tr>
+            <th style="text-align: center">Casa Apartamento</th>
+            <th style="text-align: center">Deuda Inmueble</th>
+            <!--th style="text-align: center">Fondo de Reserva</th-->
+            <th style="text-align: center">Deuda Condominio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: center">{{ cuenta.propiedades.apto }}</td>
+            <td><span class="pull-right">{{ format_number(cuenta.inmueble.deuda) }}</span></td>
+            <!--td><span class="pull-right">{{ format_number(cuenta.inmueble.fondo_reserva) }}</span></td-->
+            <td><span class="pull-right">
+                    {% if cuenta.propiedades.meses_pendiente > constant('MESES_COBRANZA') %}
+                            ---
+                    {% else %}
+                        {{ format_number(cuenta.propiedades.deuda_total) }}
+                    {% endif %}
+                        </span></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+
+                {% if cuenta.propiedades.meses_pendiente > constant('MESES_COBRANZA') %}
+                <div class="alert alert-error" style="font-size: 120%">Estimado propietario(a) {{ session.usuario.nombre }}<br/><strong>Le agradecemos ponerse en contacto con el departamento de cobranzas</strong>.</div>
+                {% else %}
+                {% if cuenta.cuentas is empty %}
+                <!--div class="alert alert-danger">
+                    Estimado propietario(a) usted <strong>No tiene recibos pendientes</strong>
+                </div-->
+                {% else %}
+                <table class="table table-hover table-striped ">
+                    <thead><tr>
+                            <th style="text-align: center">Nº Factura</th>
+                            <th style="text-align: center">Período</th>
+                            <th style="text-align: center" class="hidden-phone">Detalle</th>
+                            <th style="text-align: center" class="hidden-phone">Monto Mes</th>
+                            <th style="text-align: center">A.FIDEA</th>
+                            <th style="text-align: center" class="hidden-phone">Abonado</th>
+                            <th style="text-align: center">Neto a Pagar</th>
+                            <th style="text-align: center">Ref. $</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        {% for factura in cuenta.cuentas %}
+            <tr class="info">
+            <td style="text-align: center">
+            {% if factura.aviso %}
+            <a href="{{constant('URL_SISTEMA')}}/avisos/{{ factura.numero_factura}}.pdf" target="_blank">{{factura.numero_factura}}</a>
+            {% else %}
+            <abbr title="Aviso de Cobro NO DISPONIBLE" class="initialism">{{ factura.numero_factura}}</abbr>
+            {%endif %}
+            </td>
+            <td style="text-align: center">{{factura.periodo | date("m-Y") | upper}}</td>
+            <td class="hidden-phone">RECIBO</td>
+            <td><span class="pull-right">{{format_number(factura.facturado - factura.fidea)}}</span></td>
+            <td><span class="pull-right">{{format_number(factura.fidea)}}</td>
+            <td><span class="pull-right">{{format_number(factura.abonado)}}</td>
+            <td><span class="pull-right">{{format_number(factura.facturado)}}</td>
+            <td><span class="pull-right">{{format_number(factura.facturado_usd)}}</span></td>
+            </tr>
+        {% endfor %}
+
+                    </tbody>
+                </table>
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+{% endfor %}
+{% else %}
+<div class="alert alert-success">
+<button type="button" class="close" data-dismiss="alert">×</button>
+<h2>Excelente!</h2>
+<p>Estimado propietario usted no tiene recibos pendiente por cancelar.</p>
+</div>
+{% endif %}
+       <br />
+        <div class="text-divider5">
+            <span></span>
+            </div>
+        <!-- END ARTICLE CONTENT AREA -->
+    </div>
+    <!-- BEGIN LEFT-SIDEBAR -->
+    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar">
+        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+        <div class="side-nav sidebar-block">
+            <h2>Este sitio web es gestionado por</h2>
+            <ul class="mini-clients">
+                <li>
+                    <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
+                        <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo_valoriza_gestion.jpg">
+                    </a>
+                </li>
+            </ul>
+        </div>                                
+    </div>
+    <!-- END LEFT-SIDEBAR -->
+</div>
+</div>
+</div>
+</div>
+<!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+<div class="recent-tweets">
+<div class="container">
+<div class="row show-grid">
+<div class="col-sm-12 col-md-12 twitter-wrapper">
+    <div id="nav_t"></div>
+    <div class="cartelera-slide" data-url="{{constant('ROOT') }}">
+        <ul class="slides"></ul>
+    </div>
+    <span class="follow_img"><img alt="" src="{{constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript" src="{{constant('ROOT')}}js/condominio.js"></script>
+{% endblock %}

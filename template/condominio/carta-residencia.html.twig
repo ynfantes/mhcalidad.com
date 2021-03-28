@@ -1,0 +1,225 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+        <div class="container">
+            <div class="row show-grid">
+                <div class="col-md-12 col-sm-12">
+                    <!-- BREADCRUMBS -->
+                    <div id="breadcrumb">
+                        <ul>
+                            <li class="home"><a href="{{ constant('URL_SISTEMA') }}">MH Calidad Condominios</a></li>
+                            <li>Carta de Residencia</li>
+                        </ul>
+                    </div>
+                    <div class="row show-grid clear-both">
+                        <!-- BEGIN ARTICLE CONTENT AREA -->
+                        <div class="col-md-9 col-sm-9 main-column two-columns-right">
+                            <article>
+                                {% if propiedades %}
+                                    <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-0" data-widget-colorbutton="false"	
+                                             data-widget-editbutton="false"
+                                             data-widget-togglebutton="false"
+                                             data-widget-deletebutton="false"
+                                             data-widget-fullscreenbutton="false"
+                                             data-widget-custombutton="false"
+                                             data-widget-sortable="false">
+
+                                            <header>
+                                                <h2 class="font-md"><a href="#">Lista de Propiedades</a></h2>
+                                            </header>
+                                            <!-- widget div-->
+                                            <div>
+
+                                                <!-- widget content -->
+                                                <div class="widget-body">
+                                                    <div class="table-responsive">
+                                                        <table  class="table table-bordered table-striped responsive-utilities">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="text-align: center">Codigo Inmueble</th>
+                                                                    <th style="text-align: center">Apartamento</th>
+                                                                    <th style="text-align: center">Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for propiedad in propiedades %}
+                                                                    {% if condominio.inmueble.id == miembro.id_inmueble %}
+                                                                        {% set cedula = miembro.cedula %}
+                                                                        <tr>
+                                                                            <td>{{propiedad.id_inmueble}}</td>
+                                                                            <td>{{propiedad.apto}}</td>
+                                                                            <td><a href="#" data-toggle="modal" data-target="#loginModal" id="to-imprimir-link">Imprimir</a></td>
+                                                                        </tr>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                                <!-- end widget content -->
+
+                                            </div>
+                                            <!-- end widget div -->
+
+                                        </div>
+                                {% else %}
+                                    <div class="alert alert-danger">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                        <h2 class="alert-heading">Ups! Lo sentimos</h2>
+                                        No conseguimos la información asociada a sus propiedades. Contacte con el administrador
+                                    </div>
+                                {% endif %}
+                            </article>
+                            <!-- END ARTICLE CONTENT AREA -->
+                        </div>
+                        <!-- BEGIN LEFT-SIDEBAR -->
+                        <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+                            <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+                            <div class="side-nav sidebar-block">
+                                <h2>Este sitio web es gestionado por</h2>
+                                <ul class="mini-clients">
+                                    <li>
+                                        <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
+                                            <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo_valoriza_gestion.jpg">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>                                
+                        </div>
+                        <!-- END LEFT-SIDEBAR -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+        <div class="recent-tweets">
+            <div class="container">
+                <div class="row show-grid">
+                    <div class="col-sm-12 col-md-12 twitter-wrapper">
+                        <div id="nav_t"></div>
+                        <div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+                            <ul class="slides"></ul>
+                        </div>
+                        <span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                        <!-- Reset Password Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h2 class="form-signin-heading modal-title" id="myModalLabel">Carta de Residencia</h2>
+</div>
+    <form method="post" id="frm-carta-residencia" action="{{constant('ROOT')}}enlinea/carta.php">
+<div class="modal-body">
+<p class="intro">Complete el siguiente formulario y presione el botón <strong>Imprimir</strong>.</p>
+<div id="login-recovery" class="text-center"></div>
+<fieldset>
+    <input type="hidden" name="id_inmueble"/>
+    <input type="hidden" name="apto"/>
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 control-group">
+<input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombres y Apellidos">
+</div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+<div class="control-group col-md-6 col-sm-6">
+<input id="cedula" placeholder="Número Cédula" class="form-control" name="cedula" value="" type="text">
+</div>                                         
+<div class="control-group col-md-6 col-sm-6">
+<input id="years" placeholder="Años viviendo en el inmuebles" class="form-control" name="years" value="" type="text">
+</div>
+</div>
+</fieldset>
+<div class="alert alert-info hidden">
+<button data-dismiss="alert" class="close" type="button">×</button>
+<h2>INFORMACIÓN IMPORTANTE</h2>
+<p>Esta carta debe ser entregada en la Vigilancia /o al Sr Jesus Beomont, de Lunes a Viernes en horario comprendido de 08:00am a 04:00 pm. para su validaciòn. Gracias.</p>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+<button type="submit" class="btn btn-danger">Imprimir</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
+    <script type="text/javascript" src="{{ constant('ROOT')}}js/condominio.js"></script>
+    
+    <script type="text/javascript">
+    jQuery.noConflict();
+    jQuery(document).ready(function($) {
+    jQuery("#frm-carta-residencia").validate({
+        focusInvalid: false,
+        ignore: ".ignore",
+        rules : {
+            nombre : {
+                required : true
+            },
+            cedula : {
+                required : true
+            },
+            years : {
+                required : true,
+                digits : true
+            }
+    },
+
+    messages : {
+        nombre: {
+        required: "Ingrese el Nombre y Apellido",
+        },
+        cedula : {
+        required: "Ingrese el número de cédula",
+        },
+        years : {
+        required: 'Ingrese esta información',
+        digits: 'Ingrese un número válido'
+        }
+    },
+    errorPlacement : function(error, element) {
+        
+        if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+            var controls = element.closest('div[class="container"]');
+            controls.append(error);
+        } else {
+            if (element.parent('.input-group').length) {
+                    error.insertBefore(element.parent());
+            } else {
+                    error.insertBefore(element);
+            }
+            element.closest(".control-group").addClass("has-error");
+            
+        }
+    }
+    });
+    jQuery('button.btn-danger').on('click', function() {
+        if(jQuery("#frm-carta-residencia").valid()) {
+            jQuery("#loginModal").modal('toggle');
+        }
+    });
+    jQuery('a#to-imprimir-link').on('click', function() {
+        jQuery("input[name|='id_inmueble']").attr("value",jQuery(this).parents("tr").find("td").eq(0).html());
+        jQuery("input[name|='apto']").attr("value",jQuery(this).parents("tr").find("td").eq(1).html());
+        if (jQuery(this).parents("tr").find("td").eq(0).html()=="0006") {
+            jQuery("div.alert-info").removeClass("hidden");
+        }
+    });
+});
+</script>
+{% endblock %}

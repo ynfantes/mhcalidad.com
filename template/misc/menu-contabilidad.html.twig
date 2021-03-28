@@ -1,0 +1,42 @@
+<!-- HEADER: PRIMARY SITE NAVIGATION -->
+<div class="container">
+<div class="row">
+<div class="col-sm-12 col-md-12">
+<div class="navbar navbar-default">
+<div class="navbar-header"></div>
+<div class="buttons-container"></div>
+<div class="navbar-collapse">
+<ul class="nav nav-pills navbar-nav">
+<!--li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+Nómina<i>Reportes</i>
+</a>
+<ul class="dropdown-menu"-->
+<li class="single"><a href="{{constant('ROOT')}}contabilidad/descargas.php?doc=CALCULO_NOMINA">Cálculo Nómina<i>Reporte</i></a></li>
+<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Recibos de Pago<i>Reporte</i></a>
+<ul class="dropdown-menu">
+<li class="single"><a href="{{ constant('ROOT') }}contabilidad/descargas.php?doc=RECIBOS_DE_PAGO">Nómina</a>
+<li class="single"><a href="{{ constant('ROOT') }}contabilidad/descargas.php?doc=RECIBOS_DE_CESTATICKET">Cestaticket</a>
+</ul>
+</li>
+<li class="single"><a href="{{constant('ROOT')}}contabilidad/descargas.php?doc=CALCULO_CESTATICKET">Cestatickets<i>Reporte</i></a></li>
+<li class="single"><a href="{{constant('ROOT')}}contabilidad/descargas.php?doc=CONSTANCIA_DE_TRABAJO">Constancias<i>de Trabajo</i></a></li>
+<!--/ul>
+</li-->
+<!--li><a href="#">Vacaciones<i>Cálculo</i>
+</a>
+</li>
+<li><a href="#">Liquidación<i>Cálculo</i>
+</a>
+</li>
+<li><a href="#">Prestaciones<i>Cálculo</i>
+</a>
+</li-->
+<li class="single"><a href="{{ constant('ROOT') }}contabilidad/?logout=true">Salir
+<i>Finalizar sesión</i></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>

@@ -1,0 +1,101 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+        <div class="col-md-12 col-sm-12">
+            <!-- BREADCRUMBS -->
+            <div id="breadcrumb">
+                <ul>
+                    <li class="home"><a href="#">MH Calidad Condominios</a></li>
+                    <li>Cartelera</li>
+                </ul>
+            </div>
+            <div class="row show-grid clear-both">
+                <!-- BEGIN ARTICLE CONTENT AREA -->
+                <div class="col-md-9 col-sm-9 main-column two-columns-right">
+                    <article>
+                        {% if session.cpanel == 1 %}
+                            <h2>Panel de Administración {{ constant('NOMBRE_APLICACION') }}</h2>
+                            <p style="font-size: 14px">Utilice el panel de menú superior para accerder a los diferentes módulos de la aplicación y mantener actualizada la información.</p>
+                        {% else %}
+                        <h2><small>Estimado(a): </small>{{ session.usuario.nombre }}</h2>
+                        <p style="font-size: 14px">Bienvenido(a) al sistema de consultas en línea de MH Calidad Administrativa, desde aquí podra consultar su estado de cuenta, ver sus avisos de cobro, reportar los pagos de condominio e imprimir los originales de su recibo de condominio, además de consultar quiénes son los integrantes de su Junta de Condominio y mantener sus datos básicos actulizados.</p>
+                        {% endif %}
+                        <h3><small>La información que está consultando, esta actualizada al: </small>{{ fecha_actualizacion }}</h3>
+                        <div class="text-divider5">
+                        <span></span>
+                        </div>
+                        
+                    </article>
+                    <!-- END ARTICLE CONTENT AREA -->
+                </div>
+                <!-- BEGIN LEFT-SIDEBAR -->
+                    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+                        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+                        <div class="side-nav sidebar-block">
+                            <div style="text-align: center; line-height: 12px; padding-bottom: 4px"><small>SU PARTICIPACION {{inmueble}}</small></div>
+                            <div id="grafica" class="chart" style="width: 200px; height: 150px;"></div>
+                        </div>                                
+                    </div>
+                    <!-- END LEFT-SIDEBAR -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+<div class="recent-tweets">
+<div class="container">
+<div class="row show-grid">
+<div class="col-sm-12 col-md-12 twitter-wrapper">
+<div id="nav_t"></div>
+<div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+<ul class="slides"></ul>
+</div>
+<span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript" src="{{ constant('ROOT')}}js/condominio.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/flotcharts/jquery.flot.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/flotcharts/jquery.flot.pie.js"></script>
+<script type="text/javascript">
+if (jQuery("#grafica").length) {
+var data = [
+    { label: "Deuda",  data: {{deuda}}, color: "#d47676"},
+    { label: "Pagado",  data: {{pagado}}, color: "#72ad55"},
+];
+function labelFormatter(label, series) {
+    return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;line-height:12px'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+} 
+jQuery(document).ready(function () {
+    jQuery.plot(jQuery("#grafica"), data, {
+         series: {
+            pie: {
+                show: true,
+                radius: 1,
+                label: {
+                    show: true,
+                    radius: 2/3,
+                    threshold: 0.1,
+                    formatter: labelFormatter,
+                }
+            }
+         },
+         legend: {
+            show: false
+         }
+    });
+});        
+};
+</script>
+{% endblock %}

@@ -1,0 +1,91 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+<div class="col-md-12 col-sm-12">
+<!-- BREADCRUMBS -->
+<div id="breadcrumb">
+    <ul>
+        <li class="home"><a href="{{ constant('ROOT') }}enlinea">MH Calidad Condominios</a></li>
+        <li>Estado de Cuenta</li>
+    </ul>
+</div>
+<div class="row show-grid clear-both">
+    <!-- BEGIN ARTICLE CONTENT AREA -->
+    <div class="col-md-9 col-sm-9 main-column two-columns-right">
+        {% if resultado is defined %}
+        {% include 'misc/resultado.html.twig' %}
+        {% endif %}
+        <table  class="table table-bordered table-striped responsive-utilities">
+        <caption style="text-align: left;"><h4>LISTA DOCUMENTOS DISPONIBLES</h4></caption>
+        <thead>
+            <tr>
+                <th styte="text-align: center">Código Inmueble</th>
+                <th style="text-align: center">Link Descaga</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for documento in documentos %}
+            <tr>
+            <td style="text-align: center">{{ documento.inmueble }}</td>
+            <td style="text-align: center">
+                {% if documento.existe %}
+                    <a href="{{ documento.link }}" target="_blank">{{ documento.documento }}</a>
+                {% else %}
+                    {{ documento.documento }}
+                {% endif %}
+            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+       <br />
+        <div class="text-divider5">
+            <span></span>
+            </div>
+        <!-- END ARTICLE CONTENT AREA -->
+    </div>
+    <!-- BEGIN LEFT-SIDEBAR -->
+    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+        <div class="side-nav sidebar-block">
+            <h2>Este sitio web es gestionado por</h2>
+            <ul class="mini-clients">
+                <li>
+                    <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
+                        <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo_valoriza_gestion.jpg">
+                    </a>
+                </li>
+            </ul>
+        </div>                                
+    </div>
+    <!-- END LEFT-SIDEBAR -->
+</div>
+</div>
+</div>
+</div>
+<!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+<div class="recent-tweets">
+<div class="container">
+<div class="row show-grid">
+<div class="col-sm-12 col-md-12 twitter-wrapper">
+    <div id="nav_t"></div>
+    <div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+        <ul class="slides"></ul>
+    </div>
+    <span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript" src="{{ constant('ROOT')}}js/condominio.js"></script>
+{% endblock %}

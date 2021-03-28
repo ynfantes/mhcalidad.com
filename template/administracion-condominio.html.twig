@@ -1,0 +1,132 @@
+{# indice #}
+{% extends 'layout/base.html.twig'%}
+{% block titulo 'Administradora de Condominio' %}
+{% block contenido %}
+<div class="main-content">
+    <div class="container">
+        <div class="row show-grid">
+            <div class="col-md-12 col-sm-12">
+                <!-- BREADCRUMBS -->
+                <div id="breadcrumb">
+                    <ul>
+                        <li class="home"><a href="{{constant('ROOT')}}">Inicio</a></li>
+                        <li>{{block('titulo')}}</li>
+                    </ul>
+                </div>
+                <div class="row show-grid clear-both">
+                    <!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+                    <div class="col-md-9 col-sm-9 main-column two-columns-right">
+                        <article>
+                            <!-- TEXT HEADER WITH SUBTEXT -->                                
+                            <h1>{{ block('titulo') }}</h1>
+                            <!-- FLOAT IMAGE RIGHT -->                                    
+                            <div class="post-img" style="float: right; margin-left: 20px;">
+                                <img alt="" src="img/condominio.jpg" class="img-polaroid" />
+                            </div>
+                            <p>Nuestro principal motivo de trabajar con ustedes es la de ofrecerles la seguridad y responsabilidad con la que utiliza los recursos contables, financieros y tecnológicos de vanguardia a precios accesibles que le garanticen a nuestros clientes obtener el mejor valor de mercado por su dinero.</p>
+                            <p>De manera detallada les presentamos los servicios que estarían a disposición de su prestigioso condominio al disfrutar de nuestras habilidades profesionales: </p>
+                            <ul>
+                            <li>Atención personalizada.</li>
+                            <li>Asesoría legal.</li>
+                            <li>Fondo de Reserva disponible.</li>
+                            <li>Gestión en organismos oficiales. </li>
+                            <li>Contacto permanente con la Junta de Condominio.</li>
+                            <li>Nóminas y cotizaciones de empleados de condominios.</li>
+                            <li>Informe semestral de cuadro económico - financiero.</li>
+                            <li>Envío mensual de Balances y Estados de Cuenta.</li>
+                            <li>Balance general movimientos de las cuentas. </li>
+                            <li>Asesoramiento para las Asambleas de Condominio </li>
+                            <li>Asesoramiento para tomas de decisión.</li>
+                            <li>Moderno sistema de computación.</li>
+                            <li>Programas de mantenimiento y mejoramiento del inmueble.</li>
+                            <!--  CONTENIDO REAL DE LA PAGINA   -->
+                        </ul>
+                        </article>
+                    </div>
+                    <!-- BEGIN LEFT-SIDEBAR -->
+                    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar">
+                        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+                        {% if mantenimiento %}
+                            <h2>SERVICIO EN MANTENIMIENTO</h2>
+                            <div class="attention-stick stick">
+                                <strong>Servicio no disponible</strong><br><br>
+                            Estamos efectuando labores de mantenimiento,
+                            le pedimos disculpas por los inconvenientes causados.<br><br>Regrese pronto
+                            </div>
+                            <div class="progress progress-mini progress-bar-striped active">
+                            <div style="width:{{avance}}%" class="progress-bar progress-bar-striped progress-bar-danger"></div>
+                            </div>
+                            <p class="text-muted">Servicio {{constant('NOMBRE_APLICACION')}}</p>
+                        {% else %}
+                        <div class="side-nav sidebar-block">
+                            <h2>Condominio en línea</h2>
+                            <div class="widget-box visible" id="login-box">
+                                <div id="result"></div>
+                                <form action="" method="POST" name="condominioForm" id="condominioForm">
+                                    <input name="login" type="hidden" value="1">
+                                    <div class="row">
+                                        <div class="control-group col-md-12 col-sm-12">
+                                            <label for="inputClave" class="control-label">Ingrese su código de usuario</label>
+                                            <div class="controls">
+                                                <input type="text" placeholder="Código de usuario" id="inputUsuario" name="cedula" class="form-control">
+                                                <span class="help-inline" style="display: none;">Código de usuario es requerido.</span>
+                                            </div>
+                                        </div>
+                                        <div class="control-group col-md-12 col-sm-12">
+                                            <label for="inputClave" class="control-label">Ingrese su contraseña</label>
+                                            <div class="controls">
+                                                <input type="text" placeholder="Ingrese su contraseña" id="inputPassword" name="password" class="form-control">
+                                                <span class="help-inline" style="display: none;">Contraseña es requerida.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="control-group col-md-12 col-sm-12 toolbar">
+                                        <a href="#" style="text-decoration:underline" data-target="#forgot-box">¿Olvidó o no tiene contraseña?</a>
+                                        </div>
+                                    </div>
+                                    <div class="control-group form-button-offset">
+                                        <input type="submit" value="Entrar" class="btn btn-default btn-danger" style="margin-top: 10px;">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="widget-box" id="forgot-box">
+                                <div id="result2"></div>
+                                <form action="" method="POST" name="recoveryForm" id="recoveryForm">
+                                    <div class="row">
+                                        <div class="control-group col-md-12 col-sm-12">
+                                            <label for="inputEmail" class="control-label">Ingrese su correo electrónico</label>
+                                            <div class="controls">
+                                                <input type="text" placeholder="Su correo electrónico" id="inputEmail" name="email" class="form-control">
+                                                <span class="help-inline">Valor requerido.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="control-group col-md-12 col-sm-12 toolbar">
+                                        <a href="#" style="text-decoration:underline" data-target="#login-box"><i class="fa fa-arrow-left"></i> Regresar</a>
+                                        </div>
+                                    </div>
+                                    <div class="control-group form-button-offset">
+                                        <input type="submit" value="Enviar" class="btn btn-default btn-danger" style="margin-top: 10px;">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <blockquote><p>Disfrute de nuestro servicio de condominio en línea.</p></blockquote>
+                        {%endif%}
+                    </div>
+                    <!-- END LEFT-SIDEBAR -->
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+        {% include 'misc/clientes.html.twig' %}
+    </div>
+    <!-- MAIN CONTENT AREA: REDESIGN CUSTOM - RECENT TWEETS BAR -->               
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript" src="{{ROOT}}js/condominio_validation.js"></script>
+{% endblock %}

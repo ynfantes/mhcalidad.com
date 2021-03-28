@@ -1,0 +1,88 @@
+{# indice #}
+{% extends 'layout/fiscal.html.twig'%}
+{% block titulo %}{{ tipo }}{%endblock%}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+        <div class="col-md-12 col-sm-12">
+            <!-- BREADCRUMBS -->
+            <div id="breadcrumb">
+                <ul>
+                    <li class="home"><a href="#">MH Calidad Administración Fiscal</a></li>
+                    <li>{{ tipo }}</li>
+                </ul>
+            </div>
+            <div class="row show-grid clear-both">
+                <!-- BEGIN ARTICLE CONTENT AREA -->
+                <div class="col-md-9 col-sm-9 main-column two-columns-right">
+                    <article>
+                        <header>
+                            <h1 class="font-md">{{ tipo }}</h1>
+                        </header>
+                        {% if libros %}
+                        <table class="table table-bordered table-striped responsive-utilities">
+                            <tbody>
+                                <tr>
+                                <th>Período</th>
+                                <th>Documento</th>
+                                </tr>
+                                <tbody>
+                                    {% for item in libros %}
+                                    <tr>
+                                    <td>{{ item.periodo }}</td><td><a href="{{ constant('ROOT')}}fiscal/publicacion/{{ item.archivo}}" target="_blank">{{ item.archivo }}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </tbody>
+                        </table>
+                        {% else %}
+                            <div class="alert alert-note">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <h2>Señor(es), {{ session.usuario.razon_social }}</h2>
+                                <p>Aún no tiene libros publicados. Disculpe las molestias. Inténtelo luego o póngase en contacto con el Administrador.</p>
+                            </div>
+                        {% endif %}
+                    </article>
+                    <!-- END ARTICLE CONTENT AREA -->
+                </div>
+                <!-- BEGIN LEFT-SIDEBAR -->
+                    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+                        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+                        <div class="side-nav sidebar-block">
+                            <h2>Este sitio web es gestionado por</h2>
+                            <ul class="mini-clients">
+                                <li>
+                                    <a href="http://www.pronet21.com.ve" title="Pronet Soluciones 21" target="_blank" style="background: none;">
+                                        <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo_pc-fiscal_gestion.jpg">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>                                
+                    </div>
+                    <!-- END LEFT-SIDEBAR -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+<div class="recent-tweets">
+<div class="container">
+<div class="row show-grid">
+<div class="col-sm-12 col-md-12 twitter-wrapper">
+<div id="nav_t"></div>
+<div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+<ul class="slides"></ul>
+</div>
+<span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+
+{% endblock %}

@@ -1,0 +1,153 @@
+{# indice #}
+{% extends 'layout/base.html.twig'%}
+{% block titulo 'Administración Fiscal' %}
+{% block contenido %}
+<div class="main-content">
+    <div class="container">
+        <div class="row show-grid">
+            <div class="col-md-12 col-sm-12">
+                <!-- BREADCRUMBS -->
+                <div id="breadcrumb">
+                    <ul>
+                        <li class="home"><a href="{{ constant('ROOT') }}">Inicio</a></li>
+                        <li>{{ block('titulo') }}</li>
+                    </ul>
+                </div>
+                <div class="row show-grid clear-both">
+                    <!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+                    <div class="col-md-9 col-sm-9 main-column two-columns-right">
+                        <article>
+                            <!-- TEXT HEADER WITH SUBTEXT -->                                
+                            <h1>{{ block('titulo') }}</h1>
+                            <!-- FLOAT IMAGE RIGHT -->                                    
+                            <div class="post-img" style="float: right; margin-left: 20px;">
+                                <img alt="" src="img/fiscal.jpg" class="img-polaroid" />
+                            </div>
+                            <p>El objetivo fundamental de esta área consiste en brindar a nuestros clientes y a sus empresas, la certeza del cumplimiento efectivo de sus obligaciones impositivas; suministrar ideas y soluciones para mejorar la estructura arancelaria; utilizar correctamente las franquicias legales existentes, y optimizar la carga tributaria, tanto de la empresa como las de sus dueños o socios.</p>
+                            <ul>
+                                <li>Declaración del I. V. A. </li>
+                                <li>Declaración anual. </li>
+                                <li>Libros obligatorios de I. V. A. </li>
+                                <li>Declaración de Renta y Patrimonio. </li>
+                                <li>Pagos fraccionados. </li>
+                                <li>Solicitud del Régimen de Estimación Directa.</li>
+                                <li>Libros Oficiales. </li>
+                                <li>Declaración Sociedades.</li> 
+                                <li>Relaciones terceras personas. </li>
+                                <li>Aplazamiento de pagos. </li>
+                                <li>Asistencia a la Inspección. </li>
+                                <li>Planificaciones Fiscales.</li>
+                                <li>Declaración del I. V. A. </li>
+                                <li>Declaración anual. </li>
+                                <li>Libros obligatorios de I. V. A. </li>
+                                <li>Declaración de Renta y Patrimonio. </li>
+                                <li>Pagos fraccionados. </li>
+                            </ul>
+                        </article>
+                    </div>
+                    <!-- BEGIN LEFT-SIDEBAR -->
+                    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+                        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+                        <div class="side-nav sidebar-block">
+                            <h2>Area de Clientes</h2>
+                            <div id="result"></div>
+                            <form action="" method="POST" name="fiscalForm" id="fiscalForm">
+                                <div class="row">
+                                    <div class="control-group col-md-12 col-sm-12">
+                                        <label for="inputClave" class="control-label">Ingrese su clave de acceso</label>
+                                        <div class="controls">
+                                            <input type="text" placeholder="Ingrese su clave" id="inputClave" name="clave" class="form-control">
+                                            <span style="display: none;" class="help-inline">Este campo no puede estar vacío.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group form-button-offset">
+                                    <input type="submit" value="Entrar" class="btn btn-default btn-danger" style="margin-top: 10px;">
+                                </div>
+                        </form>
+                        </div>                                
+                    </div>
+                    <!-- END LEFT-SIDEBAR -->
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+        {% include 'misc/clientes.html.twig' %}
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript">
+// var $mjq for better adaptation and work with other libraries
+var $mjq = jQuery.noConflict();
+$mjq(function(){
+    
+    $mjq("#inputClave").bind('blur', is_valid_clave);
+    $mjq('#fiscalForm').bind('submit', function(e) {
+
+    if (!is_valid_form())
+        return false;
+    $mjq("#result").html('');
+    e.preventDefault();
+    var data = $mjq(this).serialize();
+
+    $mjq.ajax({
+        url: "fiscal/index2.php",
+        type: "post",
+        data: data,
+        success: function(data) {
+
+            $mjq('#fiscalForm').closest('form').find("input[type=text]").val("");
+            //}
+            //$mjq("#result").html(data);
+            switch(data) {
+              case '1':
+                  $mjq("#result").html("Lo estamos redireccionando...")
+                  window.location.href = 'fiscal/index.php';
+                  break;
+              case 'Administrador':
+                  $mjq("#result").html("Lo estamos redireccionando...")
+                  window.location.href = 'fiscal/index.php';
+                  break;
+              default:
+                  $mjq("#result").html(returnHtml('alert-error', data));
+                  break;
+            }
+        },
+        error: function(data) {
+            $mjq("#result").html(returnHtml('alert-error', 'Sistema en mantenimiento. Regrese más tarde.'));
+        }
+    });
+    });
+});
+
+function returnHtml(alertClass, html){
+    return '<div class="alert  '+alertClass+'" style=\"padding-left: 20px;padding-bottom: 20px;\">'+html+'</div>';
+}
+
+
+// Name validate
+function is_valid_clave() {
+
+$this = $mjq("#inputClave");
+if($this.val().length>0){ // valid
+    if ($this.closest(".control-group").hasClass("error")) 
+    $this.closest(".control-group").removeClass("error");
+    $this.siblings(".help-inline").css("display", "none");
+    return true
+} else { // error
+    if (!$this.closest(".control-group").hasClass("error")) 
+    $this.closest(".control-group").addClass("error");
+    $this.siblings(".help-inline").css("display", "block");
+    return false;
+}
+}
+// Form validate
+function is_valid_form() {
+var ret = true;
+if (!is_valid_clave()) var ret = false;
+return ret;
+}
+</script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{# indice #}
+{% extends 'layout/base.html.twig'%}
+{% block titulo 'Auditoría' %}
+{% block contenido %}
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+<div class="col-md-12 col-sm-12">
+<!-- BREADCRUMBS -->
+<div id="breadcrumb">
+<ul>
+<li class="home"><a href="{{ constant('ROOT') }}">Inicio</a></li>
+<li>{{ block('titulo') }}</li>
+</ul>
+</div>
+<div class="row show-grid clear-both">
+<!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+<div class="col-md-12 col-sm-12 main-column">
+<article>
+<!-- TEXT HEADER WITH SUBTEXT -->                                
+<h1>{{ block('titulo') }}</h1>
+<!-- FLOAT IMAGE RIGHT -->                                    
+<div class="post-img" style="float: right; margin-left: 20px;">
+<img alt="" src="img/auditoria.jpg" class="img-polaroid" />
+</div>
+<p>Nuestros servicios de auditoria tienen por objeto certificar tanto a los administradores y dirección de la sociedad, como a accionistas y terceros (inversores, acreedores financieros y no financieros, trabajadores...), que o tanto los estados financieros y resto de información proporcionada por los administradores, como los controles sobre los procesos implantados en la entidad cumplen en todo momento con los requerimientos exigidos por las normas contables, las regulaciones industriales y sectoriales, y cualesquiera otros estándares requeridos y reflejan fielmente la situación patrimonial de la misma.</p>
+<blockquote><p>En DIOS creemos, <br />todo lo demás lo auditamos.....</p></blockquote>
+<p>Asimismo, en M&H CALIDAD ADMINISTRATIVA analizamos si los procesos y controles implementados en la compañía y la información preparada por los administradores son adecuados para la correcta toma de decisiones y para garantizar el buen funcionamiento del negocio.</p>
+<p> Nuestra cartera de servicios de auditoria incluye:</p>
+<ul>
+<li>Auditoria Financiera.</li>
+<li>Auditoria Fiscal.</li>
+<li>Auditoria Laboral.</li>
+<li>Auditoria de Gestión Administrativa.</li>
+</ul>
+</article>
+</div>
+</div>
+</div>
+</div>
+<!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+{% include 'misc/clientes.html.twig' %}
+</div>
+</div>
+{% endblock %}

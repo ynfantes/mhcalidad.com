@@ -1,0 +1,74 @@
+{# indice #}
+{% extends 'layout/base.html.twig'%}
+{% block titulo 'Auditoría' %}
+{% block contenido %}
+<div class="main-content">
+    <div class="container">
+        <div class="row show-grid">
+            <div class="col-md-12 col-sm-12">
+                <!-- BREADCRUMBS -->
+                <div id="breadcrumb">
+                    <ul>
+                        <li class="home"><a href="{{ constant('ROOT') }}">Inicio</a></li>
+                        <li>Gestoría</li>
+                    </ul>
+                </div>
+                <div class="row show-grid clear-both">
+                    <!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+                    <div class="col-md-12 col-sm-12 main-column">
+                        <article>
+                            <!-- TEXT HEADER WITH SUBTEXT -->                                
+                            <h1>Gestoría</h1>
+                            <!-- FLOAT IMAGE RIGHT -->                                    
+                            
+                            <p>No pierda más tiempo y dinero, no haga más colas!. Deje que nosotros hacemos las gestiones en los entes públicos y privados para tramitar en su nombre su requerimiento.</p>
+                            <dl class="dl-horizontal">
+                                <dt>Seniat</dt>
+                                    <dd>RIF.</dd>
+                                    <dd>ISLR.</dd>
+                                    <dd>Impuesto a los activos empresariales.</dd>
+                                    <dd>Impuesto al valor agregado, retenciones.</dd>
+                                    <dd>Registro de Vivienda Principal.</dd>
+                                    <dd>Libros de Compra y Venta.</dd>
+                                    <dd>Licencia de licores.</dd>                                
+                                    <dd>A description list is perfect for defining terms.</dd>
+                                <dt>Alcaldias</dt>
+                                    <dd>Solicitud de licencia de industria y comercio.</dd>
+                                    <dd>Declaracion de Ingresos Brutos.</dd>
+                                    <dd>Vehículos.</dd>
+                                    <dd>Propaganda Comercial.</dd>
+                                    <dd>Derecho de frente.</dd>
+                                    <dd>Solvencia.</dd>
+                                <dt>IVSS</dt>
+                                    <dd>Inscripcion de empresas.</dd>
+                                    <dd>Ingresos y retiros de empleados.</dd>
+                                    <dd>Retiros de Tarjetas Asistenciales.</dd>
+                                    <dd>Solvencias.</dd>
+                                <dt>Registro Mercantíl</dt>
+                                    <dd>Constitucion de Empresas.</dd>
+                                    <dd>Firmas Personales.</dd>
+                                    <dd>Aumento de Capital.</dd>
+                                    <dd>Registro de Asambleas ordinarias.</dd>
+                                    <dd>Venta de acciones y/o Cuotas.</dd>
+                                    <dd>Sellado de Libros Contables.</dd>
+                                <dt>INCE</dt>
+                                    <dd>Inscripcion de Empresas.</dd>
+                                    <dd>Cálculo del pago trimestral.</dd>
+                                    <dd>Solvencias.</dd>
+                               <dt>Ministerio del Trabajo</dt>
+                                    <dd>Inscripcion y Declaración trimestral de empleados.</dd>
+                                    <dd>Sellado de Libro de Vacaciones.</dd>
+                                    <dd>Cálculo de Prestaciones Sociales.</dd>
+                            </dl>
+                            <p>Si no ve su requerimiento en la lista, consúltenos, le daremos una respuesta oportuna.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+        {% include 'misc/clientes.html.twig' %}
+    </div>
+    <!-- MAIN CONTENT AREA: REDESIGN CUSTOM - RECENT TWEETS BAR -->               
+</div>
+{% endblock %}

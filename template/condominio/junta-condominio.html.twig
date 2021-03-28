@@ -1,0 +1,120 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo %}{% endblock %}
+{% block contenido %}
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+        <div class="container">
+            <div class="row show-grid">
+                <div class="col-md-12 col-sm-12">
+                    <!-- BREADCRUMBS -->
+                    <div id="breadcrumb">
+                        <ul>
+                            <li class="home"><a href="{{ constant('URL_SISTEMA') }}">MH Calidad Condominios</a></li>
+                            <li>Miembros Junta de Condominio</li>
+                        </ul>
+                    </div>
+                    <div class="row show-grid clear-both">
+                        <!-- BEGIN ARTICLE CONTENT AREA -->
+                        <div class="col-md-12 col-sm-12 main-column">
+                            <article>
+                                {%if junta %}
+                                    {% for condominio in junta %}
+                                        <!-- Widget ID (each widget will need unique ID)-->
+                                        <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-0" data-widget-colorbutton="false"	
+                                             data-widget-editbutton="false"
+                                             data-widget-togglebutton="false"
+                                             data-widget-deletebutton="false"
+                                             data-widget-fullscreenbutton="false"
+                                             data-widget-custombutton="false"
+                                             data-widget-sortable="false">
+
+                                            <header>
+                                                <h2 class="font-md"><a href="#">{{ condominio.inmueble.nombre_inmueble }}</a></h2>
+                                            </header>
+                                            <!-- widget div-->
+                                            <div>
+
+                                                <!-- widget content -->
+                                                <div class="widget-body">
+                                                    <div class="table-responsive">
+                                                        <table  class="table table-bordered table-striped responsive-utilities">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="text-align: center">Apartamento</th>
+                                                                    <th style="text-align: center">Nombre(s) Apellidos(s)</th>
+                                                                    <th style="text-align: center">Cargo Junta</th>
+                                                                    <th style="text-align: center">Teléfono Celular</th>
+                                                                    <th style="text-align: center">Correo Electrónico</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% if not condominio.miembros is empty %}
+                                                                    {% set cedula = 0 %}
+                                                                    {% for miembro in condominio.miembros %}
+                                                                        {% if condominio.inmueble.id == miembro.id_inmueble %}
+                                                                            {% set cedula = miembro.cedula %}
+                                                                            <tr>    
+                                                                                <td>{{ miembro.apto }}</td>
+                                                                                <td>{{ miembro.nombre }}</td>
+                                                                                <td>{{ miembro.descripcion }}</td>
+                                                                                <td>{{ miembro.telefono1 }}</td>
+                                                                                <td>{{ miembro.email }}</td></tr>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% else %}
+                                                                    <tr>
+                                                                        <td colspan="5"><div class="alert alert-error">
+                                                                                <strong>Atención!</strong> Miembros de la Junta no registrados</div></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="5"><div style="height: 40px"></div></td></tr>
+                                                                    </tr>
+                                                                {% endif %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                                <!-- end widget content -->
+
+                                            </div>
+                                            <!-- end widget div -->
+
+                                        </div>
+                                        <!-- end widget -->
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="alert alert-warning">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                        <h2 class="alert-heading">Ups! Lo sentimos</h2>
+                                        Por ahora NO tenemos registrada la información de los integrantes de la junta de este condominio.
+                                    </div>
+                                {% endif %} 
+                            </article>
+                            <!-- END ARTICLE CONTENT AREA -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+        <div class="recent-tweets">
+            <div class="container">
+                <div class="row show-grid">
+                    <div class="col-sm-12 col-md-12 twitter-wrapper">
+                        <div id="nav_t"></div>
+                        <div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+                            <ul class="slides"></ul>
+                        </div>
+                        <span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ constant('ROOT')}}js/condominio.js"></script>
+{% endblock %}

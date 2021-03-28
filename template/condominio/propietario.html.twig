@@ -1,0 +1,118 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+<div class="col-md-12 col-sm-12">
+<!-- BREADCRUMBS -->
+<div id="breadcrumb">
+    <ul>
+        <li class="home"><a href="{{ constant('ROOT') }}enlinea">MH Calidad Condominios</a></li>
+        <li>Perfíl Propieatrio</li>
+    </ul>
+</div>
+<div class="row show-grid clear-both">
+    <!-- BEGIN ARTICLE CONTENT AREA -->
+    <div class="col-md-9 col-sm-9 main-column two-columns-right">
+        {% if resultado is defined %}
+        {% include 'misc/resultado.html.twig' %}
+        {% endif %}
+        <div class="reply-form">                                    
+            <div class="row show-grid">
+                <form method="POST" action="{{ constant('URL_SISTEMA') }}/propietario/modificar">
+                    <div class="container">
+                        <input type="hidden" name="id" value="{{ propietario.id }}"/>
+                        <div class="row">
+                            <div class="control-group col-md-6 col-sm-6">
+                                <label class="control-label" for="inputNombre">Nombre / Razón Social</label>
+                                <input type="text" id="inputNombre" placeholder="nombre" class="form-control" disabled="disabled" value="{{ propietario.nombre }}">
+                            </div>                                         
+                            <div class="control-group col-md-6 col-sm-6">
+                                <label class="control-label" for="inputCedula">Cédula / RIF</label>
+                                <input type="text" id="inputCedula" placeholder="Cédula de Identidad" class="form-control" disabled="disabled" value="{{ propietario.cedula }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="control-group col-md-6 col-sm-6">
+                                <label class="control-label" for="inputTelefono1">Teléfono 1</label>
+                                <input type="text" id="inputTelefono1" placeholder="Primer número telefónico" class="form-control" name="telefono1" value="{{ propietario.telefono1 }}">
+                            </div>                                         
+                            <div class="control-group col-md-6 col-sm-6">
+                                <label class="control-label" for="inputTelefono2">Teléfono 2</label>
+                                <input type="text" id="inputTelefono2" placeholder="Seguno número telefónico" class="form-control" name="telefono2" value="{{ propietario.telefono2 }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="control-group col-md-6 col-sm-6">
+                                <label class="control-label" for="inputTelefono3">Teléfono 3</label>
+                                <input type="text" id="inputTelefono3" placeholder="Tercer número telefónico" class="form-control" name="telefono3" value="{{ propietario.telefono3 }}">
+                            </div>                                         
+                            <div class="control-group col-md-6 col-sm-6">
+                                <label class="control-label" for="inputEmail">Correo Electrónico</label>
+                                <input type="email" id="inputEmail" placeholder="Dirección de correo electrónico" class="form-control" name="email" value="{{ propietario.email }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="control-group col-md-12 col-sm-12">
+                                <label for="textarea" class="control-label">Dirección</label>
+                                <textarea id="textarea" rows="4" class="form-control" name="direccion">{{ propietario.direccion }}</textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="control-group form-button-offset col-md-6 col-sm-6">
+                                <input type="submit" value="Actualizar" class="btn btn-default">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br />
+        <div class="text-divider5">
+        <span></span>
+        </div>
+        <!-- END ARTICLE CONTENT AREA -->
+    </div>
+    <!-- BEGIN LEFT-SIDEBAR -->
+    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+        <div class="side-nav sidebar-block">
+            <h2>Este sitio web es gestionado por</h2>
+            <ul class="mini-clients">
+                <li>
+                    <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
+                        <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo_valoriza_gestion.jpg">
+                    </a>
+                </li>
+            </ul>
+        </div>                                
+    </div>
+    <!-- END LEFT-SIDEBAR -->
+</div>
+</div>
+</div>
+</div>
+<!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+<div class="recent-tweets">
+<div class="container">
+<div class="row show-grid">
+<div class="col-sm-12 col-md-12 twitter-wrapper">
+    <div id="nav_t"></div>
+    <div class="cartelera-slide" data-url="{{constant('ROOT')}}">
+        <ul class="slides"></ul>
+    </div>
+    <span class="follow_img"><img alt="" src="{{constant('ROOT')}}img/mhcalidad_informa.png" class="img-responsive" /></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript" src="{{ constant('ROOT')}}js/condominio.js"></script>
+{% endblock %}

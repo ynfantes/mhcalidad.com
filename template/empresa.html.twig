@@ -1,0 +1,49 @@
+{# indice #}
+{% extends 'layout/base.html.twig'%}
+{% block titulo 'Nuestra Empresa ' %}
+{% block seo %}
+<meta name="description" content="MH Calidad Administrativa es una empresa especializada en áreas de administración y contabilidad, en la candelaria, caracas">
+{% endblock %}
+{% block contenido %}
+<div class="main-content">
+<div class="container">
+    <div class="row show-grid">
+        <div class="col-md-12 col-sm-12">
+            <!-- BREADCRUMBS -->
+            <div id="breadcrumb">
+                <ul>
+                    <li class="home"><a href="{{ constant('ROOT') }}">Inicio</a></li>
+                    <li>Quienes Somos</li>
+                </ul>
+            </div>
+            <div class="row show-grid clear-both">
+                <!-- BEGIN ARTICLE CONTENT AREA -->
+                <div class="col-md-12 col-sm-12 main-column">
+                    <article>
+                        <h1>{{ block('titulo') }}</h1>
+                        <img alt="" src="img/about-us.jpg" class="img-polaroid img-responsive" />            
+                        <p>Somos una empresa especializada en el área de Contaduria, cuyo objetivo primordial es dar solución a nuestros clientes en temas que se consideran problemas.</p>
+                        <p>Prestamos una asesoría integral y única en el ámbito laboral que nos compete, prestando un servicio personalizado y que garantiza la satisfaccion de nustros clientes.</p>
+                        <p>Brindamos servicios con elevados estándares de calidad, respaldados por un grupo de profesionales de destacada trayectoria, en continua formación y actualización de conocimientos, empleando recursos y herramientas de avanzada tecnología.</p>
+                        <div class="text-divider5">
+                        <span></span>
+                    </div>
+                        <h2>Misión</h2>
+                        <p> Proporcionar Servicios de alta calidad en las áreas contables, tributarias, investigación de mercado, auditorías, condominios, formación de Recursos Humanos y Gestoría en general, adquiriendo la responsabilidad de aportar un equipo ético, innovador y experimentado, haciendo uso de los más novedosos recursos tecnológicos, para apoyar a su empresa en la consecusión de sus objetivos, brindando respuestas rápidas y eficaces en materias relacionadas con nuestras competencias.</p>
+                        <div class="text-divider5">
+                        <span></span>
+                    </div>
+                        <h2>Visión</h2>
+                        <p>Proporcionar Servicios de alta calidad en las áreas contables, tributarias, investigación de mercado, auditorías, condominios, formación de Recursos Humanos y Gestoría en general, adquiriendo la responsabilidad de aportar un equipo ético, innovador y experimentado, haciendo uso de los más novedosos recursos tecnológicos, para apoyar a su empresa en la consecusión de sus objetivos, brindando respuestas rápidas y eficaces en materias relacionadas con nuestras competencias.</p>
+                    </article>
+                    <!-- END ARTICLE CONTENT AREA -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MAIN CONTENT AREA: REDESIGN CUSTOM - CLIENTS LOGO BAR -->                
+    {% include 'misc/clientes.html.twig' %}
+    
+</div>
+</div>
+{% endblock %}

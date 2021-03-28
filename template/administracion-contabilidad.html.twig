@@ -1,0 +1,152 @@
+{# indice #}
+{% extends 'layout/base.html.twig'%}
+{% block titulo 'Administración - Contabilidad' %}
+{% block seo %}
+<meta name="description" content="Empresa especializada en Servicios de Administración, Contabilidad. Soluciones administrativas y contables de calidad."/>
+<meta name="keywords" content="administracion, contabilidad, asistencia contable, registros contables, informes, financieros, balances" />
+{% endblock %}
+{% block contenido %}
+<div class="main-content">
+    <div class="container">
+        <div class="row show-grid">
+            <div class="col-md-12 col-sm-12">
+                <!-- BREADCRUMBS -->
+                <div id="breadcrumb">
+                    <ul>
+                        <li class="home"><a href="{{ constant('ROOT') }}">Inicio</a></li>
+                        <li>{{ block('titulo') }}</li>
+                    </ul>
+                </div>
+                <div class="row show-grid clear-both">
+                    <!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+                    <div class="col-md-9 col-sm-9 main-column two-columns-right">
+                        <article>
+                            <!-- TEXT HEADER WITH SUBTEXT -->                                
+                            <h1>{{ block('titulo') }}</h1>
+                            <!-- FLOAT IMAGE RIGHT -->                                    
+                            <div class="post-img" style="float: right; margin-left: 20px;">
+                                <img alt="" src="img/philosophy.jpg" class="img-polaroid" />
+                            </div>
+                            <p>En MH Calidad Administrativa nos encargamos en darle toda la asistencia Contable que su empresa necesite, desde el inicio de actividades hasta la generacion de los registros e informes necesarios para una optima gestion contable.</p>
+
+                            <!-- BLOCKQUOTE -->                                    
+                            <blockquote><p>Nuestras operaciones cumplen con los estándares y normas internacionales que rigen nuestras áreas de trabajo.</p></blockquote>
+
+                            <p>Preparar estados e informes financieros, de acuerdo a principios y normas contables. Entre ellos podemos mencionar: flujo de efectivo, balance de comprobación y de saldos, balance general y estado de resultados. Según sus requerimientos, estos informes pueden ser financieros y tributarios; mensuales, acumulados, consolidados. </p>
+                            <p>Nos encargamos de asesorar o realizar todas o algunas de las siguientes actividades: </p>
+                            <ul>
+                                <li>Centralización de Registros contables. </li>
+                                <li>Control de clientes, proveedores y estados de cobranza. </li>
+                                <li>Presenciar y/o realizar recuentos físicos del activo realizable y activo fijo.</li>
+                                <li>Control de movimientos, corrección monetaria y depreciación del activo fijo. </li>
+                                <li>Manutención de registros contables: libros obligatorios y auxiliares (libro caja, diario, mayor y libro de inventarios, o registros equivalentes) </li>
+                                <li>Análisis de las cuentas más representativas de su empresa. </li>
+                            </ul>
+                        </article>
+                    </div>
+                    <!-- BEGIN LEFT-SIDEBAR -->
+                    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+                        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+                        <div class="side-nav sidebar-block">
+                            <h2>Area de Clientes</h2>
+                            <div id="result"></div>
+                            <form action="" method="POST" name="contabilidadForm" id="contabilidadForm">
+                                <div class="row">
+                                    <div class="control-group col-md-12 col-sm-12">
+                                        <label for="inputClave" class="control-label">Ingrese su clave de acceso</label>
+                                        <div class="controls">
+                                            <input type="text" placeholder="Ingrese su clave" id="inputClave" name="clave" class="form-control">
+                                            <span class="help-inline" style="display: none;">Este campo no puede estar vacío.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group form-button-offset">
+                                    <input type="submit" value="Entrar" class="btn btn-default btn-danger" style="margin-top: 10px;">
+                                </div>
+                            </form>
+                        </div>                                
+                    </div>
+                    <!-- END LEFT-SIDEBAR -->
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN MAIN/PRIMARY ARTICLE CONTENT AREA -->
+        {% include 'misc/clientes.html.twig' %}
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript">
+// var $mjq for better adaptation and work with other libraries
+var $mjq = jQuery.noConflict();
+$mjq(function(){
+    
+    $mjq("#inputClave").bind('blur', is_valid_clave);
+    $mjq('#contabilidadForm').bind('submit', function(e) {
+
+    if (!is_valid_form())
+        return false;
+    $mjq("#result").html('');
+    e.preventDefault();
+    var data = $mjq(this).serialize();
+
+    $mjq.ajax({
+        url: "contabilidad/index2.php",
+        type: "post",
+        data: data,
+        success: function(data) {
+
+            $mjq('#contabilidadForm').closest('form').find("input[type=text]").val("");
+            //}
+            //$mjq("#result").html(data);
+            switch(data) {
+              case '1':
+                  $mjq("#result").html("Lo estamos redireccionando...");
+                  window.location.href = 'contabilidad/index.php';
+                  break;
+              case 'Administrador':
+                  $mjq("#result").html("Lo estamos redireccionando...");
+                  window.location.href = 'contabilidad/index.php';
+                  break;
+              default:
+                  $mjq("#result").html(returnHtml('alert-error', data));
+                  break;
+            }
+        },
+        error: function(data) {
+            $mjq("#result").html(returnHtml('alert-error', 'El sistema en mantenimiento. Regrese más tarde.'));
+        }
+    });
+    });
+});
+
+function returnHtml(alertClass, html){
+    return '<div class="alert  '+alertClass+'" style=\"padding-left: 20px;padding-bottom: 20px;\">'+html+'</div>';
+}
+
+
+// Name validate
+function is_valid_clave() {
+
+$this = $mjq("#inputClave");
+if($this.val().length>0){ // valid
+    if ($this.closest(".control-group").hasClass("error")) 
+    $this.closest(".control-group").removeClass("error");
+    $this.siblings(".help-inline").css("display", "none");
+    return true
+} else { // error
+    if (!$this.closest(".control-group").hasClass("error")) 
+    $this.closest(".control-group").addClass("error");
+    $this.siblings(".help-inline").css("display", "block");
+    return false;
+}
+}
+// Form validate
+function is_valid_form() {
+var ret = true;
+if (!is_valid_clave()) var ret = false;
+return ret;
+}
+</script>
+{% endblock %}

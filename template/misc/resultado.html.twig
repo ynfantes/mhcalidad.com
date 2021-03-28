@@ -1,0 +1,17 @@
+{# Pantilla para mostrar resultados de operaciones #}
+{%if resultado%}
+<div class="alert alert-{{resultado.suceed == true? 'success':'error' }}">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    {% if resultado.titulo=="" %}
+        <h2>{{resultado.suceed == true? 'Bien!':'Ups!:' }}</h2>
+    {% else %}
+        <h2>{{ resultado.titulo|capitalize|nl2br }}</h2>
+    {% endif %}
+    <p>{{ resultado.mensaje }}</p>
+    {% if constant('DEBUG')%}
+    <pre>
+        {{ dump(resultado)}}
+    </pre>
+    {%endif %}
+</div>
+{%endif%}

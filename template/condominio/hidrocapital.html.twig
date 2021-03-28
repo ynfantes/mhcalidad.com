@@ -1,0 +1,131 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+        <div class="container">
+            <div class="row show-grid">
+                <div class="col-md-12 col-sm-12">
+                    <!-- BREADCRUMBS -->
+                    <div id="breadcrumb">
+                        <ul>
+                            <li class="home"><a href="{{ constant('URL_SISTEMA') }}/administracion">MH Calidad Condominios</a></li>
+                            <li>Hidrocapital</li>
+                        </ul>
+                    </div>
+                    <div class="row show-grid clear-both">
+                        <!-- BEGIN ARTICLE CONTENT AREA -->
+                        <div class="col-md-12 col-sm-12 main-column">
+                            <article>
+                                <h2><a href="#">Hidrocapital</a></h2> 
+                                {% if resultado is defined %}
+                                {% include 'misc/resultado.html.twig' %}
+                                {% endif %}
+                                <form action="{{ constant('URL_SISTEMA') }}/administracion/hidrocapital-guardar" id="frmhidrocapital" method="post">
+                                <table id="cartelera-publicaciones" class="table table-bordered table-striped" data-url="{{ constant("URL_SISTEMA") }}/administracion/eliminar-publicacion">
+                                    <thead>
+                                        <tr>
+                                        <th>Código</th>
+                                        <th>Inmueble</th>
+                                        <th>Monto Pago</th>
+                                        <th>Período</th>
+                                        <th>Fecha Pago</th>
+                                        <th>Banco</th>
+                                        <th>Nº Cheque</th>
+                                        <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in listado %}
+                                        <tr id="fila{{ item.id }}">
+                                        <td>{{ item.codigo_inmueble }}</td>
+                                        <td>{{ item.nombre_inmueble }}</td>
+                                        <td style="text-align: right">{{ format_number(item.monto_pago) }}</td>
+                                        <td>{{ item.periodo }}</td>
+                                        <td style="text-align: center">{% if item.fecha_pago is not null %}{{ item.fecha_pago | date("d-m-Y")}}{% endif %}</td>
+                                        <td>{{ item.banco }}</td>
+                                        <td>{{ item.numero_cheque }}</td>
+                                        <td><a href="#" id="{{ item.id }}" class="editar">Editar</a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                </form>
+                                <br />
+                                <div class="text-divider5">
+                                    <span></span>
+                                </div>
+                                {% if cartelera %}
+                                
+                                    <table id="cartelera-publicaciones" class="table table-bordered table-striped" data-url="{{ constant("URL_SISTEMA") }}/administracion/eliminar-publicacion">
+                                    <colgroup>
+                                        <col class="col-md-1 col-sm-1">
+                                        <col class="col-md-9 col-sm-9">
+                                        <col class="col-md-2 col-sm-2">
+                                     </colgroup>
+                                    <thead>
+                                        <tr>
+                                        <th>Inmueble</th>
+                                        <th>Publicación</th>
+                                        <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in cartelera %}
+                                        <tr id="fila{{ item.id }}">
+                                        <td>{{ item.id_inmueble }}</td>
+                                        <td>{{ item.detalle }}</td>
+                                        <td><a href="#" id="{{ item.id }}" class="item">Eliminar</a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    </table>
+                                {% endif %}
+                            </article>
+                                                <!-- END ARTICLE CONTENT AREA -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block js %}
+        {{ parent() }}
+        <script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/jquery.validate.js"></script>
+<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    jQuery.validator.messages.required = 'Campo obligatorio';
+    $("#frmhidrocapital").validate();
+    jQuery.fn.reset = function () {
+        $(this).each (function() { this.reset(); });
+    }
+    $('a.editar').live('click', function() {
+        input_id =$("<input/>",{type:'text',name:'id_inmueble',size:'5',readonly:'readonly',value:$(this).parents("tr").find("td").eq(0).html()});
+        input_monto =$("<input/>",{type:'text',name:'monto_pago',size:'10',value:$(this).parents("tr").find("td").eq(2).html()});
+        input_periodo =$("<input/>",{type:'text',name:'periodo',size:'10',value:$(this).parents("tr").find("td").eq(3).html()});
+        input_fecha_pago=$("<input/>",{type:'text',name:'fecha_pago',size:'10',value:$(this).parents("tr").find("td").eq(4).html()});
+        input_banco=$("<input/>",{type:'text',name:'banco',size:'10',value:$(this).parents("tr").find("td").eq(5).html()});
+        input_numero_cheque=$("<input/>",{type:'text',name:'numero_cheque',size:'10',value:$(this).parents("tr").find("td").eq(6).html()});
+        link_guardar = "<input type=\"submit\" name=\"guardar\" value=\"Guardar\">";
+        link_cancelar= "<input type=\"reset\" value=\"Cancelar\">"
+        $(this).parents("tr").find("td").eq(0).html(input_id);
+        $(this).parents("tr").find("td").eq(2).html(input_monto);
+        $(this).parents("tr").find("td").eq(3).html(input_periodo);
+        $(this).parents("tr").find("td").eq(4).html(input_fecha_pago);
+        $(this).parents("tr").find("td").eq(5).html(input_banco);
+        $(this).parents("tr").find("td").eq(6).html(input_numero_cheque);
+        $(this).parents("tr").find("td").eq(7).html(link_guardar).append("<br><br>").append(link_cancelar);
+
+        $("input[type='text']").addClass("required");
+    });
+    $(":reset").live('click',function() {
+       location.reload();
+    });
+});
+</script>
+    {% endblock %}

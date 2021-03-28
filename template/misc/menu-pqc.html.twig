@@ -1,0 +1,60 @@
+<!-- HEADER: PRIMARY SITE NAVIGATION -->
+<div class="container">
+<div class="row">
+<div class="col-sm-12 col-md-12">
+<div class="navbar navbar-default">
+<div class="navbar-header"></div>
+<div class="buttons-container"></div>
+<div class="navbar-collapse">
+<ul class="nav nav-pills navbar-nav">
+<!--li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+Nómina<i>Reportes</i>
+</a>
+<ul class="dropdown-menu"-->
+<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+Consultas y Reportes<i>Por clínica</i>
+</a>
+<ul class="dropdown-menu">
+<li><a href="{{ constant('ROOT')}}contabilidad/ver.php?doc=DIARIO_ASOCIACION"">Diario Asociación</a>
+</li>
+<li><a href="{{ constant('ROOT')}}contabilidad/ver.php?doc=DIARIO_INSTRUMENTISTA">Diario Instrumentista</a>
+</li>
+<li><a href="{{ constant('ROOT')}}contabilidad/ver.php?doc=CHEQUES_EMITIDOS">Listado de Cheques Emitidos</a>
+</li>
+<li><a href="{{ constant('ROOT')}}contabilidad/ver.php?doc=DISTRIBUCION_DE_HONORARIOS">Pool</a>
+</li>
+<li><a href="{{ constant('ROOT')}}contabilidad/ver.php?doc=HONORARIOS_BRUTOS">Honorarios y Guardias</a>
+</li>
+<li><a href="{{ constant('ROOT')}}contabilidad/ver.php?doc=_DESCUENTOS">Descuentos</a>
+</li>
+<li><a href="{{ constant('ROOT')}}contabilidad/ver.php?doc=_RETENCIONES">Retenciones ISLR</a>
+</li>
+</ul>
+</li>
+{% if session.nivel == 0 %}
+<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+Reportes Globales<i>Por clínicas</i>
+</a>
+<ul class="dropdown-menu">
+<li><a href="#">Reportes por clínica</a>
+</li>
+<li><a href="#">Listado de Cheques Emitidos</a>
+</li>
+<li><a href="#">Pool</a>
+</li>
+<li><a href="#">Honorarios, Guardias y Descuentos</a>
+</li>
+<li><a href="#">Retenciones ISLR</a>
+</li>
+</ul>
+</li>
+{% endif %}
+<li class="single"><a href="{{ constant('ROOT') }}contabilidad/?logout=true">Salir
+<i>Finalizar sesión</i></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>

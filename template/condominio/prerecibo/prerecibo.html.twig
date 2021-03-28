@@ -1,0 +1,188 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+<div class="col-md-12 col-sm-12">
+<!-- BREADCRUMBS -->
+<div id="breadcrumb">
+<ul>
+<li class="home"><a href="{{ constant('URL_SISTEMA') }}/administracion">MH Calidad Condominios</a></li>
+<li>Soportes de Facturación</li>
+</ul>
+</div>
+<div class="row show-grid clear-both">
+<!-- BEGIN ARTICLE CONTENT AREA -->
+<div class="col-md-12 col-sm-12 main-column">
+<article>
+<h2><a href="#">Mantenimiento soportes facturación</a></h2> 
+{% if resultado is defined %}
+{% include 'misc/resultado.html.twig' %}
+{% endif %}
+<form id="listadoForm" action="{{constant('URL_SISTEMA')}}/prerecibo/prerecibo" method="post" class="form-horizontal contact-agent-form">
+<div class="container">
+<div class="row">
+<div class="control-group col-md-6 col-sm-6">
+<label for="textarea" class="control-label">Períodos<sup>*</sup></label>
+<input name="id_inmueble" type="hidden" value="{{inmuebles[0].id_inmueble}}">
+<select class="required form-control" name="periodo" style="height: 40px">
+<option value="">Seleccione</option>
+{% for p in periodos %}
+<option value="{{p.periodo}}" {%if p.periodo==periodo %}selected{%endif%}>{{p.periodo| date("m-Y")}}</option>
+{% endfor %}
+</select>
+</div>
+</div>
+<div class="row">
+<div class="control-group form-button-offset col-md-6 col-sm-6">
+<input type="submit" value="Consultar" class="btn btn-default">
+</div>
+</div>
+</div>
+</form>
+<br />
+{% if detalle %}
+<table id="detalle-prerecibo" class="table table-bordered table-striped" data-url="{{constant("URL_SISTEMA") }}/administracion/eliminar-itemprerecibo">
+<thead>
+<tr>
+<th>Codigo Gasto</th>
+<th>Descripcion</th>
+<th>Monto</th>
+</tr>
+</thead>
+<tbody>
+{% for item in detalle %}
+<tr id="fila{{ item.id }}">
+<td>{{item.codigo_gasto}}</td>
+<td>
+    {% if item.existe %}
+        <a href="{{constant('URL_SISTEMA')}}/prerecibo/{{item.archivo}}" target='_blank'>{{item.descripcion}}</a>
+    {% else %}
+        {{item.descripcion}}
+    {% endif %}
+</td>
+<td>
+    <div class="pull-right">
+        {% if item.existe %}
+            <a href="{{constant('URL_SISTEMA')}}/prerecibo/{{item.archivo}}" target='_blank'>{{format_number(item.total)}}</a>
+        {% else %}
+            {{format_number(item.total)}}
+        {% endif %}
+    </div></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<br />
+{% endif %}
+<div class="text-divider5">
+<span></span>
+</div>
+</article>
+<!-- END ARTICLE CONTENT AREA -->
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+{{parent()}}
+<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/jquery.validate.js"></script>
+<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+var monthNames = [
+    "01", "02", "03",
+    "04", "05", "06", 
+    "07", "08", "09", 
+    "10", "11", "12"
+  ];
+$("select[name='id_inmueble']").live('change', function() {
+$("select[name='periodo']").empty();
+var url = '{{constant("URL_SISTEMA")}}/prerecibo/?accion=periodos';
+$.post(url,{id: $(this).val()},
+function(data) {
+    if (data === null) {
+        $("select[name='periodo']").append("<option value=''>No hay prerecibos publicados</option>");
+    } else {
+        $("select[name='periodo']").append("<option value=''>Seleccione</option>");
+        $.each(data, function(index,prerecibo) {
+            var fecha = new Date(prerecibo.periodo);
+            var mes = monthNames[fecha.getMonth()];
+            var ano = fecha.getFullYear();
+            var periodo =  mes + '-' + ano;
+            $("select[name='periodo']").append("<option value=\"" + prerecibo.periodo + "\">" + periodo +"</option>");
+
+         });
+    }
+     
+},'json');
+return false;
+});
+
+$("#listadoForm").validate({
+        rules : {
+            id_inmueble : {
+                required : true
+            },
+            periodo : {
+                required : true
+            }
+        },
+
+        messages : {
+            id_inmueble: {
+            required: "Seleccione un condominio de la lista"
+            },
+            periodo : {
+            required: 'Debe seleccionar un período'
+            }
+        },
+        errorElement : 'span',
+        errorClass : 'error',
+        errorPlacement : function(error, element) {
+            if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                $(".error").show();
+            } else {
+                if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                } else {
+                        error.insertAfter(element);
+                }
+            }
+        }
+    });
+    
+$("#publicacion").validate({
+    rules : {
+        archivo : { required : true }
+    },
+    messages : {
+        archivo : {
+            required: 'Debe seleccionar un archivo'
+        }
+    },
+    errorElement : 'span',
+    errorClass : 'error',
+    errorPlacement : function(error, element) {
+        if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+            $(".error").show();
+        } else {
+            if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+            } else {
+                    error.insertAfter(element);
+            }
+        }
+    }
+});
+});
+</script>
+{%endblock%}

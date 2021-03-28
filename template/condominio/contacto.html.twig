@@ -1,0 +1,134 @@
+{# indice #}
+{% extends 'layout/condominio.html.twig'%}
+{% block titulo 'Contáctenos' %}
+{% block contenido %}
+<div class="main-content">
+    <div class="container">                             
+        <div class="row show-grid">
+            <div class="col-md-12 col-sm-12" data-original-title="">
+                <!-- BREADCRUMBS -->                    
+                <div id="breadcrumb">
+                    <ul>
+                        <li class="home"><a href="{{ constant('ROOT') }}enlinea">MH Calidad Condominios</a></li>
+                        <li>Contáctenos</li>
+                    </ul>
+                </div>
+                <div class="clear_both"></div>
+                <div class="col-wrapper">                        
+                    <div class="row show-grid">
+                        <!-- START LEFT-SIDE CONTACT FORM AREA -->
+                        <div class="contact-form col-md-8 col-sm-8">
+                            <div id="result">
+                            </div>
+                            <form name="contactForm" id="contactForm" method="POST" action="">
+                                <div class="row">
+                                <div class="control-group col-md-12 col-sm-12">
+                                <input class="form-control" name="nombre" type="hidden" value="{{session.usuario.nombre}}">
+                                <input class="form-control" name="email" type="hidden" value="{{session.usuario.email}}">
+                                <input class="form-control" name="telefono" type="hidden" value="{{session.usuario.telefono1}}">
+                                <input class="form-control" name="inmueble" type="hidden" value="{{inmueble.id_inmueble}}">
+                                <input class="form-control" name="apto" type="hidden" value="{{inmueble.apto}}">
+                                </div>
+                                </div>
+                               <div class="row">
+                                    <div class="control-group col-md-6 col-sm-6">
+                                        <label class="control-label">Tipo de Contacto<sup>*</sup></label>
+                                        <div class="controls">
+                                            <select class="col-md-12 col-sm-12" name="tipo" id="inputTipo">
+                                                <option value="">Seleccione...</option>
+                                                <option value="Información">Información</option>
+                                                <option value="Quejas/Reclamos">Quejas/Reclamos</option>
+                                                <option value="Otros">Otros</option>
+                                            </select>
+                                            <span class="help-inline">Seleccione el tipo de contacto.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group col-md-12 col-sm-12">
+                                        <label for="textarea" class="control-label">Mensaje<sup>*</sup></label>
+                                        <div class="controls">
+                                            <textarea class="form-control" name="comments" rows="8" id="textarea"></textarea>
+                                            <span class="help-inline">Ingrese su mensaje y/o requerimiento.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group form-button-offset">
+                                    <input style="margin-top: 10px;" type="submit" class="btn btn-default btn-danger" value="Enviar Mensaje" />
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END LEFT-SIDE CONTACT FORM AREA -->
+
+                        <!-- BEGIN RIGHT-SIDE CONTACT FORM AREA -->
+                        <div class="contact-info col-md-4 col-sm-4">
+                            <h2>MH Calidad Administrativa</h2>
+                            <!-- COMPANY ADDRESS -->                                    
+                            <address>
+                                Av.Este 0. Edif.INA. Piso 1. Apto 105<br />
+                                La Candelaria, Caracas - Venezuela<br />
+                                Tel: 0212 573 1047<br />
+                                Tel: 0212 639 5881<br />
+                                Cel: 0416 938 3447<br />
+                                Cel: 0426 316 1771<br />
+                                Cel: 0412 496 2767<br />
+                                Email: <a href="mailto:mhcalidadadmi@yahoo.es">mhcalidadadmi@yahoo.es</a><br />
+                                Email: <a href="mailto:aular6@hotmail.com">aular6@hotmail.com</a><br />
+                                Email: <a href="mailto:zulaymonroy@hotmail.com">zulaymonroy@hotmail.com</a>
+                            </address>
+                            <!-- SOCIAL ICONS -->                                                                
+                            <ul class="socials unstyled">
+                                <li><a href="#" class="flickr"></a></li>
+                                <li><a href="#" class="twitter"></a></li>
+                                <li><a href="#" class="facebook"></a></li>
+                                <li><a href="#" class="youtube"></a></li>
+                                <li><a href="#" class="dribbble"></a></li>
+                                <li><a href="#" class="pinterest"></a></li>
+                            </ul>
+                            <!-- HOURS OF OPERATION -->                                    
+                            <h2>Nuestro horario de trabajo</h2>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="small">Lunes:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Martes:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Miércoles:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Jueves:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Viernes:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Sábado:</td>
+                                        <td>Cerrado</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Domingo:</td>
+                                        <td>Cerrado</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END RIGHT-SIDE CONTACT FORM AREA -->
+                    </div>               
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript" src="{{constant('ROOT')}}js/contact_validation.js"></script>
+{% endblock %}

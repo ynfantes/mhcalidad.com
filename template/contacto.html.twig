@@ -1,0 +1,150 @@
+{# indice #}
+{% extends 'layout/base.html.twig'%}
+{% block titulo 'Contáctenos' %}
+{% block contenido %}
+<div class="main-content">
+    <div class="container">                             
+        <div class="row show-grid">
+            <div class="col-md-12 col-sm-12" data-original-title="">
+                <!-- BREADCRUMBS -->                    
+                <div id="breadcrumb">
+                    <ul>
+                        <li class="home"><a href="{{ constant('ROOT') }}">Inicio</a></li>
+                        <li>Contáctenos</li>
+                    </ul>
+                </div>
+                <div class="clear_both"></div>
+                <div class="col-wrapper">                        
+                    <div class="row show-grid">
+                        <!-- START LEFT-SIDE CONTACT FORM AREA -->
+                        <div class="contact-form col-md-8 col-sm-8">
+                            <div id="result">
+                            </div>
+                            <form name="contactForm" id="contactForm" method="POST" action="">
+                                <div class="row">
+                                    <div class="control-group col-md-6 col-sm-6">
+                                        <label class="control-label" for="inputNombre">Nombre(s) y Apellido(s) / Razón Social<sup>*</sup></label>
+                                        <div class="controls">
+                                            <input class="form-control" name="nombre" type="text" id="inputNombre" placeholder="Nombre/Razón Social">
+                                            <span class="help-inline">Ingrese su nombre /razón social</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group col-md-6 col-sm-6">
+                                        <label class="control-label" for="inputEmail">EMAIL<sup>*</sup></label>
+                                        <div class="controls">
+                                            <input class="form-control" name="email" type="text" class="col-md-4 col-sm-4" id="inputEmail" placeholder="Su dirección correo electrónico">
+                                            <span class="help-inline">Ingrese su dirección de correo electrónico</span>
+                                        </div>
+                                    </div>
+                                </div>
+                               <div class="row">
+                                    <div class="control-group col-md-6 col-sm-6">
+                                        <label class="control-label" for="inputArea">Area<sup>*</sup></label>
+                                        <div class="controls">
+                                            <select class="col-md-12 col-sm-12" name="area" id="inputArea">
+                                                <option value="">Seleccione un área</option>
+                                                <option value="Administración">Administración</option>
+                                                <option value="Contabilidad">Contabilidad</option>
+                                                <option value="Auditoría">Auditoría</option>
+                                                <option value="Condominio">Condominio</option>
+                                                <option value="Gestiones">Gestiones</option>
+                                            </select>
+                                            <span class="help-inline">Seleccione el área de contacto en la lista</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group col-md-12 col-sm-12">
+                                        <label for="textarea" class="control-label">Mensaje<sup>*</sup></label>
+                                        <div class="controls">
+                                            <textarea class="form-control" name="comments" rows="4" id="textarea"></textarea>
+                                            <span class="help-inline">Ingrese su mensaje y/o requerimiento.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group form-button-offset">
+                                    <input style="margin-top: 10px;" type="submit" class="btn btn-default btn-danger" value="Enviar Mensaje" />
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END LEFT-SIDE CONTACT FORM AREA -->
+
+                        <!-- BEGIN RIGHT-SIDE CONTACT FORM AREA -->
+                        <div class="contact-info col-md-4 col-sm-4">
+                            <h2>MH Calidad Administrativa</h2>
+                            <!-- COMPANY ADDRESS -->                                    
+                            <address>
+                                Av.Este 0. Edif.INA. Piso 1. Apto 105<br />
+                                La Candelaria, Caracas - Venezuela<br />
+                                Tel: 0212 573 1047<br />
+                                Tel: 0212 639 5881<br />
+                                Cel: 0416 938 3447<br />
+                                Cel: 0426 316 1771<br />
+                                Cel: 0412 496 2767<br />
+                                Email: <a href="mailto:mhcalidadadmi@yahoo.es">mhcalidadadmi@yahoo.es</a><br />
+                                Email: <a href="mailto:aular6@hotmail.com">aular6@hotmail.com</a><br />
+                                Email: <a href="mailto:zulaymonroy@hotmail.com">zulaymonroy@hotmail.com</a>
+                            </address>
+                            <!-- SOCIAL ICONS -->                                                                
+                            <ul class="socials unstyled">
+                                <li><a href="#" class="flickr"></a></li>
+                                <li><a href="#" class="twitter"></a></li>
+                                <li><a href="#" class="facebook"></a></li>
+                                <li><a href="#" class="youtube"></a></li>
+                                <li><a href="#" class="dribbble"></a></li>
+                                <li><a href="#" class="pinterest"></a></li>
+                            </ul>
+                            <!-- HOURS OF OPERATION -->                                    
+                            <h2>Nuestro horario de trabajo</h2>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="small">Lunes:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Martes:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Miércoles:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Jueves:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Viernes:</td>
+                                        <td class="bold">8am a 6pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Sábado:</td>
+                                        <td>Cerrado</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="small">Domingo:</td>
+                                        <td>Cerrado</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END RIGHT-SIDE CONTACT FORM AREA -->
+
+                        <!-- GOOGLE MAP -->                                
+                        <iframe style="width: 100%; height: 600px; border: none;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3922.967646677008!2d-66.89764!3d10.5032144!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a592c20c8537b%3A0xc26188842def7fdb!2sResidencias+INA%2C+Av+Este+0%2C+Caracas+1011%2C+Venezuela!5e0!3m2!1sen!2s!4v1420946571699"></iframe><br /><small><a href="https://goo.gl/maps/1IC87" style="color:#0000FF;text-align:left" target="_blank">Ver en Google Maps</a></small>
+                    </div>               
+                </div>
+            </div>
+        </div>
+        <!-- MAIN CONTENT AREA: REDESIGN CUSTOM - CLIENTS LOGO BAR -->
+        {% include 'misc/clientes.html.twig' %}
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript" src="{{ ROOT }}js/mail_validation.js"></script>
+{% endblock %}

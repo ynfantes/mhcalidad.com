@@ -1,0 +1,69 @@
+{# indice #}
+{% extends 'layout/contabilidad.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+        <div class="col-md-12 col-sm-12">
+            <!-- BREADCRUMBS -->
+            <div id="breadcrumb">
+                <ul>
+                    <li class="home"><a href="#">MH Calidad Administración y Contabilidad</a></li>
+                    <li>Bienvenido</li>
+                </ul>
+            </div>
+            <div class="row show-grid clear-both">
+                <!-- BEGIN ARTICLE CONTENT AREA -->
+                <div class="col-md-9 col-sm-9 main-column two-columns-right">
+                    <article>
+                        <h2><small>Estimado(a): </small>{{ session.usuario.nombre }}</h2>
+                        <p style="font-size: 14px">Bienvenido(a) al área de clientes de MH Calidad Administrativa (Administración y Contabilidad), queremos poner a su disposición un canal de comunicación contínuo.</p>
+                        <div class="text-divider5">
+                        <span></span>
+                        </div>
+                        
+                    </article>
+                    <!-- END ARTICLE CONTENT AREA -->
+                </div>
+                <!-- BEGIN LEFT-SIDEBAR -->
+                    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+                        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+                        <div class="side-nav sidebar-block">
+                            <h2>Este sitio web es gestionado por</h2>
+                            <ul class="mini-clients">
+                                <li>
+                                    <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
+                                        <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo_valoriza_gestion.jpg">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>                                
+                    </div>
+                    <!-- END LEFT-SIDEBAR -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+<div class="recent-tweets">
+<div class="container">
+<div class="row show-grid">
+<div class="col-sm-12 col-md-12 twitter-wrapper">
+<div id="nav_t"></div>
+<div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+<ul class="slides"></ul>
+</div>
+<span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript" src="{{ constant('ROOT')}}js/condominio.js"></script>
+{% endblock %}
