@@ -1,5 +1,6 @@
 <?php
 include_once '../includes/constants.php';
+
 session_start();
 $session = $_SESSION;
 
@@ -10,15 +11,16 @@ switch ($accion) {
     
     // <editor-fold defaultstate="collapsed" desc="libro ventas">
     case 'ventas':
-
+        
         $publicado = new publicacion();
-
+        
         $lista = $publicado->listarReportePorLibroyEmpresa($_SESSION['usuario']['Id'], 0);
         $libros = Array();
         if ($lista['suceed']) {
             $libros = $lista['data'];
 
         }
+        
         echo $twig->render('fiscal/libro.html.twig', array(
             "session" => $session,
             "libros" => $libros,
