@@ -4,7 +4,7 @@ date_default_timezone_set("America/La_Paz");
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="init">
 $debug = false;
-$sistema = "/mhcalidad.com/";
+$sistema = "/";
 $email_error = true;
 $mostrar_error = true;
 
@@ -21,7 +21,7 @@ if ($_SERVER['SERVER_NAME'] == "www.mhcalidadadministrativa.com" | $_SERVER['SER
 } else {
     $user = "root";
     $password = "";
-    $db = "valoriza2_mhcalidad";
+    $db = "mhcalida_valoriza";
     
 }
 
