@@ -46,19 +46,21 @@ class propietario extends db implements crud  {
     public function login($cedula, $password) {
         $result = array();
         if ($cedula!="" && $password!="") {
+            
             if ($cedula == ADMIN) {
                 session_start();
-                $_SESSION["cpanel"] = 1;
-                $_SESSION["usuario"] = "Administrador";
-                $_SESSION['status']  = 'logueado';
-                $result['suceed'] = true;
+                $_SESSION["cpanel"]     = 1;
+                $_SESSION["usuario"]    = "Administrador";
+                $_SESSION['status']     = 'logueado';
+                $result['suceed']       = true;
                 return $result;
             }
-            $result = db::select("*",self::tabla,Array("cedula"=>$cedula));
+            $result = db::select("*",self::tabla,Array("cedula" => $cedula));
             
             if ($result['suceed'] == 'true' && count($result['data']) > 0) {
             
-                $res = db::select("*","junta_condominio",Array("cedula"=>$cedula));
+                $res = db::select("*","junta_condominio",Array("cedula" => $cedula));
+                
                 $junta_condominio = '';
                 if ($res['suceed'] && count($res['data'])> 0) {
                     $junta_condominio = $res['data'][0]['id_inmueble'];

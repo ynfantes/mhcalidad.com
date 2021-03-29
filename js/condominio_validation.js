@@ -27,9 +27,9 @@ $mjq(function(){
             success: function(data) {
                 console.log(data);
                 $mjq('#condominioForm').closest('form').find("input[type=text]").val("");
-                //}
-                //$mjq("#result").html(data);
+                
                 switch(data.suceed) {
+                    
                   case true:
                       $mjq("#result").html(returnHtml('alert-success',"Lo estamos redireccionando..."));
                       window.location.href = 'enlinea/index.php';
