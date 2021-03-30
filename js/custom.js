@@ -166,49 +166,50 @@ jQuery(document).ready(function($) {
 	 * each message is scrolled by flexslider, which is initialized after messages loaded
 	 * messages, navigation arrows and twitter logo are centered vertically
 	 */
-       url = 'http://eluniversal.com.feedsportal.com/c/33765/f/604546/index.rss';
-       $.ajax({ // get content from twiter
-        url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=1000&callback=?&q=' + encodeURIComponent(url),
-        type: 'GET',        
-        dataType: 'json',  
-        success: function(data) { 
-            // html preparing and output to the page
-            //values = data.responseData.feed.entries;
-            //console.log(values);
-            var html = '';  
-            for (var i = 0; i < values.length; i++) {
-                html = html +'<li class="latest-tweet"><p><a href="' + values[i].link + '" style="color:#ed6642;font-weight:bold" target="_blank">' + values[i].title + '</a>: ' + values[i].contentSnippet + '</p></li>';
-            }               
-            $(".tweets-slide ul").append($(html));
-            var height_li = 30;
-            $(".tweets-slide ul li").each(function() {
-                $(this).css('height', '');
-                if ($(this).outerHeight(true) > height_li) height_li = $(this).outerHeight(true);
-            });             
-            $(".tweets-slide ul li").each(function() {
-                var margin = Math.floor((height_li-$(this).outerHeight(true))/2);
-                $(this).css('height', height_li);
-                $(this).children("p").css('margin-top', margin);
-            });             
-            // flexslider initialization
-            $('.tweets-slide').flexslider({
-                animation: "slide",			//String: Select your animation type, "fade" or "slide"
-                keyboard: false,			//Boolean: Allow slider navigating via keyboard left/right keys
-                controlNav: false, 			//Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
-                direction: "vertical",		//String: Select the sliding direction, "horizontal" or "vertical"
-                pauseOnHover: true,			//Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
-                animationSpeed: 400,		//Integer: Set the speed of animations, in milliseconds
-                slideshowSpeed: 3000,		//Integer: Set the speed of the slideshow cycling, in milliseconds
-                controlsContainer: "#nav_t",	//{UPDATED} jQuery Object/Selector: Declare which container the navigation elements should be appended too. Default container is the FlexSlider element. Example use would be $(".flexslider-container"). Property is ignored if given element is not found.
-                useCSS:false
-            });             
-            // twitter logo and navigation block position correction on page loaded and twitter messages loaded
-            $("#nav_t").css('margin-top', Math.floor(((height_li - $("#nav_t").outerHeight(true))/2)));
-            $(".follow_img").css('margin-top', Math.floor(((height_li - $(".follow_img").outerHeight(true))/2)));
-        }                   
-    }); 
+    //    url = 'http://eluniversal.com.feedsportal.com/c/33765/f/604546/index.rss';
+    //    $.ajax({ // get content from twiter
+    //     url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=1000&callback=?&q=' + encodeURIComponent(url),
+    //     type: 'GET',        
+    //     dataType: 'json',  
+    //     success: function(data) { 
+    //         // html preparing and output to the page
+    //         //values = data.responseData.feed.entries;
+    //         //console.log(values);
+    //         var html = '';  
+    //         for (var i = 0; i < values.length; i++) {
+    //             html = html +'<li class="latest-tweet"><p><a href="' + values[i].link + '" style="color:#ed6642;font-weight:bold" target="_blank">' + values[i].title + '</a>: ' + values[i].contentSnippet + '</p></li>';
+    //         }               
+    //         $(".tweets-slide ul").append($(html));
+    //         var height_li = 30;
+    //         $(".tweets-slide ul li").each(function() {
+    //             $(this).css('height', '');
+    //             if ($(this).outerHeight(true) > height_li) height_li = $(this).outerHeight(true);
+    //         });             
+    //         $(".tweets-slide ul li").each(function() {
+    //             var margin = Math.floor((height_li-$(this).outerHeight(true))/2);
+    //             $(this).css('height', height_li);
+    //             $(this).children("p").css('margin-top', margin);
+    //         });             
+    //         // flexslider initialization
+    //         $('.tweets-slide').flexslider({
+    //             animation: "slide",			//String: Select your animation type, "fade" or "slide"
+    //             keyboard: false,			//Boolean: Allow slider navigating via keyboard left/right keys
+    //             controlNav: false, 			//Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
+    //             direction: "vertical",		//String: Select the sliding direction, "horizontal" or "vertical"
+    //             pauseOnHover: true,			//Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
+    //             animationSpeed: 400,		//Integer: Set the speed of animations, in milliseconds
+    //             slideshowSpeed: 3000,		//Integer: Set the speed of the slideshow cycling, in milliseconds
+    //             controlsContainer: "#nav_t",	//{UPDATED} jQuery Object/Selector: Declare which container the navigation elements should be appended too. Default container is the FlexSlider element. Example use would be $(".flexslider-container"). Property is ignored if given element is not found.
+    //             useCSS:false
+    //         });             
+    //         // twitter logo and navigation block position correction on page loaded and twitter messages loaded
+    //         $("#nav_t").css('margin-top', Math.floor(((height_li - $("#nav_t").outerHeight(true))/2)));
+    //         $(".follow_img").css('margin-top', Math.floor(((height_li - $(".follow_img").outerHeight(true))/2)));
+    //     }                   
+    // }); 
        
-        var url = $(".publicaciones-slide").attr('data-url');
+        const url = $(".publicaciones-slide").attr('data-url');
+        
         if (url) {
         $.ajax({ // get content cartelera
 
@@ -218,8 +219,7 @@ jQuery(document).ready(function($) {
                 success: function(data) { 
                     // html preparing and output to the page
 
-                    values = data;
-
+                    values = data === null ? 0: data;
                     var html = '';  
                     for (var i = 0; i < values.length; i++) {
                         html = html +'<li class="latest-tweet"><p style=\'color:#fff\'>' + values[i] + '</p></li>';
@@ -248,6 +248,20 @@ jQuery(document).ready(function($) {
                         useCSS:false
                     });
                     }                   
+            });
+        }
+
+        const tasa = $("span#tasabcv");
+        if (tasa) {
+            $.ajax({ // get content cartelera
+
+                url: 'https://pronet21.net/bcv/',
+                dataType: 'json',
+                type: 'GET',        
+                success: function(data) {
+                    console.log(`Tasa del día: ${data.usd}`);
+                    tasa.text(data.usd.formatCurrency());
+                }
             });
         }
     /*$(function(){
@@ -312,3 +326,23 @@ jQuery(window).load(function(){
         layoutMode: 'masonry'
     });
 });
+
+Number.prototype.formatCurrency = function() {
+    var number = new String(this);
+    var splitStr = number.split('.');
+    var splitLef = splitStr[0];
+    if (splitStr.length > 1 ) {
+        if (splitStr[1].length > 2) {
+            var decimale = parseInt(splitStr[1].substring(0,3) / 10);
+            splitStr[1] = decimale.toString();
+        }
+        if (splitStr[1].length == 1) splitStr[1] += '0';
+    }
+    var splitRig = splitStr.length > 1 ? ',' + splitStr[1] :',00';
+    var regx = /(\d+)(\d{3})/;
+    
+    while (regx.test(splitLef)) {
+        splitLef = splitLef.replace(regx, '$1' + '.' + '$2');
+    }
+    return splitLef + splitRig;
+};

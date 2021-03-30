@@ -652,7 +652,7 @@ div.alert{padding:20px 15px 10px 35px;padding-left:35px;margin-bottom:10px;}
 #nav_t .flex-next, #nav_t1 .flex-next{background:url("../img/tw_arrow_down.png") no-repeat scroll 0 0 transparent;display:block;height:6px;left:0;width:11px;}
 #nav_t1 .flex-next{background:url("../img/tw_arrow_down_w.png") no-repeat scroll 0 0 transparent;}
 #nav_t .flex-direction-nav a, #nav_t1 .flex-direction-nav a{position:inherit;}
-.follow_img{position:absolute;right:0;top:16%;}
+.follow_img{position:absolute;right:0;top:100%;}
 #prev_t{display:block;color:#fff;}
 #next_t{display:block;color:#fff;}
 .tweets-slide, .publicaciones-slide{display:block;color:#fff;overflow:hidden;padding-left:20px;}
