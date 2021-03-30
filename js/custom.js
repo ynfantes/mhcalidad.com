@@ -251,8 +251,9 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    const tasa = $("span#tasabcv");
-    if (tasa) {
+    const tasa_cambio = $('li#tasa_cambio');
+    
+    if (tasa_cambio) {
         $.ajax({ // get content cartelera
 
             url: 'https://pronet21.net/bcv/',
@@ -260,7 +261,13 @@ jQuery(document).ready(function ($) {
             type: 'GET',
             success: function (data) {
                 console.log(`Tasa del día: ${data.usd}`);
-                tasa.text(data.usd.formatCurrency());
+                const tasa = `<span id='tasabcv' class="bold" style="font-size:16px">${data.usd.formatCurrency()}<span>`;
+                const t = Date.now();
+                const fecha = new Date(t);
+                console.log(fecha.toLocaleDateString());
+                //tasa.text(data.usd.formatCurrency());
+                tasa_cambio.append(tasa)
+                .prepend(`Tasa de cambio BCV al ${fecha.toLocaleDateString()}:`);
             }
         });
     }
