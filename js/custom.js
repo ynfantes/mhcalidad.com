@@ -253,7 +253,7 @@ jQuery(document).ready(function ($) {
 
     const tasa_cambio = $('li#tasa_cambio');
     
-    if (tasa_cambio) {
+    if (tasa_cambio.length>0) {
         $.ajax({ // get content cartelera
 
             url: 'https://pronet21.net/bcv/',
@@ -267,24 +267,26 @@ jQuery(document).ready(function ($) {
                 console.log(fecha.toLocaleDateString());
                 //tasa.text(data.usd.formatCurrency());
                 tasa_cambio.append(tasa)
-                .prepend(`Tasa de cambio BCV al ${fecha.toLocaleDateString()}:`);
+                .prepend(`Tasa de cambio BCV al ${fecha.toLocaleDateString()} `);
             }
         });
     }
-
-    $(function () {
-        $('#WAButton').floatingWhatsApp({
-            phone: '+584142392465', //WhatsApp Business phone number International format-
-            //Get it with Toky at https://toky.co/en/features/whatsapp.
-            headerTitle: 'Escríbenos al WS MHCalidad!',   //Popup Title
-            popupMessage: '👋 ¿En qué puedo ayudarle?',      //Popup Message
-            showPopup: true,                                    //Enables popup display
-            buttonImage: '<img src="https://rawcdn.githack.com/rafaelbotazini/floating-whatsapp/3d18b26d5c7d430a1ab0b664f8ca6b69014aed68/whatsapp.svg" />', //Button Image
-            //headerColor: 'crimson', //Custom header color
-            //backgroundColor: 'crimson', //Custom background button color
-            position: "right"
+    const ws = $('#WAButton');
+    if(ws.length > 0) {
+        $(function () {
+            $('#WAButton').floatingWhatsApp({
+                phone: '+584142392465', //WhatsApp Business phone number International format-
+                //Get it with Toky at https://toky.co/en/features/whatsapp.
+                headerTitle: 'Escríbenos al WS MHCalidad!',   //Popup Title
+                popupMessage: '👋 ¿En qué puedo ayudarle?',   //Popup Message
+                showPopup: true,                              //Enables popup display
+                buttonImage: '<img src="https://rawcdn.githack.com/rafaelbotazini/floating-whatsapp/3d18b26d5c7d430a1ab0b664f8ca6b69014aed68/whatsapp.svg" />', //Button Image
+                //headerColor: 'crimson', //Custom header color
+                //backgroundColor: 'crimson', //Custom background button color
+                position: "right"
+            });
         });
-    });
+    }
 
     /*$(function(){
         url = 'http://www.eluniversal.com/rss/eco_avances.xml';

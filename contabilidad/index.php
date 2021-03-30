@@ -4,7 +4,7 @@ session_start();
 $session = $_SESSION;
 
 if (isset($session['status']) && $session['status'] == 'logueado') {
-    if ($session['pqc']) {
+    if (isset($session['pqc'])) {
         echo $twig->render('contabilidad/pqc.html.twig',array("session" => $session));
     } else {
         echo $twig->render('contabilidad/index.html.twig',array("session" => $session));

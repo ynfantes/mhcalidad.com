@@ -32,7 +32,11 @@ class empresa extends db implements crud {
 
     public function ver($id) {
         return $this->select("*", self::tabla, Array("id"=>$id));
-    }   
+    }
+    
+    public function listarEmpresasActivas() {
+        return $this->select("*", self::tabla, Array("inactiva"=>0));
+    }
     
     public function login($clave) {
         return $clave;

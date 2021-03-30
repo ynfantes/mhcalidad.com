@@ -2,27 +2,36 @@
 include_once '../includes/constants.php';
 
 session_start();
-$session = $_SESSION;
 
 $accion = isset($_GET['accion']) ? $_GET['accion'] : '';
-$reporte_id = isset($_GET['id']) ? $_GET['id'] : '';
 
 switch ($accion) {
-    case 'ingresos-egrsos':
+    
+    case 'ingresos-egresos':
+    case 'comprobacion':
+    case 'general':
+    case 'resultado':
+        $reporte = 'balance-'.$accion;
+        $empresas = new empresa();
+        $clientes = $empresas->listarEmpresasActivas();
+        $data = array();
+
         echo $twig->render(
-            'contabilidad/descargas.html.twig',
+            'contabilidad/cargas.html.twig',
             array(
-                'session' => $session
+                'reporte' => $reporte,
+                'clients' => $data,
+                'session' => $_SESSION
                 )
         );
         break;
     
-    default:
-        echo $twig->render(
-            'contabilidad/descargas.html.twig',
-            array(
-                'session' => $session
-                )
-        );
-        break;
+    // default:
+    //     echo $twig->render(
+    //         'contabilidad/descargas.html.twig',
+    //         array(
+    //             'session' => $_SESSION
+    //             )
+    //     );
+    //     break;
 }

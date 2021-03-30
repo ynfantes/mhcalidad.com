@@ -8,7 +8,8 @@ $re = $db->select("*","empresa",Array(
 if ($re["suceed"] == true ) {
     
     if(count($re['data'])==0){
-        if (filter_input(INPUT_POST, "clave")== ADMIN) {
+
+        if (filter_input(INPUT_POST, "clave") === ADMIN) {
            session_start();
            $_SESSION["usuario"] = "Administrador";
            $_SESSION['status']  = 'logueado';
@@ -16,6 +17,7 @@ if ($re["suceed"] == true ) {
         } else {
             echo "<p style=\"padding:0\"><i class=\"fa fa-warning\"></i> Usuario no registrado.</p>";
         }
+        
     } else {
         session_start();
         $_SESSION['usuario'] = $re['data'][0];

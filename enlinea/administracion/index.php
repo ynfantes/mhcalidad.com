@@ -264,6 +264,7 @@ switch ($accion) {
     
     // <editor-fold defaultstate="collapsed" desc="hidrocapital-listar">
     case "hidrocapital":
+        
         $re = $db->dame_query("select i.id as codigo_inmueble, i.nombre_inmueble, h.* from inmueble i left join inmueble_hidrocapital h 
         on i.id = h.id_inmueble");
         $resultado = Array();
@@ -329,7 +330,6 @@ switch ($accion) {
 
     // <editor-fold defaultstate="collapsed" desc="acta junta">
     case "publicar-acta":
-        $result     = Array();
         $resultado  = array();
         $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
@@ -361,7 +361,7 @@ switch ($accion) {
 
     // <editor-fold defaultstate="collapsed" desc="publicar rif">
     case "publicar-rif":
-        $result = Array();
+        $resultado = Array();
         $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
             ini_set('max_execution_time', 20600);
@@ -392,7 +392,7 @@ switch ($accion) {
         
     // <editor-fold defaultstate="collapsed" desc="publicar prerecibo">
     case "publicar-prerecibo":
-        $result = Array();
+        $resultado = Array();
         $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
             ini_set('max_execution_time', 20600);
@@ -423,7 +423,7 @@ switch ($accion) {
     
     // <editor-fold defaultstate="collapsed" desc="publicar nomina">
     case "publicar-nomina":
-        $result = Array();
+        $resultado = Array();
         $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
             ini_set('max_execution_time', 20600);
@@ -454,7 +454,7 @@ switch ($accion) {
     
     // <editor-fold defaultstate="collapsed" desc="publicar fondo">
     case "publicar-fondo":
-        $result = Array();
+        $resultado = Array();
         $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
             ini_set('max_execution_time', 20600);
@@ -485,7 +485,7 @@ switch ($accion) {
         
     // <editor-fold defaultstate="collapsed" desc="publicar fondo">
     case "publicar-ingresos":
-        $result = Array();
+        $resultado = Array();
         $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
             ini_set('max_execution_time', 20600);

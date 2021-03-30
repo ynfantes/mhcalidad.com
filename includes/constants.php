@@ -5,7 +5,7 @@ date_default_timezone_set("America/La_Paz");
 // <editor-fold defaultstate="collapsed" desc="init">
 $debug = false;
 $sistema = "/";
-$email_error = true;
+$email_error = false;
 $mostrar_error = true;
 
 // </editor-fold>
