@@ -7,30 +7,40 @@
 <div class="buttons-container"></div>
 <div class="navbar-collapse">
 <ul class="nav nav-pills navbar-nav">
-<!--li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-Nómina<i>Reportes</i>
-</a>
-<ul class="dropdown-menu"-->
-<li class="single"><a href="{{constant('ROOT')}}contabilidad/descargas.php?doc=CALCULO_NOMINA">Cálculo Nómina<i>Reporte</i></a></li>
-<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Recibos de Pago<i>Reporte</i></a>
-<ul class="dropdown-menu">
-<li class="single"><a href="{{ constant('ROOT') }}contabilidad/descargas.php?doc=RECIBOS_DE_PAGO">Nómina</a>
-<li class="single"><a href="{{ constant('ROOT') }}contabilidad/descargas.php?doc=RECIBOS_DE_CESTATICKET">Cestaticket</a>
-</ul>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nómina Cálculos<i>Reportes</i></a>
+    <ul class="dropdown-menu">
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/calculo/nomina">- Nómina</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/calculo/cestaticket">- Cestaticket</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/calculo/prestaciones">- Préstaciones</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/calculo/vacaciones">- Vacaciones</a></li>
+    </ul>
 </li>
-<li class="single"><a href="{{constant('ROOT')}}contabilidad/descargas.php?doc=CALCULO_CESTATICKET">Cestatickets<i>Reporte</i></a></li>
-<li class="single"><a href="{{constant('ROOT')}}contabilidad/descargas.php?doc=CONSTANCIA_DE_TRABAJO">Constancias<i>de Trabajo</i></a></li>
-<!--/ul>
-</li-->
-<!--li><a href="#">Vacaciones<i>Cálculo</i>
-</a>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Recibos de Pago<i>Reportes</i></a>
+    <ul class="dropdown-menu">
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/recibos-pago/nomina">- Nómina</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/recibos-pago/cestaticket">- Cestaticket</a></li>
+    </ul>
 </li>
-<li><a href="#">Liquidación<i>Cálculo</i>
-</a>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Otros Reportes<i>de Nómina</i></a>
+    <ul class="dropdown-menu">
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/otros-reportes/constancia-trabajo">- Constancia de Trabajo</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/otros-reportes/registro-patrimonial">- Registro Patrimonial del Asegurado</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/otros-reportes/declararion-ince">- Declaración Trimestral Ince</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/nomina/otros-reportes/declaracion-mintra">- Declaración Trimestral Mintra</a></li>
+    </ul>
 </li>
-<li><a href="#">Prestaciones<i>Cálculo</i>
-</a>
-</li-->
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contabilidad<i>Balances</i></a>
+    <ul class="dropdown-menu">
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/balances/ingresos-egresos">- Resumen Ingresos vs Egresos</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/balances/comprobacion">- Balance de Comprobación</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/balances/general">- Balance General</a></li>
+        <li class="single"><a href="{{constant('ROOT')}}contabilidad/balances/resultado">- Balance de Resultado</a></li>
+    </ul>
+</li>
 <li class="single"><a href="{{ constant('ROOT') }}contabilidad/?logout=true">Salir
 <i>Finalizar sesión</i></a>
 </li>

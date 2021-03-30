@@ -5,7 +5,7 @@ session_start();
 $session = $_SESSION;
 
 $accion = isset($_GET['accion']) ? $_GET['accion'] : "";
-$reporte_id = isset($_GET['id'])? $_GET['id']:'';
+$reporte_id = isset($_GET['id']) ? $_GET['id']:'';
 
 switch ($accion) {
     
@@ -22,9 +22,9 @@ switch ($accion) {
         }
         
         echo $twig->render('fiscal/libro.html.twig', array(
-            "session" => $session,
-            "libros" => $libros,
-            "tipo" => "Libro de Ventas"
+            "session"   => $session,
+            "libros"    => $libros,
+            "tipo"      => "Libro de Ventas"
                 )
         );
         break; // </editor-fold>
@@ -42,8 +42,8 @@ switch ($accion) {
         }
         echo $twig->render('fiscal/libro.html.twig', array(
             "session" => $session,
-            "libros" => $libros,
-            "tipo" => "Libro de Compras"
+            "libros"  => $libros,
+            "tipo"    => "Libro de Compras"
                 )
         );
         break; // </editor-fold>
@@ -58,9 +58,9 @@ switch ($accion) {
 
         }
         echo $twig->render('fiscal/libro.html.twig', array(
-            "session" => $session,
-            "libros" => $libros,
-            "tipo" => "Libro Resumen"
+            "session"   => $session,
+            "libros"    => $libros,
+            "tipo"      => "Libro Resumen"
                 )
         );
         break; // </editor-fold>
@@ -72,9 +72,9 @@ switch ($accion) {
         $libros = $publicado->listarReportePorLibroyEmpresa($_SESSION['usuario']['Id'], $reporte_id);
         $r = $reporte->ver($reporte_id);
         echo $twig->render('fiscal/libro.html.twig', array(
-            "session" => $session,
-            "libros" => $libros['data'],
-            "tipo" => $r['data'][0]['descripcion']
+            "session"   => $session,
+            "libros"    => $libros['data'],
+            "tipo"      => $r['data'][0]['descripcion']
                 )
         );
         break; // </editor-fold>

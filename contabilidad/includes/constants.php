@@ -1,71 +1,61 @@
 <?php
-
-// <editor-fold defaultstate="collapsed" desc="configuracion regional">
 date_default_timezone_set("America/Caracas");
-// </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="init">
 $debug = true;
-$sistema = "/mhcalidad.com/";
-$email_error = true;
+$sistema = "/";
+$email_error = false;
 $mostrar_error = true;
-
-// </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="Cheqeuo servidor">
 if ($_SERVER['SERVER_NAME'] == "www.mhcalidadadministrativa.com" | $_SERVER['SERVER_NAME'] == "mhcalidadadministrativa.com") {
-    $user = "mhcalida_adminis";
-    $password = "administracion5231";
-    $db = "mhcalida_administracion";
-    $email_error = true;
-    $mostrar_error = true;
-    $debug = true;
-    $sistema = "/";
+    $user           = "mhcalida_adminis";
+    $password       = "administracion5231";
+    $db             = "mhcalida_administracion";
+    $email_error    = true;
+    $mostrar_error  = true;
+    $debug          = true;
+    $sistema        = "/";
 } else {
-    $user = "mhcalida_adminis";
-    $password = "administracion5231";
-    $db = "mhcalida_administracion";
+    $user           = "root";
+    $password       = "";
+    $db             = "mhcalida_administracion";
     
 }
 
-// </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="Acceso a la BD">
 define("HOST", "localhost");
 define("USER", $user);
 define("PASSWORD", $password);
 define("DB", $db);
-// </editor-fold>
-//<editor-fold defaultstate="collapsed" desc="configuracion de ficheros del sistema">
 define("SISTEMA", $sistema);
 define("EMAIL_ERROR", $email_error);
 define("EMAIL_CONTACTO", "ynfantes@gmail.com");
 define("EMAIL_TITULO", "error");
 define("MOSTRAR_ERROR", $mostrar_error);
 define("DEBUG", $debug);
-
 define("TITULO", "MH Calidad Administrativa");
-/**
- * para las urls
- */
 define("ROOT", 'http://' . $_SERVER['SERVER_NAME'] . SISTEMA);
 define("URL_SISTEMA", ROOT . "contabilidad");
-/**
- * para los includes
- */
 define("SERVER_ROOT", $_SERVER['DOCUMENT_ROOT'] . SISTEMA);
-
 define("mailPHP",0);
 define("sendMail",1);
 define("SMTP",2);
-//</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc="autoload">
+include_once SERVER_ROOT . 'includes/twig/lib/Twig/Autoloader.php';
+include_once SERVER_ROOT . 'includes/extensiones.php';
+Twig_Autoloader::register();
 
-function __autoload($clase) {
+$loader = new Twig_Loader_Filesystem(SERVER_ROOT . 'template');
+$twig = new Twig_Environment($loader, array(
+            'debug' => true,
+            'cache' => false,
+            /*'cache' => SERVER_ROOT . 'cache',*/
+            "auto_reload" => true)
+);
+$twig->addExtension(new extensiones());
+$twig->addExtension(new Twig_Extension_Debug());
+spl_autoload_register(function($clase) {
     include_once SERVER_ROOT . "contabilidad/includes/" . $clase . ".php";
-}
+});
 
 spl_autoload_register("__autoload", false);
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="cerrar sesión">
+
 if (isset($_GET['logout']) && $_GET['logout'] == true) {
     session_start();
         
@@ -81,7 +71,6 @@ if (isset($_GET['logout']) && $_GET['logout'] == true) {
     }
     header("location:" . ROOT . "administracion-contabilidad.html");
 }
-//</editor-fold>
 
 define("SMTP_SERVER","host.caracaspanel.com");
 define("PORT","465");

@@ -43,10 +43,10 @@
                         <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
                         <div class="side-nav sidebar-block">
                             <h2>Gestionado por</h2>
-                            <ul class="mini-clients">
-                                <li>
+                            <ul>
+                                <li style="border-bottom:none">
                                     <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
-                                        <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo_valoriza_gestion.jpg">
+                                        <img class="img-responsive" alt="" src="{{constant('ROOT')}}img/logo.gif">
                                     </a>
                                 </li>
                             </ul>
@@ -63,10 +63,10 @@
 <div class="row show-grid">
 <div class="col-sm-12 col-md-12 twitter-wrapper">
 <div id="nav_t"></div>
-<div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+<div class="cartelera-slide" data-url="{{constant('ROOT')}}">
 <ul class="slides"></ul>
 </div>
-<span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+<span class="follow_img"><img alt="" src="{{constant('ROOT')}}img/mhcalidad_informa.png" class="img-responsive" /></span>
 </div>
 </div>
 </div>
@@ -75,5 +75,5 @@
 {% endblock %}
 {% block js %}
 {{ parent() }}
-<script type="text/javascript" src="{{ constant('ROOT')}}js/condominio.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/condominio.js"></script>
 {% endblock %}

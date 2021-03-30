@@ -9,13 +9,13 @@ RewriteEngine on
 RewriteCond %{HTTP_HOST} ^mhcalidadadministrativa.com
 RewriteRule (.*) http://www.mhcalidadadministrativa.com/$1 [R=301,L]
 
-#RewriteBase /mhcalidad.com
+#RewriteBase /
 Rewriterule ^([A-Za-z\-]+).html$ index.php?accion=$1 [L]
 Rewriterule ^enlinea/([A-Za-z\-]+)/([A-Za-z\-]+)$ enlinea/$1/index.php?accion=$2 [L]
 Rewriterule ^enlinea/([A-Za-z\-]+)/([A-Za-z\-]+)/([0-9A-Za-z\-]+)$ enlinea/$1/index.php?accion=$2&id=$3 [L]
 Rewriterule ^fiscal/([A-Za-z\-]+)/([A-Za-z\-]+)$ fiscal/$1/index.php?accion=$2 [L]
 Rewriterule ^fiscal/([A-Za-z\-]+)/([A-Za-z\-]+)/([0-9A-Za-z\-]+)$ fiscal/$1/index.php?accion=$2&id=$3 [L]
-Rewriterule ^contabilidad/([A-Za-z\-]+)/([A-Za-z\-]+)$ contabildiad/$1/index.php?accion=$2 [L]
+Rewriterule ^contabilidad/([A-Za-z\-]+)/([A-Za-z\-]+)$ contabilidad/$1/index.php?accion=$2 [L]
 Rewriterule ^contabilidad/([A-Za-z\-]+)/([A-Za-z\-]+)/([0-9A-Za-z\-]+)$ contabilidad/$1/index.php?accion=$2&id=$3 [L]
 
 # charset
