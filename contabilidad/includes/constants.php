@@ -1,18 +1,21 @@
 <?php
 date_default_timezone_set("America/Caracas");
-$debug = true;
+$debug = false;
 $sistema = "/";
 $email_error = false;
 $mostrar_error = true;
 if ($_SERVER['SERVER_NAME'] == "www.mhcalidadadministrativa.com" | $_SERVER['SERVER_NAME'] == "mhcalidadadministrativa.com") {
+
     $user           = "mhcalida_adminis";
     $password       = "administracion5231";
     $db             = "mhcalida_administracion";
     $email_error    = true;
     $mostrar_error  = true;
-    $debug          = true;
+    $debug          = false;
     $sistema        = "/";
+
 } else {
+    
     $user           = "root";
     $password       = "";
     $db             = "mhcalida_administracion";
@@ -30,9 +33,9 @@ define("EMAIL_TITULO", "error");
 define("MOSTRAR_ERROR", $mostrar_error);
 define("DEBUG", $debug);
 define("TITULO", "MH Calidad Administrativa");
-define("ROOT", 'http://' . $_SERVER['SERVER_NAME'] . SISTEMA);
+define("ROOT", 'http://'.$_SERVER['SERVER_NAME'].SISTEMA);
 define("URL_SISTEMA", ROOT . "contabilidad");
-define("SERVER_ROOT", $_SERVER['DOCUMENT_ROOT'] . SISTEMA);
+define("SERVER_ROOT",$_SERVER['DOCUMENT_ROOT'].SISTEMA);
 define("mailPHP",0);
 define("sendMail",1);
 define("SMTP",2);

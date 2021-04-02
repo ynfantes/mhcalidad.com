@@ -88,53 +88,53 @@
     </div>
     {% endblock %}
     {% block js %}
-        {{ parent() }}
-        <script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/jquery.validate.js"></script>
-<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
-<script type="text/javascript">
+    {{ parent() }}
+    <script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="{{ constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
+    <script type="text/javascript">
     jQuery(document).ready(function($) {
-    $('a.item').live('click', function() {
-        var url = $("#cartelera-publicaciones").attr("data-url");
-        console.log(url);
-        $.post(url,{id: this.id},
-        function(data) {
-            $("tr#fila" + data ).css("display","none");
+        $('a.item').live('click', function() {
+            var url = $("#cartelera-publicaciones").attr("data-url");
+            console.log(url);
+            $.post(url,{id: this.id},
+            function(data) {
+                $("tr#fila" + data ).css("display","none");
 
+            });
+            return false;
         });
-        return false;
-    });
-    $("#publicacion").validate({
-        rules : {
-            id_inmueble : {
-                required : true
+        $("#publicacion").validate({
+            rules : {
+                id_inmueble : {
+                    required : true
+                },
+                archivo : {
+                    required : true
+                }
             },
-            archivo : {
-                required : true
-            }
-        },
-        messages : {
-            id_inmueble: {
-                required: "Seleccione un condominio de la lista"
+            messages : {
+                id_inmueble: {
+                    required: "Seleccione un condominio de la lista"
+                },
+                archivo : {
+                    required: 'Debe seleccionar el acta de junta'
+                }
             },
-            archivo : {
-                required: 'Debe seleccionar el acta de junta'
-            }
-        },
-        errorElement : 'span',
-        errorClass : 'error',
-        errorPlacement : function(error, element) {
-            if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
-                $(".error").show();
-            } else {
-                if (element.parent('.input-group').length) {
-                        error.insertAfter(element.parent());
+            errorElement : 'span',
+            errorClass : 'error',
+            errorPlacement : function(error, element) {
+                if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    $(".error").show();
                 } else {
-                        error.insertAfter(element);
+                    if (element.parent('.input-group').length) {
+                            error.insertAfter(element.parent());
+                    } else {
+                            error.insertAfter(element);
+                    }
                 }
             }
-        }
+        });
     });
-});
-</script>
-    {% endblock %}
+    </script>
+{% endblock %}

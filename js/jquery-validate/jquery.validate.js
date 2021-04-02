@@ -200,7 +200,7 @@ $.validator.format = function(source, params) {
 
 $.extend($.validator, {
 	
-	defaults: {
+		defaults: {
 		messages: {},
 		groups: {},
 		rules: {},

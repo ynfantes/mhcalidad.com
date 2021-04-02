@@ -7,44 +7,55 @@
 <div class="main-content">
 <div class="container">
 <div class="row show-grid">
-        <div class="col-md-12 col-sm-12">
-            <!-- BREADCRUMBS -->
-            <div id="breadcrumb">
-                <ul>
-                    <li class="home"><a href="#">MH Calidad Administración y Contabilidad</a></li>
-                    <li>Bienvenido</li>
-                </ul>
-            </div>
-            <div class="row show-grid clear-both">
-                <!-- BEGIN ARTICLE CONTENT AREA -->
-                <div class="col-md-9 col-sm-9 main-column two-columns-right">
-                    <article>
-                        <h2><small>Estimado(a): </small>{{ session.usuario.nombre }}</h2>
-                        <p style="font-size: 14px">Bienvenido(a) al área de clientes de MH Calidad Administrativa (Administración y Contabilidad), queremos poner a su disposición un canal de comunicación contínuo.</p>
-                        <div class="text-divider5">
-                        <span></span>
-                        </div>
-                        
-                    </article>
-                    <!-- END ARTICLE CONTENT AREA -->
+<div class="col-md-12 col-sm-12">
+    <!-- BREADCRUMBS -->
+    <div id="breadcrumb">
+        <ul>
+            <li class="home"><a href="#">MH Calidad Administración y Contabilidad</a></li>
+            <li>Bienvenido</li>
+        </ul>
+    </div>
+    {% set administrador = (session.usuario == 'Administrador') %}
+    <div class="row show-grid clear-both">
+        <!-- BEGIN ARTICLE CONTENT AREA -->
+        <div class="col-md-9 col-sm-9 main-column two-columns-right">
+            <article>
+
+                <h2><small>Estimado(a): </small>{{ administrador ? session.usuario : session.usuario.nombre }}</h2>
+                <p style="font-size: 14px">
+                {% if administrador %}
+                Esta usted en el panel de de control del área de Administración y Contabilidad de MH Calidad Administrativa.
+                Desde esta área podra publicar todos los reportes relacionados con esta área.<br/>
+                Le recuerdo que el formato de los archivos que va a publicar deben ser PDF.
+                {% else %}
+                Bienvenido(a) al área de clientes de MH Calidad Administrativa (Administración y Contabilidad), 
+                queremos poner a su disposición un canal de comunicación contínuo.
+                {% endif %}
+                </p>
+                <div class="text-divider5">
+                <span></span>
                 </div>
-                <!-- BEGIN LEFT-SIDEBAR -->
-                    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
-                        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
-                        <div class="side-nav sidebar-block">
-                            <h2>Este sitio web es gestionado por</h2>
-                            <ul>
-                                <li style="border-bottom:none">
-                                    <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
-                                        <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo.gif">
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>                                
-                    </div>
-                    <!-- END LEFT-SIDEBAR -->
-            </div>
+                
+            </article>
+            <!-- END ARTICLE CONTENT AREA -->
         </div>
+        <!-- BEGIN LEFT-SIDEBAR -->
+        <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+            <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+            <div class="side-nav sidebar-block">
+                <h2>Este sitio web es gestionado por</h2>
+                <ul>
+                    <li style="border-bottom:none">
+                        <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
+                            <img class="img-responsive" alt="" src="{{constant('ROOT')}}img/logo.gif">
+                        </a>
+                    </li>
+                </ul>
+            </div>                                
+        </div>
+        <!-- END LEFT-SIDEBAR -->
+    </div>
+</div>
     </div>
 </div>
 <!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
@@ -53,7 +64,7 @@
 <div class="row show-grid">
 <div class="col-sm-12 col-md-12 twitter-wrapper">
 <div id="nav_t"></div>
-<div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+<div class="cartelera-slide" data-url="{{constant('ROOT')}}">
 <ul class="slides"></ul>
 </div>
 <span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>

@@ -5,10 +5,10 @@
 			<a href="#">Publicar Declaración Mintra</a>
 		</h2>
 		{% if resultado is defined %}
-			{% include 'misc/resultado.html.twig' %}
+			{% include 'misc/resultado-carga.html.twig' %}
 		{% endif %}
 		<form id="publicacion" 
-            action="{{constant('URL_SISTEMA')}}/contabilidad/nomina" 
+            action="{{constant('URL_SISTEMA')}}/nomina/" 
             method="post" class="form-horizontal contact-agent-form" 
             enctype="multipart/form-data">
             <input type="hidden" value="{{reporte}}" name="reporte"/>
@@ -44,7 +44,7 @@
 				<div class="form-group">
 					<label class="control-label">Seleccione el archivo Declaración Mintra<sup>*</sup>
 					</label>
-					<input type="file" id="archivo" name="archivo" accept="application/pdf">
+					<input type="file" class="required" id="archivo" name="archivo" accept="application/pdf">
 				</div>
 			</div>
 			<div class="form-row">

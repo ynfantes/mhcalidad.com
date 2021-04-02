@@ -1,10 +1,10 @@
 <div class="form-group">
-	<label class="control-label" for="id_cliente">Cliente / Empresa<sup>*</sup>
+	<label class="control-label" for="id_empresa">Cliente / Empresa<sup>*</sup>
 	</label>
-	<select class="required form-control" name="id_cliente" id="id_cliente">
+	<select class="required form-control" name="id_empresa" id="id_empresa">
 		<option value="">Seleccione un cliente de la lista</option>
 		{% for cliente in clients %}
-			<option value="{{cliente.id}}">{{cliente.nombre}}</option>
+			<option value="{{cliente.Id}}">{{cliente.nombre}}</option>
 		{% endfor %}
 	</select>
 </div>

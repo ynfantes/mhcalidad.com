@@ -19,7 +19,7 @@ class="col-md-12 col-sm-12">
 </div>
 <div class="row show-grid clear-both">
     <!-- BEGIN ARTICLE CONTENT AREA -->
-        <div class="col-md-9 col-sm-9 main-column two-columns-right">
+        <div class="col-md-7 col-sm-7">
             {% if reporte %}
                 {% include 'contabilidad/carga.'~ reporte ~'.html.twig' %}
             {% else %}
@@ -31,18 +31,18 @@ class="col-md-12 col-sm-12">
         </div>
         <!-- END ARTICLE CONTENT AREA -->
         <!-- BEGIN LEFT-SIDEBAR -->
-        <div
-            id="left-sidebar" class="col-md-3 col-sm-3 sidebar">
+        <div id="left-sidebar" class="col-md-5 col-sm-5">
             <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
             <div class="side-nav sidebar-block">
-                <h2>Gestionado por</h2>
-                <ul>
-                    <li style="border-bottom:none">
-                        <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
-                            <img class="img-responsive" alt="" src="{{constant('ROOT')}}img/logo.gif">
-                        </a>
-                    </li>
-                </ul>
+                <h2 style="border-bottom:none">Publicaciones</h4>
+                <div class="text-divider5">
+                    <span></span>
+                </div>
+                <div id="lista_publicaciones">
+                <div class="alert alert-info">
+                <span>Seleccione un cliente de la lista para ver las publicaciones asociadas a ese cliente.</span>
+                </div>
+                </div>
             </div>
         </div>
         <!-- END LEFT-SIDEBAR -->
@@ -69,4 +69,39 @@ class="col-md-12 col-sm-12">
 {% block js %}
 {{parent()}}
 <script type="text/javascript" src="{{constant('ROOT')}}js/condominio.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-validate/jquery.validate.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/contabilidad.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	
+	$("#publicacion").validate({
+        messages : {
+			id_cliente: {
+				required: "Seleccione un cliente de la lista"
+			},
+            year: {
+                required: "Falta el año"
+            },
+			archivo : {
+				required: 'Seleccione un archivo'
+			}
+		},
+		errorElement : 'span',
+		errorClass : 'error',
+		errorPlacement : function(error, element) {
+			if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+				$(".error").show();
+			} else {
+				if (element.parent('.input-group').length) {
+					error.insertAfter(element.parent());
+				} else {
+					error.insertAfter(element);
+				}
+			}
+		}
+	});
+});
+</script>
 {% endblock %}

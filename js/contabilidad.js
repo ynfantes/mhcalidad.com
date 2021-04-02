@@ -1,0 +1,127 @@
+// Referencias de jQuery
+const listado       = jQuery('#lista_publicaciones');
+const btncliente    = jQuery('#id_empresa');
+const inputReporte  = jQuery('input[name="reporte"]');
+const alert         = jQuery('article > div.alert');
+const btneliminar   = jQuery('.btn-eliminar');
+
+function listarPublicaciones(datos) {
+    
+    let contenido;
+    if (datos.stats.affected_rows===0) {
+        contenido = '<div class="alert alert-danger">\
+        <span>No hay publicados reportes, de este tipo, para este cliente.</span>\
+        </div>'
+    } else {
+        contenido = `<table class="table table-bordered table-striped responsive-utilities">
+        <thead>
+            <tr>
+                <th style="text-align: center">Periodo</th>
+                <th style="text-align: center">Archivo</th>
+                <th style="text-align: center">Acción</th>
+            </tr>
+        </thead>
+        <tbody>`
+        
+        datos.data.forEach( reg => {
+            
+            let periodo;
+            let yy = '';
+            let mm = '';
+            let pe = '';
+            if (reg.mes) {
+                periodo = reg.mes.split('-');
+                yy = periodo[0];
+                mm = periodo[1];
+            }
+            if( reg.periodicidad) {
+               pe = periodicidad =='' ? '' : reg.periodicidad + 'º Quin. '; 
+            }
+            
+            contenido = contenido + `<tr>
+                <td style="text-align: center">${pe}${mm}-${yy}</td>
+                <td><a href=/contabilidad/documentos/${reg.archivo} target="_blank">${reg.archivo}</a></td>
+                <td><a 
+                data-item=${reg.id} 
+                href="#" 
+                class="btn-eliminar">Eliminar</a></td>
+            </tr>`;
+        
+        }
+
+            
+        )
+        contenido = contenido + `</tbody></table>`;
+    }
+    
+    listado.html(contenido);
+
+
+}
+
+jQuery(document).on('click', '.btn-eliminar', function(e) {
+    e.preventDefault();
+    
+    const confirma = confirm("¿Seguro desea eliminar el registro seleccionado?");
+    
+    if (confirma) {
+        const data = { 
+            item: jQuery(this).data('item'),
+            table: jQuery('input[name="reporte"]').val() 
+        };
+        const respuesta = fetch('/contabilidad/api.php', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( data )
+        })
+        .then( res => { return res.json() })
+        .catch( err => console.log( 'DELETE error:', err ));    
+
+        respuesta.then(data => {
+            if (data.suceed) {
+                jQuery(this).closest('tr').remove();
+                console.log('[v] Registro actualizado con éxito.(' + data.stats.affected_rows + ')');
+            } else {
+                console.log("Error: ", data.stats.error);
+            }
+        });
+    }
+    
+})
+
+btncliente.on('change', () => {
+    
+    const id_empresa = btncliente.val();
+    const reporte = inputReporte.val();
+    
+    if(!id_empresa=='') {
+        
+        contenido = '<div class="alert alert-info">\
+        <span>Espere un momento, estamos consultando las publicaciones de este cliente...</span></div>';
+        listado.html(contenido);
+
+        var data = {
+            accion: 'listar',
+            reporte: reporte,
+            id_empresa: id_empresa
+        };
+
+        alert.addClass('hidden');
+
+        fetch('/contabilidad/api.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( data )
+        })
+        .then( res => res.json() )
+        .then( res => listarPublicaciones(res))
+        .catch( err => console.log( 'POST error:', err ));
+    }
+    
+    
+
+})

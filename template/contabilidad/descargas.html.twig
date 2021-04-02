@@ -18,7 +18,7 @@
             <div class="row show-grid clear-both">
                 <!-- BEGIN ARTICLE CONTENT AREA -->
                 <div class="col-md-9 col-sm-9 main-column two-columns-right">
-                <h2 style="border-bottom: 3px solid #b04229;">{{doc|replace({'_':' '})}}</h2>
+                <h2 style="border-bottom: 3px solid #b04229;">{{ doc? doc|replace({'_':' '}) : titulo|title }}</h2>
                 {% if archivos %}
                     <ul>
                     {% for archivo in archivos %}
@@ -28,10 +28,14 @@
                     {% endfor %}
                     </ul>
                 {% else %}
-                    <div class="alert alert-error">
-                        <h2>Lo sentimos mucho....</h2>
-                        No existen documentos publicados.
-                    </div>
+                    {% if listado %}
+                        {% include 'misc/listado.contabilidad.html.twig' %}
+                    {% else %}
+                        <div class="alert alert-error">
+                            <h2>Lo sentimos mucho....</h2>
+                            No existen documentos publicados.
+                        </div>
+                    {% endif %}
                 {% endif %}
                         
                         

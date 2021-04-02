@@ -1,0 +1,21 @@
+{# Pantilla para mostrar resultados de operaciones #}
+{% if resultado %}
+<div class="alert alert-{{resultado.suceed == true? 'success':'error' }}">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <h2>{{resultado.suceed ? 'Bien! ' : 'Ups! '}} {{resultado.titulo|capitalize|nl2br}}</h2>
+    <p>{{resultado.mensaje}}</p>
+    {% if not resultado.suceed %}
+        {% if resultado.stats.errno == 1062 %}
+        <p>Ya se encuentra registrado este archivo. Debe eliminar la publicación existen e intentar nuevamente.</p>
+        {% else %}
+        <p>{{resultado.stats.error}}</p>
+        {% endif %}
+    {% endif %}
+
+    {% if constant('DEBUG')%}
+    <pre>
+        {{dump(resultado)}}
+    </pre>
+    {%endif %}
+</div>
+{% endif %}

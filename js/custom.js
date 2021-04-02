@@ -260,14 +260,17 @@ jQuery(document).ready(function ($) {
             dataType: 'json',
             type: 'GET',
             success: function (data) {
-                console.log(`Tasa del día: ${data.usd}`);
-                const tasa = `<span id='tasabcv' class="bold" style="font-size:16px">${data.usd.formatCurrency()}<span>`;
-                const t = Date.now();
-                const fecha = new Date(t);
-                console.log(fecha.toLocaleDateString());
-                //tasa.text(data.usd.formatCurrency());
-                tasa_cambio.append(tasa)
-                .prepend(`Tasa de cambio BCV al ${fecha.toLocaleDateString()} `);
+                if(!data.usd===null) {
+                    console.log(`Tasa del día: ${data.usd}`);
+                    const tasa = `<span id='tasabcv' class="bold" style="font-size:16px">${data.usd.formatCurrency()}<span>`;
+                    const t = Date.now();
+                    const fecha = new Date(t);
+                    console.log(fecha.toLocaleDateString());
+                    //tasa.text(data.usd.formatCurrency());
+                    tasa_cambio.append(tasa)
+                    .prepend(`Tasa de cambio BCV al ${fecha.toLocaleDateString()} `);
+                }
+                
             }
         });
     }

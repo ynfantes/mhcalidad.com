@@ -6,3 +6,5 @@
 *.code-workspace
 
 data/
+contabilidad/documentos
+.hataccess

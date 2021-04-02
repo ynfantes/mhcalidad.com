@@ -1,0 +1,33 @@
+{% if listado.stats.affected_rows == 0 %}
+    <div class="alert alert-danger"><span>No hay publicados reportes, de este tipo, para este cliente.</span></div>
+{% else %}
+<table class="table table-bordered table-striped responsive-utilities">
+<thead>
+    <tr>
+        <th style="text-align: center">Periodo</th>
+        <th style="text-align: center">Archivo</th>
+        {# <th style="text-align: center">Acción</th> #}
+    </tr>
+</thead>
+<tbody>
+{% for reg in listado.data %}
+    {% set periodo = '' %}
+    {% set yy = '' %}
+    {% set mm = '' %}
+    {% set pe = '' %}
+    {% if reg.mes %}
+        {% set periodo = reg.mes|split('-') %}
+        {% set yy = periodo[0] %}
+        {% set mm = periodo[1] %}
+    {% endif %}
+    {% if reg.periodicidad %}
+        {% set pe = reg.periodicidad =='' ? '' : reg.periodicidad ~ 'º Quin. ' %}
+    {% endif %}
+    <tr>
+        <td style="text-align: center">{{pe}}{{mm}}-{{yy}}</td>
+        <td><a href=/contabilidad/documentos/{{reg.archivo}} target="_blank">{{reg.archivo}}</a></td>
+        {# <td><a data-item={{reg.id}} href="#" class="btn-eliminar">Eliminar</a></td> #}
+    </tr>
+{% endfor %}
+</tbody></table>
+{% endif %}
