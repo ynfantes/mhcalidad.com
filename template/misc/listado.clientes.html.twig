@@ -1,0 +1,45 @@
+<div class="col-md-12 col-sm-12 main-column">
+<h2><a href="#">Clientes/Empresa</a></h2>
+<a href="{{constant('ROOT')}}contabilidad/mantenimiento/registrar-nuevo" class="btn btn-danger" style="margin-bottom:10px">Registrar Nuevo</a>
+{% if listado|length == 0 %}
+    <div class="alert alert-danger"><span>No existen clientes registrados.</span></div>
+{% else %}
+<table class="table table-bordered table-striped responsive-utilities">
+<thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Rif</th>
+        <th>Contacto</th>
+        <th>E-mail</th>
+        {# <th>Teléfono</th> #}
+        <th>Clave</th>
+        <th>Acciones</th>
+        {# <th>Acción</th> #}
+
+    </tr>
+</thead>
+<tbody>
+{% for reg in listado %}
+    <tr>
+        <td>
+        <a 
+        href="{{constant('ROOT')}}contabilidad/mantenimiento/?accion=editar-cliente&id={{reg.Id}}" 
+        class="editar-cliente">
+        {{reg.nombre}}
+        </a></td>
+        <td>{{reg.rif}}</td>
+        <td>{{reg.persona_contacto}}</td>
+        <td>{{reg.email}}</td>
+        {# <td>{{reg.numero_contacto}}</td> #}
+        <td>{{reg.clave}}</td>
+        <td align="center">
+        <a href="#" data-item="{{reg.Id}}" title="Eliminar cliente" class="btn-eliminar-cliente"><i class="fa fa-trash-o fa-2x"></i></a>&nbsp;
+        <a href="#" data-item="{{reg.Id}}" data-status="{{reg.inactiva}}" class="cambiar-status-cliente" title="{{reg.inactiva==0 ? 'Desactivar': 'Activar'}} Cliente"><i class="fa fa-{{reg.inactiva==0 ? 'minus': 'plus'}}-circle fa-2x"></i></a>
+        </td>
+        {# <td><a data-item={{reg.id}} href="#" class="btn-eliminar">Inactivar</a></td> #}
+    </tr>
+{% endfor %}
+</tbody></table>
+{% endif %}
+<div class="text-divider5"><span></span></div>
+</div>

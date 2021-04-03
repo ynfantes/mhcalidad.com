@@ -3,7 +3,6 @@ const listado       = jQuery('#lista_publicaciones');
 const btncliente    = jQuery('#id_empresa');
 const inputReporte  = jQuery('input[name="reporte"]');
 const alert         = jQuery('article > div.alert');
-const btneliminar   = jQuery('.btn-eliminar');
 
 function listarPublicaciones(datos) {
     
@@ -58,7 +57,81 @@ function listarPublicaciones(datos) {
 
 
 }
+// Cambiar Estaus Cliente/Empresa
+jQuery(document).on('click', '.cambiar-status-cliente', function(e) {
+    e.preventDefault();
+    const confirma = confirm("¿Seguro desea cambiar el estatus de este cliente?");
 
+    if (confirma) {    
+
+        $item   = jQuery(this).data('item');
+        $status = jQuery(this).attr('data-status') == 0 ? 1 : 0;
+        
+        const data = { 
+            item: $item,
+            status: $status 
+        };
+
+        const respuesta = fetch('/contabilidad/mantenimiento/index.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( data )
+        })
+        .then( res => { return res.json() })
+        .catch( err => console.log( 'POST error:', err ));    
+
+        respuesta.then(data => {
+            if (data.suceed) {
+                jQuery(this).attr('data-status', $status);
+                icono = $status == 0 ? 'minus' : 'plus';
+                titulo = $status == 0 ? 'Desactivar' : 'Activar';
+                jQuery(this).attr('title',titulo + ' Cliente');
+                contenido = `<i class="fa fa-${icono}-circle fa-2x"></i>`;
+                jQuery(this).html(contenido);
+                console.log('[v] Registro actualizado con éxito.(' + data.stats.affected_rows + ')');
+            } else {
+                console.log("Error: ", data.stats.error);
+            }
+        });
+    }
+});
+
+// Eliminar cliente
+jQuery(document).on('click', '.btn-eliminar-cliente', function(e) {
+    e.preventDefault();
+    const cliente = jQuery(this).closest('tr').find('td:eq(0)');
+    
+    const confirma = confirm("Se dispone a eliminar al cliente:" + cliente.text() + "Presione [Aceptar] para confirmar");
+
+    if (confirma) {
+        const data = {
+            id : jQuery(this).data('item')
+        };
+        const respuesta = fetch('/contabilidad/mantenimiento/index.php', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify( data )
+        })
+        .then( res => { return res.json() })
+        .catch( err => console.log( 'DELETE error:', err ));
+
+        respuesta.then(data => {
+            if (data.suceed) {
+                jQuery(this).closest('tr').remove();
+                console.log('[v] Cliente eliminado con éxito.(' + data.stats.affected_rows + ')');
+            } else {
+                console.log("Error: ", data.stats.error);
+            }
+        });    
+    }
+    
+})
+
+// Eliminar publicacion
 jQuery(document).on('click', '.btn-eliminar', function(e) {
     e.preventDefault();
     
