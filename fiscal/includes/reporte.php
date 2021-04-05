@@ -35,7 +35,9 @@ class reporte extends db implements crud {
 
     public function ver($id) {
         return $this->select("*", self::tabla, Array("id"=>$id));
-    }    
-}
+    }
 
-?>
+    public function obtenerReportePorMenu($menu) {
+        return $this->select("*", self::tabla, Array("menu"=>$menu));
+    }
+}

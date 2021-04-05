@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set("America/Caracas");
-$debug          = true;
+$debug          = false;
 $sistema        = "/";
 $email_error    = false;
 $mostrar_error  = true;

@@ -1,0 +1,142 @@
+{# indice #}
+{% extends 'layout/fiscal.html.twig'%}
+{% block titulo %}{% endblock %}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+<div class="row show-grid">
+<div
+class="col-md-12 col-sm-12">
+<!-- BREADCRUMBS -->
+<div id="breadcrumb">
+    <ul>
+        <li class="home">
+            <a href="{{constant('ROOT')}}contabilidad/">MH Calidad Administración y Contabilidad</a>
+        </li>
+        <li>{{session.usuario}}</li>
+    </ul>
+</div>
+<div class="row show-grid clear-both">
+<!-- BEGIN ARTICLE CONTENT AREA -->
+<div class="col-md-12 col-sm-12">
+<h2>Registrar Cliente</h2>
+<form 
+    id="frmCliente" 
+    name="frmCliente" 
+    method="POST" 
+    action= "{{constant('ROOT')}}fiscal/mantenimiento/" 
+    enctype="application/json">
+    {% if accion %}
+        <input type="hidden" name="accion" value="{{accion}}" />
+        <input type="hidden" name="id" value="{{cliente.Id}}" />
+    {% endif %}
+    {# nombre #}
+    <div class="row">
+        <div class="form-group col-md-8 col-sm-8">
+            <label class="control-label" for="nombre">Nombre ó Razón Social</label>
+            <input id="nombre" name="nombre" class="required form-control" value="{{cliente.nombre}}" />
+        </div>
+    </div>
+    {# Rif y Persona Contacto #}
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="rif">RIF</label>
+            <input id="rif" name="rif" class="form-control" value="{{cliente.rif}}" />
+        </div>
+        <div class="form-group col-md-5">
+            <label for="persona_contacto">Persona Contacto</label>
+            <input id="persona_contacto" name="persona_contacto" class="form-control" value="{{cliente.persona_contacto}}" />
+        </div>
+    </div>
+    {# Email y Celular #}
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" class="email form-control" value="{{cliente.email}}" />
+        </div>
+        <div class="form-group col-md-4">
+            <label for="numero_celular">Número Celular</label>
+            <input id="numero_celular" name="numero_celular" class="form-control" value="{{cliente.numero_celular}}" />
+        </div>
+    </div>
+    {# Clave de acceso #}
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="clave">Contraseña</label>
+            <input id="clave" name="clave" class="required form-control" value="{{cliente.clave}}" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="control-group form-button-offset col-md-6 col-sm-6">
+            <input type="submit" value="Guardar" class="btn btn-danger">
+        </div>
+    </div>
+</form>
+<br />
+<div class="text-divider5"><span></span></div>
+</div>
+<!-- END ARTICLE CONTENT AREA -->
+</div>
+</div>
+</div>
+</div>
+<!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+<div class="recent-tweets">
+<div class="container">
+<div class="row show-grid">
+    <div class="col-sm-12 col-md-12 twitter-wrapper">
+        <div id="nav_t"></div>
+        <div class="cartelera-slide" data-url="{{constant('ROOT')}}">
+            <ul class="slides"></ul>
+        </div>
+        <span class="follow_img"><img alt="" src="{{constant('ROOT')}}img/mhcalidad_informa.png" class="img-responsive"/></span>
+    </div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+{{parent()}}
+<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-validate/jquery.validate.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/contabilidad.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	
+	$("#frmCliente").validate({
+        rules: {
+            clave : {
+                minlength: 4,
+                maxlength: 10
+            }
+        },
+        messages : {
+			nombre: {
+				required: "Escriba el nombre del cliente"
+			},
+            clave: {
+                required: "Ingrese la contraseña de este cliente",
+                minlength: "La contraseña debe tener mínimo cuatro (4) caracteres",
+                maxlength: "La contraseña no puede exceder de 10 caracteres"
+            }
+		},
+		errorElement : 'span',
+		errorClass : 'error',
+		errorPlacement : function(error, element) {
+			if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+				$(".error").show();
+			} else {
+				if (element.parent('.input-group').length) {
+					error.insertAfter(element.parent());
+				} else {
+					error.insertAfter(element);
+				}
+			}
+		}
+	});
+});
+</script>
+{% endblock %}

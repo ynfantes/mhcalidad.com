@@ -4,7 +4,7 @@
  */
 include_once('./includes/db.php');
 $db = new db();
-$re = $db->select("*","empresa",Array("clave"=>"'".filter_input(INPUT_POST, "clave")."'"));
+$re = $db->select("*","empresa",Array("clave"=>filter_input(INPUT_POST, "clave")));
 
 if ($re["suceed"] == true ) {
     

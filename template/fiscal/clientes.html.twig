@@ -1,0 +1,55 @@
+{# indice #}
+{% extends 'layout/fiscal.html.twig'%}
+{% block titulo %}
+{% endblock %}
+{% block contenido %}
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+<div class="container">
+    <div class="row show-grid">
+        <div class="col-md-12 col-sm-12">
+            <!-- BREADCRUMBS -->
+            <div id="breadcrumb">
+                <ul>
+                    <li class="home">
+                        <a href="{{constant('ROOT')}}fiscal/">MH Calidad Administración Fiscal</a>
+                    </li>
+                    <li>{{session.usuario}}</li>
+                </ul>
+            </div>
+            <div class="row show-grid clear-both">
+                <!-- BEGIN ARTICLE CONTENT AREA -->
+                    {% include 'misc/resultado.html.twig' %}
+                    {% if listado %}
+                        {% include 'misc/listado.clientes.fiscal.html.twig' %}
+                    {% else %}
+                        <div class="alert alert-error">
+                            <h2>UPS! Lo sentimos mucho....</h2>
+                            No podemos mostrar la lista de Clientes/Empresas registradas
+                        </div>
+                    {% endif %}
+                    <!-- END ARTICLE CONTENT AREA -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+<div class="recent-tweets">
+<div class="container">
+<div class="row show-grid">
+<div class="col-sm-12 col-md-12 twitter-wrapper">
+<div id="nav_t"></div>
+<div class="cartelera-slide" data-url="{{constant('ROOT')}}">
+<ul class="slides"></ul>
+</div>
+<span class="follow_img"><img alt="" src="{{constant('ROOT')}}img/mhcalidad_informa.png" class="img-responsive" /></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+<script type="text/javascript" src="{{constant('ROOT')}}js/fiscal.js"></script>
+{% endblock %}

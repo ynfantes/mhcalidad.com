@@ -11,7 +11,7 @@
             <div id="breadcrumb">
                 <ul>
                     <li class="home"><a href="#">MH Calidad Administración Fiscal</a></li>
-                    <li>{{ tipo }}</li>
+                    <li>{{session.usuario.nombre}}</li>
                 </ul>
             </div>
             <div class="row show-grid clear-both">
@@ -19,7 +19,7 @@
                 <div class="col-md-9 col-sm-9 main-column two-columns-right">
                     <article>
                         <header>
-                            <h1 class="font-md">{{ tipo }}</h1>
+                            <h1 class="font-md">{{ reporte.descripcion }}</h1>
                         </header>
                         {% if libros %}
                         <table class="table table-bordered table-striped responsive-utilities">

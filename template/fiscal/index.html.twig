@@ -14,12 +14,22 @@
                     <li>Bienvenido</li>
                 </ul>
             </div>
+            {% set administrador = (session.usuario == 'Administrador') %}
             <div class="row show-grid clear-both">
                 <!-- BEGIN ARTICLE CONTENT AREA -->
                 <div class="col-md-9 col-sm-9 main-column two-columns-right">
                     <article>
-                        <h2><small>Estimado(a): </small>{{ session.usuario.razon_social }}</h2>
-                        <p style="font-size: 14px">Bienvenido(a) al área de clientes de MH Calidad Administrativa <strong>(Administración Fiscal)</strong>, queremos poner a su disposición un canal de comunicación contínuo.</p>
+                        <h2><small>Estimado(a): </small>{{ administrador ? session.usuario : session.usuario.nombre }}</h2>
+                        <p style="font-size: 14px">
+                        {% if administrador %}
+                            Esta usted en el panel de de control del área de Administración Fiscal de MH Calidad Administrativa.
+                            Desde esta área podra publicar todos los reportes relacionados con esta área.<br/>
+                            Le recuerdo que el formato de los archivos que va a publicar deben ser PDF.
+                        {% else %}
+                            Bienvenido(a) al área de clientes de MH Calidad Administrativa <strong>(Administración Fiscal)</strong>, 
+                            queremos poner a su disposición un canal de comunicación contínuo.
+                        {% endif %}
+                        </p>
                         <div class="text-divider5">
                         <span></span>
                         </div>
@@ -61,8 +71,4 @@
 </div>
 </div>
 </div>
-{% endblock %}
-{% block js %}
-{{ parent() }}
-
 {% endblock %}

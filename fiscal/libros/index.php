@@ -2,83 +2,67 @@
 include_once '../includes/constants.php';
 
 session_start();
-$session = $_SESSION;
 
-$accion = isset($_GET['accion']) ? $_GET['accion'] : "";
+$accion     = isset($_GET['accion']) ? $_GET['accion'] : "";
 $reporte_id = isset($_GET['id']) ? $_GET['id']:'';
 
-switch ($accion) {
+if ($_SESSION["usuario"] === "Administrador") {
+
+    menuAdministrador($accion,$reporte_id,$twig);
+
+} else {
+
+    menuCliente($accion,$reporte_id,$twig);
+
+} 
+
+function menuAdministrador($accion,$reporte_id,$twig) {
+    $data = array();
+    $reporte = array();
+
+    $empresas = new empresa();
+    $reportes = new reporte();
+
+    $clientes = $empresas->listarEmpresasActivas();
+    $data = array();
+    if ($clientes['suceed'] && count($clientes['data'])>0) {
+        $data = $clientes['data'];
+    }
+
+    $result = $reportes->obtenerReportePorMenu($reporte_id);
     
-    // <editor-fold defaultstate="collapsed" desc="libro ventas">
-    case 'ventas':
+    if ($result['suceed'] && count($result['data'])>0) {
+        $reporte = $result['data'][0];
+    }
+    
+    echo $twig->render(
+        'fiscal/cargas.html.twig',
+        array(
+            'reporte'   => $reporte,
+            'clients'   => $data,
+            'session'   => $_SESSION
+            )
+    );
+}
+
+function menuCliente($accion,$reporte_id,$twig) {
+    
+    $publicado = new publicacion();
+    $reportes = new reporte();
+
+    $result = $reportes->obtenerReportePorMenu($reporte_id);
+    
+    if ($result['suceed'] && count($result['data'])>0) {
+        $reporte = $result['data'][0];
+    }
+    
+    $libros = $publicado->listarReportePorLibroyEmpresa($_SESSION['usuario']['Id'], $reporte['id']);
+    
+    echo $twig->render('fiscal/libro.html.twig', array(
+        "session"   => $_SESSION,
+        "libros"    => $libros['data'],
+        "reporte"   => $reporte
+            )
+    );
         
-        $publicado = new publicacion();
-        
-        $lista = $publicado->listarReportePorLibroyEmpresa($_SESSION['usuario']['Id'], 0);
-        $libros = Array();
-        if ($lista['suceed']) {
-            $libros = $lista['data'];
-
-        }
-        
-        echo $twig->render('fiscal/libro.html.twig', array(
-            "session"   => $session,
-            "libros"    => $libros,
-            "tipo"      => "Libro de Ventas"
-                )
-        );
-        break; // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="libro compras">
-    case 'compras':
-
-        $publicado = new publicacion();
-
-        $lista = $publicado->listarReportePorLibroyEmpresa($_SESSION['usuario']['Id'], 0);
-        $libros = Array();
-        if ($lista['suceed']) {
-            $libros = $lista['data'];
-
-        }
-        echo $twig->render('fiscal/libro.html.twig', array(
-            "session" => $session,
-            "libros"  => $libros,
-            "tipo"    => "Libro de Compras"
-                )
-        );
-        break; // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="libro resumen">
-    case 'resumen':
-        $publicado = new publicacion();
-        $lista = $publicado->listarReportePorLibroyEmpresa($_SESSION['usuario']['Id'], 2);
-        $libros = Array();
-        if ($lista['suceed']) {
-            $libros = $lista['data'];
-
-        }
-        echo $twig->render('fiscal/libro.html.twig', array(
-            "session"   => $session,
-            "libros"    => $libros,
-            "tipo"      => "Libro Resumen"
-                )
-        );
-        break; // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="reportes">
-    case 'reporte':
-        $publicado = new publicacion();
-        $reporte = new reporte();
-        $libros = $publicado->listarReportePorLibroyEmpresa($_SESSION['usuario']['Id'], $reporte_id);
-        $r = $reporte->ver($reporte_id);
-        echo $twig->render('fiscal/libro.html.twig', array(
-            "session"   => $session,
-            "libros"    => $libros['data'],
-            "tipo"      => $r['data'][0]['descripcion']
-                )
-        );
-        break; // </editor-fold>
-
-    default:
-        break;
 }

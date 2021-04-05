@@ -88,10 +88,17 @@ switch ($accion) {
                     $inmueble = $inmuebles->ver($id_inmueble);
                     $junta = $junta_condominio->listarJuntaPorInmueble($id_inmueble);
                     
-                        if (count($junta['data'])>0) {
-                        $miembros[] = Array("inmueble" => $inmueble['data'][0],
-                            "miembros" => $junta['data']);
-                        }
+                    if (count($junta['data'])>0) {
+
+                        for ($index = 0; $index < count($junta['data']); $index++) {
+                            $prop = $propietario->obtenerDatosPropietario($junta['data'][$index]['cedula']);
+                            $junta['data'][$index]['propietario']=$prop['data'][0];
+                        }                        
+                        $miembros[] = Array(
+                            "inmueble" => $inmueble['data'][0],
+                            "miembros" => $junta['data']
+                        );
+                    }
                 }
             }
         }

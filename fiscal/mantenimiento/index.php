@@ -49,7 +49,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
         );
 
         echo $twig->render(
-            'contabilidad/clientes.html.twig',
+            'fiscal/clientes.html.twig',
             $opciones
         );
 
@@ -71,6 +71,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
 } else {
     
     $accion = isset($_GET['accion']) ? $_GET['accion'] : '';
+    
     switch ($accion) {
         
         case 'editar-cliente':
@@ -83,7 +84,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
                 }
             }
             echo $twig->render(
-                'contabilidad/cliente.nuevo.html.twig',
+                'fiscal/cliente.nuevo.html.twig',
                 Array(
                     'session'   => $_SESSION,
                     'cliente'   => $cliente,
@@ -105,7 +106,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
             );
 
             echo $twig->render(
-                'contabilidad/clientes.html.twig',
+                'fiscal/clientes.html.twig',
                 $opciones
             );
             break;
@@ -113,7 +114,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
         case 'registrar-nuevo':
             
             echo $twig->render(
-                'contabilidad/cliente.nuevo.html.twig',
+                'fiscal/cliente.nuevo.html.twig',
                 Array(
                     'session'   => $_SESSION
                 )
@@ -137,7 +138,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
             );
 
             echo $twig->render(
-                'contabilidad/clientes.html.twig',
+                'fiscal/clientes.html.twig',
                 $opciones
             );
 
@@ -145,7 +146,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
 
         case 'cambiar-status-cliente':
             $data = $_POST;
-            // var_dump($data);
+            var_dump($data);
             echo json_enconde($data);
             break;
         default:

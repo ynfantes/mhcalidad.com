@@ -4,7 +4,11 @@ session_start();
 $session = $_SESSION;
 
 if (isset($session['status']) && $session['status'] == 'logueado') {
-    echo $twig->render('fiscal/index.html.twig',array("session" => $session));
+    echo $twig->render(
+        'fiscal/index.html.twig',
+        array(
+            "session" => $session
+        ));
 } else {
-    header("location:" . ROOT . "fiscal.html");
+    header("location:".ROOT."fiscal.html");
 }

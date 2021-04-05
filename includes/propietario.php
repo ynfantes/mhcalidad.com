@@ -271,4 +271,8 @@ class propietario extends db implements crud  {
         }
         return $pagado;
     }
+
+    public function obtenerDatosPropietario($cedula){
+        return db::select("*", self::tabla,Array("cedula"=>$cedula),null,null,null,1);
+    }
 }

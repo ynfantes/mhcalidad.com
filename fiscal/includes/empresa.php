@@ -36,38 +36,9 @@ class empresa extends db implements crud {
     
     public function login($clave) {
         return $clave;
-        
-//        if ($clave!="") {
-//            
-//            $result = $this->select("*",self::tabla,Array("clave"=>$clave));
-//            
-//            if ($result['suceed'] == 'true' && count($result['data']) > 0) {
-//
-//                session_start();
-//                $_SESSION['usuario'] = $result['data'][0];
-//                $_SESSION['status'] = 'logueado';
-//                //header("location:" . URL_SISTEMA );
-//                die("location:" . URL_SISTEMA);
-//                
-//                return $result;        
-//
-//           } else {
-//
-//                $result['suceed'] = false;
-//                $result['error'] = "Clave inválida.";
-//
-//                return $result;
-//
-//            }
-//
-//        } else {
-//
-//            $result['suceed'] = false;
-//            $result['error'] = "Cédula de Identidad y/o password requerído.";
-//            return $result;
-//
-//        }
+    }
 
+    public function listarEmpresasActivas() {
+        return $this->select("*", self::tabla, Array("inactiva"=>0));
     }
 }
-?>

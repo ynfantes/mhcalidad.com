@@ -158,7 +158,7 @@ Class db {
                 
                 if ($condicion != null) {
                     if (count(array_keys($condicion)) == 1) {
-                        $query.= " where " . key($condicion) . " = " . $condicion[key($condicion)];
+                        $query.= " where " . key($condicion) . " = '" . $condicion[key($condicion)]."'";
                     } else {
                         $columnasCondicion = array_keys($condicion);
                         $valoresCondicion = array_values($condicion);

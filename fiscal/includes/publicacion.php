@@ -12,7 +12,7 @@
  */
 class publicacion extends db implements crud {
     
-    const tabla = "reporte_publicado";
+    const tabla = "publicaciones";
     
     public function actualizar($id, $data) {
         return $this->update(self::tabla, $data, Array("id"=>$id));
@@ -49,9 +49,24 @@ class publicacion extends db implements crud {
             return false;
         }
     }
-    
+    public function listarReportes($id_empresa, $reporte) {
+        $query = 'select publicaciones.*, publicaciones.id pid,
+            publicaciones.quincena pquincena, reporte.* 
+            from publicaciones join reporte 
+            on publicaciones.reporte = reporte.id
+            where id_empresa='.$id_empresa.' and reporte='.$reporte.' order by 
+            publicaciones.periodo DESC, publicaciones.quincena ASC';
+            ;
+        return $this->dame_query($query);
+
+    }
+
     public function listarReportePorLibroyEmpresa($empresa,$libro) {
-        return $this->select("*", self::tabla, Array("empresa_id"=>$empresa,"reporte_id"=>$libro),null,Array("periodo"=>"desc"));
+        return $this->select("*", self::tabla, 
+        Array(
+            "id_empresa"    => $empresa,
+            "reporte"       => $libro
+        ),null,Array("periodo"=>"desc"));
     }
 }
 
