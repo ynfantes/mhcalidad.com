@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="{{constant('ROOT')}}css/styler.css" />
 <link rel="stylesheet" href="{{constant('ROOT')}}css/isotope.css" />
 <link rel="stylesheet" href="{{constant('ROOT')}}css/color_scheme.css" />
-<link rel="stylesheet" href="{{constant('ROOT')}}css/floating-wpp.min.css" />
+<!--link rel="stylesheet" href="{{constant('ROOT')}}css/floating-wpp.min.css" /-->
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="{{constant('ROOT')}}css/font-awesome.min.css" />
 {# <link rel="stylesheet" href="{{constant('ROOT')}}css/font-awesome-ie7.css" /> #}
@@ -72,7 +72,7 @@
 {% include 'misc/footer.html.twig' %}
 </div>
  </div>
- <div id="WAButton"></div>
+ {# <div id="WAButton"></div> #}
 {% block js %}
 <!-- Placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="{{ constant('ROOT') }}js/jquery-1.7.1.min.js"></script>
@@ -85,7 +85,20 @@
 <script type="text/javascript" src="{{ constant('ROOT')}}rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 <script type="text/javascript" src="{{ constant('ROOT')}}js/revolution.custom.js"></script>
 <script type="text/javascript" src="{{ constant('ROOT')}}js/custom.js"></script>
-<script type="text/javascript" src="{{constant("ROOT")}}js/floating-wpp.min.js"></script>
+<!--script type="text/javascript" src="{#{constant("ROOT")}#}js/floating-wpp.min.js"></script-->
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/606def56f7ce182709380d30/1f2mmtr88';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

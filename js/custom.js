@@ -294,6 +294,7 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    
     /*$(function(){
         url = 'http://www.eluniversal.com/rss/eco_avances.xml';
         $.ajax({
