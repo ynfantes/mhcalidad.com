@@ -52,7 +52,7 @@ Class db {
             $this->mysqli->set_charset('utf8');
             
         } catch (Exception $exc) {
-            echo $this->mysqli->connect_errno . " " . $this->mysqli->connect - error;
+            echo $this->mysqli->connect_errno + " " + $this->mysqli->connect - error;
             echo $exc->getTraceAsString();
             exit("No se pudo conectar con la Base de Datos. Consulte al administrador del sistema.");
         }
