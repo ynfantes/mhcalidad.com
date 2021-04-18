@@ -3,115 +3,115 @@
 {% block titulo %}
 {% endblock %}
 {% block contenido %}
-    <!-- MAIN CONTENT AREA -->
-    <div class="main-content">
-        <div class="container">
-            <div class="row show-grid">
-                <div class="col-md-12 col-sm-12">
-                    <!-- BREADCRUMBS -->
-                    <div id="breadcrumb">
-                        <ul>
-                            <li class="home"><a href="{{ constant('URL_SISTEMA') }}">MH Calidad Condominios</a></li>
-                            <li>Carta de Residencia</li>
-                        </ul>
-                    </div>
-                    <div class="row show-grid clear-both">
-                        <!-- BEGIN ARTICLE CONTENT AREA -->
-                        <div class="col-md-9 col-sm-9 main-column two-columns-right">
-                            <article>
-                                {% if propiedades %}
-                                    <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-0" data-widget-colorbutton="false"	
-                                             data-widget-editbutton="false"
-                                             data-widget-togglebutton="false"
-                                             data-widget-deletebutton="false"
-                                             data-widget-fullscreenbutton="false"
-                                             data-widget-custombutton="false"
-                                             data-widget-sortable="false">
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+    <div class="container">
+        <div class="row show-grid">
+            <div class="col-md-12 col-sm-12">
+                <!-- BREADCRUMBS -->
+                <div id="breadcrumb">
+                    <ul>
+                        <li class="home"><a href="{{ constant('URL_SISTEMA') }}">MH Calidad Condominios</a></li>
+                        <li>Carta de Residencia</li>
+                    </ul>
+                </div>
+                <div class="row show-grid clear-both">
+                    <!-- BEGIN ARTICLE CONTENT AREA -->
+                    <div class="col-md-9 col-sm-9 main-column two-columns-right">
+                        <article>
+                            {% if propiedades %}
+                                <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-0" data-widget-colorbutton="false"	
+                                            data-widget-editbutton="false"
+                                            data-widget-togglebutton="false"
+                                            data-widget-deletebutton="false"
+                                            data-widget-fullscreenbutton="false"
+                                            data-widget-custombutton="false"
+                                            data-widget-sortable="false">
 
-                                            <header>
-                                                <h2 class="font-md"><a href="#">Lista de Propiedades</a></h2>
-                                            </header>
-                                            <!-- widget div-->
-                                            <div>
+                                        <header>
+                                            <h2 class="font-md"><a href="#">Lista de Propiedades</a></h2>
+                                        </header>
+                                        <!-- widget div-->
+                                        <div>
 
-                                                <!-- widget content -->
-                                                <div class="widget-body">
-                                                    <div class="table-responsive">
-                                                        <table  class="table table-bordered table-striped responsive-utilities">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th style="text-align: center">Codigo Inmueble</th>
-                                                                    <th style="text-align: center">Apartamento</th>
-                                                                    <th style="text-align: center">Acción</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {% for propiedad in propiedades %}
-                                                                    {% if condominio.inmueble.id == miembro.id_inmueble %}
-                                                                        {% set cedula = miembro.cedula %}
-                                                                        <tr>
-                                                                            <td>{{propiedad.id_inmueble}}</td>
-                                                                            <td>{{propiedad.apto}}</td>
-                                                                            <td><a href="#" data-toggle="modal" data-target="#loginModal" id="to-imprimir-link">Imprimir</a></td>
-                                                                        </tr>
-                                                                    {% endif %}
-                                                                {% endfor %}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-
+                                            <!-- widget content -->
+                                            <div class="widget-body">
+                                                <div class="table-responsive">
+                                                    <table  class="table table-bordered table-striped responsive-utilities">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="text-align: center">Codigo Inmueble</th>
+                                                                <th style="text-align: center">Apartamento</th>
+                                                                <th style="text-align: center">Acción</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for propiedad in propiedades %}
+                                                                {% if condominio.inmueble.id == miembro.id_inmueble %}
+                                                                    {% set cedula = miembro.cedula %}
+                                                                    <tr>
+                                                                        <td>{{propiedad.id_inmueble}}</td>
+                                                                        <td>{{propiedad.apto}}</td>
+                                                                        <td><a href="#" data-toggle="modal" data-target="#loginModal" id="to-imprimir-link">Imprimir</a></td>
+                                                                    </tr>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <!-- end widget content -->
 
                                             </div>
-                                            <!-- end widget div -->
+                                            <!-- end widget content -->
 
                                         </div>
-                                {% else %}
-                                    <div class="alert alert-danger">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <h2 class="alert-heading">Ups! Lo sentimos</h2>
-                                        No conseguimos la información asociada a sus propiedades. Contacte con el administrador
+                                        <!-- end widget div -->
+
                                     </div>
-                                {% endif %}
-                            </article>
-                            <!-- END ARTICLE CONTENT AREA -->
-                        </div>
-                        <!-- BEGIN LEFT-SIDEBAR -->
-                        <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
-                            <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
-                            <div class="side-nav sidebar-block">
-                                <h2>Este sitio web es gestionado por</h2>
-                                <ul class="mini-clients">
-                                    <li>
-                                        <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
-                                            <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo_valoriza_gestion.jpg">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>                                
-                        </div>
-                        <!-- END LEFT-SIDEBAR -->
+                            {% else %}
+                                <div class="alert alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <h2 class="alert-heading">Ups! Lo sentimos</h2>
+                                    No conseguimos la información asociada a sus propiedades. Contacte con el administrador
+                                </div>
+                            {% endif %}
+                        </article>
+                        <!-- END ARTICLE CONTENT AREA -->
                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
-        <div class="recent-tweets">
-            <div class="container">
-                <div class="row show-grid">
-                    <div class="col-sm-12 col-md-12 twitter-wrapper">
-                        <div id="nav_t"></div>
-                        <div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
-                            <ul class="slides"></ul>
-                        </div>
-                        <span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+                    <!-- BEGIN LEFT-SIDEBAR -->
+                    <div id="left-sidebar" class="col-md-3 col-sm-3 sidebar"> 
+                        <!-- LEFT-SIDEBAR: SIDEBAR NAVIGATION -->
+                        <div class="side-nav sidebar-block">
+                            <h2>Este sitio web es gestionado por</h2>
+                            <ul class="mini-clients">
+                                <li>
+                                    <a href="http://www.administracion-condominio.com.ve" title="Sistema de Administración de Condominio" target="_blank" style="background: none;">
+                                        <img class="img-responsive" alt="" src="{{ constant('ROOT') }}img/logo_valoriza_gestion.jpg">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>                                
                     </div>
+                    <!-- END LEFT-SIDEBAR -->
                 </div>
             </div>
         </div>
     </div>
-                        <!-- Reset Password Modal -->
+    <!-- MAIN CONTENT AREA: bizstrap CUSTOM - RECENT TWEETS BAR -->
+    <div class="recent-tweets">
+        <div class="container">
+            <div class="row show-grid">
+                <div class="col-sm-12 col-md-12 twitter-wrapper">
+                    <div id="nav_t"></div>
+                    <div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+                        <ul class="slides"></ul>
+                    </div>
+                    <span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Reset Password Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
 <div class="modal-dialog">
 <div class="modal-content">

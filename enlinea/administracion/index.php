@@ -9,7 +9,6 @@ if (!$_SESSION['cpanel']) {
 $accion = isset($_GET['accion']) ? filter_input(INPUT_GET, 'accion') : "cartelera";
 
 $session = $_SESSION;
-
 switch ($accion) {
     
     // <editor-fold defaultstate="collapsed" desc="cartelera condominio">
@@ -69,7 +68,6 @@ switch ($accion) {
         );
         break; 
     // </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="eliminar-itemprerecibo">
     case "eliminar-itemprerecibo":
         $r = $db->delete("prerecibo_soportes", Array("id" => filter_input(INPUT_POST, "id")));
@@ -81,7 +79,6 @@ switch ($accion) {
         }
         break; 
     // </editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="periodos">
     case "periodos":
         $pe = $db->select("distinct periodo", "prerecibo_soportes", Array("id_inmueble" => $_POST['id']), "", Array("periodo" => "ASC"));
@@ -92,9 +89,8 @@ switch ($accion) {
         }
         break; 
     // </editor-fold>
-      
     // <editor-fold defaultstate="collapsed" desc="publicar-soporte">
-    case "publicar-soporte":
+    case "publicar-soporte": 
         $id_inmueble = isset($_POST['id_inmueble']) ? $_POST['id_inmueble'] : '';
         $periodo = isset($_POST['periodo']) ? $_POST['periodo'] : '';
         $periodos = array();
@@ -152,7 +148,6 @@ switch ($accion) {
         );
         break; 
     // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="eliminar archivo soporte">
     case "eliminar-archivo":
         $filename = "../prerecibo/" . filter_input(INPUT_POST, 'filename');
@@ -198,7 +193,6 @@ switch ($accion) {
         }
         break;
     // </editor-fold>
-        
     // <editor-fold defaultstate="collapsed" desc="cartelera-general-listar">
     case "general":
         $r = Array();
@@ -328,189 +322,61 @@ switch ($accion) {
         );
         break; // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="acta junta">
-    case "publicar-acta":
+    case (strpos($accion,'publicar-') !== false):
         $resultado  = array();
-        $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
-        if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
-            ini_set('max_execution_time', 20600);
-            ini_set('max_input_time', 20600);
-            ini_set('upload_max_filesize', '10M');
-            ini_set('post_max_size', '10M');
-            ini_set('memory_limit', '128M');
-            $id_inmueble = filter_input(INPUT_POST, "id_inmueble");
-            $filename = basename(html_entity_decode(strtolower($_FILES['archivo']['name']), ENT_QUOTES, 'UTF-8'));
-            if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/ACTA_JUNTA_".$id_inmueble.".pdf")) {
-                $resultado['suceed'] = TRUE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Acta de junta publicada con éxito';
-            } else {
-                $resultado['suceed'] = FALSE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Ocurrio al subir el acta al servidor. Inténtelo nuevamente';
-            }
-        }
-        echo $twig->render('condominio/administrador.acta.html.twig', 
-            array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "resultado" => $resultado
-                )
-        );
-        break; // </editor-fold>
+        $d_reporte  = array();
+        $inmuebles  = array();
+        $reportes   = new reporte();
+        $menu       = str_replace('publicar-','',$accion);
+        $reporte    = $reportes->obtenerReportePorMenu("'".$menu."'");
+        
+        if ($reporte['suceed'] && count($reporte['data'])>0) {
+            
+            $d_reporte = $reporte['data'][0];
+            $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
 
-    // <editor-fold defaultstate="collapsed" desc="publicar rif">
-    case "publicar-rif":
-        $resultado = Array();
-        $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
-        if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
-            ini_set('max_execution_time', 20600);
-            ini_set('max_input_time', 20600);
-            ini_set('upload_max_filesize', '10M');
-            ini_set('post_max_size', '10M');
-            ini_set('memory_limit', '128M');
-            $id_inmueble = filter_input(INPUT_POST, "id_inmueble");
-            $filename = basename(html_entity_decode(strtolower($_FILES['archivo']['name']), ENT_QUOTES, 'UTF-8'));
-            if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/RIF_".$id_inmueble.".pdf")) {
-                $resultado['suceed'] = TRUE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Registro de información fiscal publicado con éxito';
-            } else {
-                $resultado['suceed'] = FALSE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Ocurrio al subir el RIF al servidor. Inténtelo nuevamente';
+            if ($in['suceed'] && count($in['data'])>0) {
+                $inmuebles = $in['data'];
             }
         }
-        echo $twig->render('condominio/administrador.rif.html.twig', 
-            array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "resultado" => $resultado
-                )
-        );
-        break; // </editor-fold>
         
-    // <editor-fold defaultstate="collapsed" desc="publicar prerecibo">
-    case "publicar-prerecibo":
-        $resultado = Array();
-        $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
+
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
+
             ini_set('max_execution_time', 20600);
             ini_set('max_input_time', 20600);
             ini_set('upload_max_filesize', '10M');
             ini_set('post_max_size', '10M');
             ini_set('memory_limit', '128M');
-            $id_inmueble = filter_input(INPUT_POST, "id_inmueble");
+            
+            $id_inmueble    = filter_input(INPUT_POST, "id_inmueble");
+            $prefix         = $d_reporte["prefix"];
+            $descripcion    = strtoupper($d_reporte["descripcion"]);
+            
             $filename = basename(html_entity_decode(strtolower($_FILES['archivo']['name']), ENT_QUOTES, 'UTF-8'));
-            if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/PRERECIBO_".$id_inmueble.".pdf")) {
+            
+            if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/".$prefix.$id_inmueble.".pdf")) {
+                
                 $resultado['suceed'] = TRUE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Registro del prerecibo publicado con éxito';
+                $resultado['titulo'] = 'Publicado con éxito!  👍';
+                $resultado['mensaje'] = $descripcion.' '.$inmuebles[0]['nombre_inmueble'];
+                
             } else {
+                
                 $resultado['suceed'] = FALSE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Ocurrio al subir el archivo al servidor. Inténtelo nuevamente';
+                $resultado['titulo'] = 'Error! No se ha podido publicar ☹';
+                $resultado['mensaje'] = $descripcion.' en '.$inmuebles[0]['nombre_inmueble'].'. Inténtelo nuevamente';
+
             }
         }
-        echo $twig->render('condominio/administrador.prerecibog.html.twig', 
+        echo $twig->render('condominio/administrador.publicar.html.twig', 
             array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "resultado" => $resultado
+            "session"   => $session,
+            "inmuebles" => $inmuebles,
+            "resultado" => $resultado,
+            "reporte"   => $d_reporte
                 )
         );
-        break; // </editor-fold>
+        break;
     
-    // <editor-fold defaultstate="collapsed" desc="publicar nomina">
-    case "publicar-nomina":
-        $resultado = Array();
-        $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
-        if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
-            ini_set('max_execution_time', 20600);
-            ini_set('max_input_time', 20600);
-            ini_set('upload_max_filesize', '10M');
-            ini_set('post_max_size', '10M');
-            ini_set('memory_limit', '128M');
-            $id_inmueble = filter_input(INPUT_POST, "id_inmueble");
-            $filename = basename(html_entity_decode(strtolower($_FILES['archivo']['name']), ENT_QUOTES, 'UTF-8'));
-            if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/NOMINA_".$id_inmueble.".pdf")) {
-                $resultado['suceed'] = TRUE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Registro de la nómina publicado con éxito';
-            } else {
-                $resultado['suceed'] = FALSE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Ocurrio al subir el archivo al servidor. Inténtelo nuevamente';
-            }
-        }
-        echo $twig->render('condominio/administrador.nomina.html.twig', 
-            array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "resultado" => $resultado
-                )
-        );
-        break; // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="publicar fondo">
-    case "publicar-fondo":
-        $resultado = Array();
-        $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
-        if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
-            ini_set('max_execution_time', 20600);
-            ini_set('max_input_time', 20600);
-            ini_set('upload_max_filesize', '10M');
-            ini_set('post_max_size', '10M');
-            ini_set('memory_limit', '128M');
-            $id_inmueble = filter_input(INPUT_POST, "id_inmueble");
-            $filename = basename(html_entity_decode(strtolower($_FILES['archivo']['name']), ENT_QUOTES, 'UTF-8'));
-            if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/FONDO_".$id_inmueble.".pdf")) {
-                $resultado['suceed'] = TRUE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Registro del reporte de fondos publicado con éxito';
-            } else {
-                $resultado['suceed'] = FALSE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Ocurrio al subir el archivo al servidor. Inténtelo nuevamente';
-            }
-        }
-        echo $twig->render('condominio/administrador.fondo.html.twig', 
-            array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "resultado" => $resultado
-                )
-        );
-        break; // </editor-fold>
-        
-    // <editor-fold defaultstate="collapsed" desc="publicar fondo">
-    case "publicar-ingresos":
-        $resultado = Array();
-        $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
-        if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
-            ini_set('max_execution_time', 20600);
-            ini_set('max_input_time', 20600);
-            ini_set('upload_max_filesize', '10M');
-            ini_set('post_max_size', '10M');
-            ini_set('memory_limit', '128M');
-            $id_inmueble = filter_input(INPUT_POST, "id_inmueble");
-            $filename = basename(html_entity_decode(strtolower($_FILES['archivo']['name']), ENT_QUOTES, 'UTF-8'));
-            if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/INGRESOS_".$id_inmueble.".pdf")) {
-                $resultado['suceed'] = TRUE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Registro del reporte publicado con éxito';
-            } else {
-                $resultado['suceed'] = FALSE;
-                $resultado['titulo'] = 'Condominio '.$id_inmueble;
-                $resultado['mensaje'] = 'Ocurrio al subir el archivo al servidor. Inténtelo nuevamente';
-            }
-        }
-        echo $twig->render('condominio/administrador.ingresos.html.twig', 
-            array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "resultado" => $resultado
-                )
-        );
-        break; // </editor-fold>
 }

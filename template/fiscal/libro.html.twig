@@ -31,7 +31,7 @@
                                 <tbody>
                                     {% for item in libros %}
                                     <tr>
-                                    <td>{{ item.periodo }}</td><td><a href="{{ constant('ROOT')}}fiscal/publicacion/{{ item.archivo}}" target="_blank">{{ item.archivo }}</a></td>
+                                    <td>{{item.periodo}}</td><td><a href="{{constant('ROOT')}}fiscal/documentos/{{item.archivo}}" target="_blank">{{item.archivo}}</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

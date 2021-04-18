@@ -1,22 +1,23 @@
 <?php
-
 session_start();
 include_once '../../includes/constants.php';
 
 $db = new db();
 $re = $db->select("id_inmueble", "propiedades", Array("cedula" => $_SESSION["cedula"]));
 $session = $_SESSION;
+
 if ($re["suceed"] == true) {
+
     switch ($_GET['doc']) {
 
         case 'RIF':
-            $documento = ".jpg";
-            $content = 'Content-type: image/jpeg';
-            $titulo = 'RIF.jpg';
+            $documento = ".pdf";
+            $content = 'Content-type: image/pdf';
+            $titulo = 'RIF.pdf';
             break;
         case 'INGRESOS':
             $documento = ".pdf";
-            $content = 'Content-type: image/jpeg';
+            $content = 'Content-type: image/pdf';
             $titulo = 'INGRESOS_EGRESOS';
             break;
 
@@ -94,9 +95,8 @@ if ($re["suceed"] == true) {
     }
 
     echo $twig->render('condominio/reportes.html.twig', array(
-        "session" => $session,
-        "documentos" => $documentos)
+        "session"       => $session,
+        "documentos"    => $documentos)
     );
     die();
 }
-

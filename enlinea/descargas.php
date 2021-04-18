@@ -69,26 +69,27 @@ if ($re["suceed"] == true ) {
                 
                 break;
             case 'Reporte_de_Morosos_General':
-                $documento = ".pdf";
-                $content = 'Content-type: application/pdf';
-                $titulo='Morosos General.pdf';
+                $documento  = ".pdf";
+                $content    = 'Content-type: application/pdf';
+                $titulo     = 'Morosos General.pdf';
                 break;
             
             case 'Reporte_de_Morosos_Detallado':
-                $documento = ".pdf";
-                $content = 'Content-type: application/pdf';
-                $titulo='Morosos Detallado.pdf';
+                $documento  = ".pdf";
+                $content    = 'Content-type: application/pdf';
+                $titulo     = 'Morosos Detallado.pdf';
                 break;
                 
             case 'FACTURAS_POR_CARGAR':
-                $documento =".pdf";
-                $content='Content-type: application/pdf';
-                $titulo='Facturas por cargar al recibo del mes';
+                $documento  = ".pdf";
+                $content    = 'Content-type: application/pdf';
+                $titulo     = 'Facturas por cargar al recibo del mes';
                 break;
+            
             default :
-                $documento = ".pdf";
-                $content='Content-type: application/pdf';
-                $titulo = $_GET['doc'].".pdf";
+                $documento  = ".pdf";
+                $content    = 'Content-type: application/pdf';
+                $titulo     = $_GET['doc'].".pdf";
                 break;
         }
         
@@ -98,21 +99,23 @@ if ($re["suceed"] == true ) {
         if ($_GET['doc']=='Cobranza_General') {
             $documento = str_replace('0003', '0002', $documento);
         }
-        
-        $url = URL_SISTEMA.'/documentos/'.$documento;
-        //die($url);
-        //header("location:$url");
-        echo '<script>';
-        echo 'var myWindow = window.open("'.$url.'", "'.$titulo.'", "width=1000,height=800");';
-        echo 'window.location.href="'.$_SERVER['HTTP_REFERER'].'"';
-        echo '</script>';
-        //header("location:".$_SERVER['HTTP_REFERER']);
-        //die($_SERVER['HTTP_REFERER']);
-        //echo '<script>window.open("'.$url.'","_blank");'
-        //        . 'location.href="'.$_SERVER['HTTP_REFERER'].'"</script>';
-//        header('Content-Disposition: attachment; filename="'.$titulo.'"');
-//        header($content);
-//        readfile($url);
+        if (file_exists("documentos/$documento")) {
+            
+            $url = URL_SISTEMA.'/documentos/'.$documento;
+            echo '<script>';
+            echo 'var myWindow = window.open("'.$url.'", "'.$titulo.'", "width=1000,height=800");';
+            echo 'window.location.href="'.$_SERVER['HTTP_REFERER'].'"';
+            echo '</script>';
+            
+        } else {
+            
+            echo '<script>';
+            echo 'alert("🤦‍♂️ Ups! Lo sentimos mucho, no hemos publicado el documento que está consultando.\nContacte con su Administrador");';
+            echo 'window.history.back();';
+            echo '</script>';
+
+        }
+
     }
 } else {
     echo $re["error"];
