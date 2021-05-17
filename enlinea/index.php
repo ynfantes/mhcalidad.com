@@ -26,12 +26,13 @@ if (isset($session['usuario']['cedula'])) {
             $nombre_condominio = $resultado['data'][0]['nombre_inmueble'];
         }
         
-        $condominio = $propiedades['data'][0]['id_inmueble'];
-        $apto       = $propiedades['data'][0]['apto'];
-        $deuda      = $propietario->totalDeudaPropietario($condominio,$apto);
-        $pagado     = $propietario->totalPagadoPropietario($condominio,$apto);
-        $porc_deuda = $deuda * 100 / ($deuda + $pagado);
-        $porc_pagado = $pagado * 100 / ($deuda + $pagado);
+        $condominio  = $propiedades['data'][0]['id_inmueble'];
+        $apto        = $propiedades['data'][0]['apto'];
+        $deuda       = $propietario->totalDeudaPropietario($condominio,$apto);
+        $pagado      = $propietario->totalPagadoPropietario($condominio,$apto);
+        $total       = $deuda + $pagado;
+        $porc_deuda  = $deuda * 100 / $total;
+        $porc_pagado = $pagado * 100 / $total;
 
     }
 }

@@ -19,7 +19,7 @@
                 <div class="col-md-9 col-sm-9 main-column two-columns-right">
                     <article>
                         <header>
-                            <h1 class="font-md">{{ reporte.descripcion }}</h1>
+                            <h1 class="font-md">{{reporte.descripcion}}</h1>
                         </header>
                         {% if libros %}
                         <table class="table table-bordered table-striped responsive-utilities">
@@ -40,7 +40,7 @@
                         {% else %}
                             <div class="alert alert-note">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
-                                <h2>Señor(es), {{ session.usuario.razon_social }}</h2>
+                                <h2>Señor(es), {{session.usuario.razon_social}}</h2>
                                 <p>Aún no tiene libros publicados. Disculpe las molestias. Inténtelo luego o póngase en contacto con el Administrador.</p>
                             </div>
                         {% endif %}
@@ -72,10 +72,10 @@
 <div class="row show-grid">
 <div class="col-sm-12 col-md-12 twitter-wrapper">
 <div id="nav_t"></div>
-<div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+<div class="cartelera-slide" data-url="{{constant('ROOT')}}">
 <ul class="slides"></ul>
 </div>
-<span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+<span class="follow_img"><img alt="" src="{{constant('ROOT')}}img/mhcalidad_informa.png" class="img-responsive" /></span>
 </div>
 </div>
 </div>

@@ -19,7 +19,7 @@
 				<div class="form-group col-md-3">
 					<label for="quincena">Período<sup>*</sup></label>
 					<select class="required form-control" name="quincena" id="quincena">
-						<option value="0">---</option>
+						<!--option value="0">---</option-->
 						<option value="1">1º Quincena</option>
 						<option value="2">2º Quincena</option>
 					</select>
@@ -54,7 +54,7 @@
             {# ARCHIVO #}
 			<div class="form-row">
 				<div class="form-group">
-					<label class="control-label">Seleccione el archivo Cálculo de nómina<sup>*</sup></label>
+					<label class="control-label">Seleccione el archivo {{reporte.descripcion}}<sup>*</sup></label>
 					<input type="file" id="archivo" class="required" name="archivo" accept="application/pdf">
 				</div>
 			</div>

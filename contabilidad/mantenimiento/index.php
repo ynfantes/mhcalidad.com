@@ -36,7 +36,6 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
             }
         }
         
-        
         $result = $empresas->listar();
         if ($result['suceed'] && count($result['data'])>0) {
             $data = $result['data'];

@@ -52,15 +52,15 @@ foreach ($lineas as $linea) {
     
     if ($registro[0] != "") {
         $r = $db->insert("inmueble", Array(
-            "id" => $registro[0],
-            "nombre_inmueble" => $registro[1],
-            "deuda" => $registro[2],
-            "fondo_reserva" => $registro[3],
-            "beneficiario" => $registro[4],
-            "banco" => '',
-            "numero_cuenta" => '',
-            "supervision" => '0',
-            "RIF" => $registro[5]));
+            "id"                => $registro[0],
+            "nombre_inmueble"   => $registro[1],
+            "deuda"             => $registro[2],
+            "fondo_reserva"     => $registro[3],
+            "beneficiario"      => $registro[4],
+            "banco"             => '',
+            "numero_cuenta"     => '',
+            "supervision"       => '0',
+            "RIF"               => $registro[5]));
         
         if($r["suceed"]==FALSE){
             //echo ARCHIVO_INMUEBLE."<br />".$r['stats']['errno']."<br />".$r['stats']['error'];
@@ -104,6 +104,7 @@ if (file_exists($archivo)) {
     echo "Procesar archivo Cuentas Inmuebles (" . count($lineas) . ")<br />";
     $mensaje.="Procesar archivo Cuentas Inmuebles (" . count($lineas) . ")<br />";
     foreach ($lineas as $linea) {
+        
         $registro = explode("\t", $linea);
 
         if ($registro[0] != "") {
@@ -117,8 +118,7 @@ if (file_exists($archivo)) {
             
             if ($r["suceed"] == FALSE) {
                 //echo ARCHIVO_INMUEBLE."<br />".$r['stats']['errno']."<br />".$r['stats']['error'];
-                echo $r['query'];
-                die();
+                die($r['query']);
             }
 
         }

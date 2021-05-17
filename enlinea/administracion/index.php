@@ -342,14 +342,16 @@ switch ($accion) {
         
 
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
-
-            ini_set('max_execution_time', 20600);
-            ini_set('max_input_time', 20600);
-            ini_set('upload_max_filesize', '10M');
-            ini_set('post_max_size', '10M');
-            ini_set('memory_limit', '128M');
+            
+            $nombre_inmueble = '';
             
             $id_inmueble    = filter_input(INPUT_POST, "id_inmueble");
+            $in = $db->select("*", "inmueble",Array("id" => $id_inmueble));
+            
+            if ($in['suceed'] && count($in['data'])>0) {
+                $nombre_inmueble = $in['data'][0]['nombre_inmueble'];
+            }
+
             $prefix         = $d_reporte["prefix"];
             $descripcion    = strtoupper($d_reporte["descripcion"]);
             
@@ -359,13 +361,13 @@ switch ($accion) {
                 
                 $resultado['suceed'] = TRUE;
                 $resultado['titulo'] = 'Publicado con éxito!  👍';
-                $resultado['mensaje'] = $descripcion.' '.$inmuebles[0]['nombre_inmueble'];
+                $resultado['mensaje'] = $descripcion.' '.$nombre_inmueble;
                 
             } else {
                 
                 $resultado['suceed'] = FALSE;
                 $resultado['titulo'] = 'Error! No se ha podido publicar ☹';
-                $resultado['mensaje'] = $descripcion.' en '.$inmuebles[0]['nombre_inmueble'].'. Inténtelo nuevamente';
+                $resultado['mensaje'] = $descripcion.' en '.$nombre_inmueble.'. Inténtelo nuevamente';
 
             }
         }

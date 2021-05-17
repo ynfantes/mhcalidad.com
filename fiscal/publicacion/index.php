@@ -1,7 +1,6 @@
 <?php
 include_once '../includes/constants.php';
 session_start();
-$session = $_SESSION;
 
 if(isset($_FILES['archivo'])) {
     
@@ -10,7 +9,7 @@ if(isset($_FILES['archivo'])) {
     $reportes = new reporte();
     
     $data = $_POST;
-    
+
     if (isset($data['mes']) && isset($data['año'])) {
         $data['periodo'] = $data['año'].'-';
         $data['periodo'].= isset($data['mes']) ? $data['mes'] : '12';
@@ -18,14 +17,16 @@ if(isset($_FILES['archivo'])) {
     } elseif(isset($data['año'])) { 
         $data['periodo'] = $data['año'].'-12-31';
     }
+    
+    unset(
+        $data['año'],
+        $data['mes']
+    );
+    
     $reporte_id = $data['reporte'];
     $filename = uniqid().'.pdf';
     $data['archivo'] = $filename;
-    unset(
-        $data['año'],
-        $data['mes'],
-    );
-    
+
     $r = $publicacion->insertar($data);
 
     if ($r['suceed']) {
@@ -63,26 +64,3 @@ if(isset($_FILES['archivo'])) {
     );
 
 }
-// var_dump($_POST);
-// die();
-
-// $accion = isset($_GET['accion']) ? $_GET['accion'] : "listar";
-
-// switch ($accion) {
-//     case 'registrar':
-//         $publicado = new publicacion();
-//         unset($_GET['accion']);
-//         $data = $_GET;
-//         $data['periodo'] = Misc::format_mysql_date($data['periodo']);
-//         if ($publicado->reporteYaRestrido($data)) {
-//             echo "Bien: El reporte ya estaba publicado y ha sido actualizado";
-//         } else {
-//             $resultado = $publicado->insertar($data);
-//             if ($resultado['suceed']) {
-//                 echo "Muy bien: El reporte ha sido publicado.";
-//             } else {
-//                 echo $resultado["stats"]["error"];
-//             }
-//         }
-//         break;
-// }

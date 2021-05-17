@@ -71,11 +71,11 @@
 <script type="text/javascript">
 if (jQuery("#grafica").length) {
 var data = [
-    { label: "Deuda",  data: {{deuda}}, color: "#d47676"},
-    { label: "Pagado",  data: {{pagado}}, color: "#72ad55"},
+    { label: "Deuda",  data: {{deuda|round(1)}}, color: "#d47676"},
+    { label: "Pagado",  data: {{pagado|round(1)}}, color: "#72ad55"},
 ];
 function labelFormatter(label, series) {
-    return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;line-height:12px'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+    return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;line-height:12px'>" + label + "<br/>" + series.percent + "%</div>";
 } 
 jQuery(document).ready(function () {
     jQuery.plot(jQuery("#grafica"), data, {
