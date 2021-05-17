@@ -36,7 +36,7 @@ if(isset($_FILES['archivo'])) {
             $r['mensaje']   = '[Exito] Archivo guardado en el servidor.';
         } else {
             $r['upload']    = false;
-            $r['mensaje']   = '[Erro] No se ha podido publicar el archivo en el servidor';
+            $r['mensaje']   = '[Error] No se ha podido publicar el archivo en el servidor';
         }
     } else {
         $r['titulo'] = 'No se ha podido registrar la publicación en la base de datos';
