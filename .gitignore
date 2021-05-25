@@ -10,4 +10,5 @@ contabilidad/documentos
 fiscal/documentos
 includes/constants.php
 fiscal/includes/constants.php
+contabilidad/includes/constants.php
 .hataccess
