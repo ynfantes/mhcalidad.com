@@ -225,6 +225,7 @@ data-slotamount="20">
 <li>Y más...</li>
 </ul> <a class="btn btn-lg btn-primary" href="administracion-condominio.html">Entrar</a>
 </div-->
+
 <!--div class="row show-grid features-block mini-blocks">
 <div class="col-sm-4 col-md-4 block1">
 <div class="mini-wrapper">
@@ -278,8 +279,7 @@ data-slotamount="20">
     <img src="img/client_001.png" alt="" class="img-responsive" />
 </li>
 <li>
-    <img style="margin-left: -14px;" src="img/client_002.png" alt="" class="img-responsive"
-         />
+    <img style="margin-left: -14px;" src="img/client_002.png" alt="" class="img-responsive"/>
 </li>
 <li>
     <img src="img/client_003.png" alt="" class="img-responsive" />
@@ -288,13 +288,49 @@ data-slotamount="20">
 </div>
 </div>
 </div-->
+<!--- INICIO TASAS DE CAMBIO -->
+<div class="main-section" style="margin-bottom:20px">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+            <!-- ExchangeMonitor.net Widget START -->
+                <div class="exchangemonitor-widget-unique ve bcv">
+                <a class="exchangemonitor-widget-container" href="" target="_blank">
+                    <div class="exchangemonitor-widget-box"></div>
+                </a>
+                </div>
+                <!-- ExchangeMonitor.net Widget END -->
+            </div>
+            <div class="col-sm-4 col-md-4">
+            <!-- ExchangeMonitor.net Widget START -->
+            <div class="exchangemonitor-widget-unique ve enparalelovzla">
+            <a class="exchangemonitor-widget-container" href="" target="_blank">
+                <div class="exchangemonitor-widget-box"></div>
+            </a>
+            </div>
+            <!-- ExchangeMonitor.net Widget END -->
+            </div>
+
+            <div class="col-sm-4 col-md-4">
+            <!-- ExchangeMonitor.net Widget START -->
+            <div class="exchangemonitor-widget-unique ve dolartoday">
+            <a class="exchangemonitor-widget-container" href="" target="_blank">
+                <div class="exchangemonitor-widget-box"></div>
+            </a>
+            </div>
+            <!-- ExchangeMonitor.net Widget END -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN TASAS DE CAMBIO -->
 </div>
 <div class="recent-publicaciones">
 <div class="container">
 <div class="row show-grid">
 <div class="col-sm-12 col-md-12 twitter-wrapper">
 <div id="nav_t1"></div>
-<div class="publicaciones-slide" data-url="{{ constant('ROOT') }}">
+<div class="publicaciones-slide" data-url="{{constant('ROOT') }}">
 <ul class="slides"></ul>
 </div><span class="follow_img"><img alt="" src="img/mhinforma.png" class="img-responsive" /></span>
 </div>
@@ -302,4 +338,5 @@ data-slotamount="20">
 </div>
 </div>
 </div>
+
 {% endblock %}

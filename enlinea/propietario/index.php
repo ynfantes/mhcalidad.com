@@ -120,6 +120,7 @@ switch ($accion) {
                 } else {
                     unset($data['actualizar']);
                     unset($data['clave_actual']);
+                    $data['modificado'] = 1;
                     $exito = $propietario->actualizar($session['usuario']['id'], $data);
                     $mensaje = "Contraseña actualizada con éxito!";
                     if ($exito['suceed']) {
@@ -167,11 +168,14 @@ switch ($accion) {
     case "actualizados":
         $resultado = $propietario->obtenerPropietariosActualizados();
         if ($resultado['suceed'] && count($resultado['data']) > 0) {
+            
             foreach ($resultado['data'] as $actualizado) {
-                echo "|" . $actualizado['cedula'] . "|" . $actualizado['id_inmueble'];
-                echo "|" . $actualizado['apto'] . "|" . $actualizado['clave'] . "|" . substr(utf8_decode($actualizado['direccion']),0,254);
-                echo "|" . $actualizado['telefono1'] . "|" . $actualizado['telefono2'];
-                echo "|" . $actualizado['telefono3'] . "|" . $actualizado['email'] . "|" . $actualizado['email_alternativo'] . "<br>";
+                
+                echo "|".$actualizado['cedula']."|".$actualizado['id_inmueble'];
+                echo "|".$actualizado['apto']."|".$actualizado['clave']."|".substr(utf8_decode($actualizado['direccion']),0,254);
+                echo "|".$actualizado['telefono1']."|".$actualizado['telefono2'];
+                echo "|".$actualizado['telefono3']."|".$actualizado['email']."|".$actualizado['email_alternativo']."<br>";
+
             }
         }
         break;
