@@ -33,7 +33,7 @@ if (isset($session['usuario']['cedula'])) {
         $total       = $deuda + $pagado;
         $porc_deuda  = $deuda * 100 / $total;
         $porc_pagado = $pagado * 100 / $total;
-
+        
     }
 }
 

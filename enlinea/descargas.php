@@ -13,11 +13,11 @@ if ($re["suceed"] == true ) {
         echo "No se encuentra el recurso solicitado";
     } else {
         
-        if (count($re['data'])> 1) {
-            // redirigirmos la página hacia reportes.php
-            header("location: ".ROOT."enlinea/reportes/index.php?doc=".$_GET['doc']);
-            exit();
-        }
+        // if (count($re['data'])> 1) {
+        //     // redirigirmos la página hacia reportes.php
+        //     header("location: ".ROOT."enlinea/reportes/index.php?doc=".$_GET['doc']);
+        //     exit();
+        // }
         switch (filter_input(INPUT_GET, 'doc')) {
             
             case 'INGRESOS':

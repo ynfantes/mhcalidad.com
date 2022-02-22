@@ -5,90 +5,124 @@
 {% block contenido %}
 <!-- MAIN CONTENT AREA -->
 <div class="main-content">
+<div class="container">
+<div class="row show-grid">
+<div class="col-md-12 col-sm-12">
+<!-- BREADCRUMBS -->
+<div id="breadcrumb">
+<ul>
+<li class="home"><a href="{{constant('URL_SISTEMA')}}/administracion">MH Calidad Condominios</a></li>
+<li>{{'Publicar ' ~ reporte.descripcion}}</li>
+</ul>
+</div>
+<div class="row show-grid clear-both">
+<!-- BEGIN ARTICLE CONTENT AREA -->
+<div class="col-md-12 col-sm-12 main-column">
+<article>
+<h2><a href="#">{{'Publicar ' ~ reporte.descripcion}}</a></h2> 
+{% if resultado is defined %}
+{% include 'misc/resultado.html.twig' %}
+{% endif %}
+<form id="publicacion" 
+    action="{{constant('URL_SISTEMA')}}/administracion/publicar-{{reporte.menu}}" 
+    method="post" 
+    class="form-horizontal contact-agent-form" 
+    enctype="multipart/form-data">
     <div class="container">
-        <div class="row show-grid">
-            <div class="col-md-12 col-sm-12">
-                <!-- BREADCRUMBS -->
-                <div id="breadcrumb">
-                    <ul>
-                        <li class="home"><a href="{{constant('URL_SISTEMA')}}/administracion">MH Calidad Condominios</a></li>
-                        <li>{{'Publicar ' ~ reporte.descripcion}}</li>
-                    </ul>
-                </div>
-                <div class="row show-grid clear-both">
-                    <!-- BEGIN ARTICLE CONTENT AREA -->
-                    <div class="col-md-12 col-sm-12 main-column">
-                        <article>
-                            <h2><a href="#">{{'Publicar ' ~ reporte.descripcion}}</a></h2> 
-                            {% if resultado is defined %}
-                            {% include 'misc/resultado.html.twig' %}
-                            {% endif %}
-                            <form id="publicacion" action="{{constant('URL_SISTEMA')}}/administracion/publicar-{{reporte.menu}}" method="post" class="form-horizontal contact-agent-form" enctype="multipart/form-data">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="control-group col-md-6 col-sm-6">
-                                            <label class="control-label" for="inputName">Condominio<sup>*</sup></label>
-                                            <select class="required form-control" name="id_inmueble" style="height: 30px">"
-                                                <option value="">Seleccione</option>
-                                                {% for inmueble in inmuebles %}
-                                                    <option value="{{inmueble.id }}">{{ inmueble.nombre_inmueble }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>                                         
-                                    </div>
-                                    <div class="row">
-                                        <div class="control-group col-md-8 col-sm-8">
-                                            <label for="textarea" class="control-label">
-                                            {{'Seleccione el archivo ' ~ reporte.descripcion}}<sup>*</sup>
-                                            </label>
-                                            <input type="file" id="archivo" name="archivo" accept="application/pdf">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="control-group form-button-offset col-md-6 col-sm-6">
-                                            <input type="submit" value="Publicar" class="btn btn-default">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <br />
-                            <div class="text-divider5">
-                                <span></span>
-                            </div>
-                            {% if cartelera %}
-                                <table id="cartelera-publicaciones" 
-                                    class="table table-bordered table-striped" 
-                                    data-url="{{constant("URL_SISTEMA")}}/administracion/eliminar-publicacion">
-                                <colgroup>
-                                    <col class="col-md-1 col-sm-1">
-                                    <col class="col-md-9 col-sm-9">
-                                    <col class="col-md-2 col-sm-2">
-                                    </colgroup>
-                                <thead>
-                                    <tr>
-                                    <th>Inmueble</th>
-                                    <th>Publicación</th>
-                                    <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for item in cartelera %}
-                                    <tr id="fila{{ item.id }}">
-                                    <td>{{ item.id_inmueble }}</td>
-                                    <td>{{ item.detalle }}</td>
-                                    <td><a href="#" id="{{ item.id }}" class="item">Eliminar</a></td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                                </table>
-                            {% endif %}
-                        </article>
-                                            <!-- END ARTICLE CONTENT AREA -->
-                    </div>
-                </div>
+        <div class="row">
+            <div class="control-group col-md-6 col-sm-6">
+                <label class="control-label" for="inputName">Condominio<sup>*</sup></label>
+                <select class="required form-control" name="id_inmueble" style="height: 30px">"
+                    <option value="">Seleccione</option>
+                    {% for inmueble in inmuebles %}
+                        <option value="{{inmueble.id }}">{{ inmueble.nombre_inmueble }}</option>
+                    {% endfor %}
+                </select>
+            </div>                                         
+        </div>
+        {# PERIODO #}
+        {% if reporte.mes or repote.año %}
+        <div class="form-row">
+            {% if reporte.mes %}
+            <div class="form-group col-md-2">
+                <label for="mes">Mes<sup>*</sup></label>
+                <select class="required form-control" name="mes" id="mes">
+                    <option value="01">Enero</option>
+                    <option value="02">Febrero</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Mayo</option>
+                    <option value="06">Junio</option>
+                    <option value="07">Julio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+            </div>
+            {% endif %}
+            {% if reporte.año %}
+            <div class="form-group col-md-2">
+                <label for="year">Año<sup>*</sup></label>
+                <input type="number" class="required form-control" id="year" name="year" maxlength="4">
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="control-group col-md-8 col-sm-8">
+                <label for="textarea" class="control-label">
+                {{'Seleccione el archivo ' ~ reporte.descripcion}}<sup>*</sup>
+                </label>
+                <input type="file" id="archivo" name="archivo" accept="application/pdf">
+            </div>
+        </div>
+        <div class="row">
+            <div class="control-group form-button-offset col-md-6 col-sm-6">
+                <input type="submit" value="Publicar" class="btn btn-default">
             </div>
         </div>
     </div>
+</form>
+<br />
+<div class="text-divider5">
+    <span></span>
+</div>
+{% if cartelera %}
+    <table id="cartelera-publicaciones" 
+        class="table table-bordered table-striped" 
+        data-url="{{constant("URL_SISTEMA")}}/administracion/eliminar-publicacion">
+    <colgroup>
+        <col class="col-md-1 col-sm-1">
+        <col class="col-md-9 col-sm-9">
+        <col class="col-md-2 col-sm-2">
+        </colgroup>
+    <thead>
+        <tr>
+        <th>Inmueble</th>
+        <th>Publicación</th>
+        <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cartelera %}
+        <tr id="fila{{item.id}}">
+        <td>{{item.id_inmueble}}</td>
+        <td>{{item.detalle}}</td>
+        <td><a href="#" id="{{item.id}}" class="item">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
+</article>
+                <!-- END ARTICLE CONTENT AREA -->
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 {% endblock %}
 {% block js %}
@@ -117,6 +151,10 @@ jQuery(document).ready(function($) {
             },
             archivo : {
                 required : true
+            },
+            year : {
+                min : 2000,
+                minlength : 4
             }
         },
         messages : {
@@ -125,6 +163,11 @@ jQuery(document).ready(function($) {
             },
             archivo : {
                 required: 'Debe seleccionar el acta de junta'
+            },
+            year : {
+                required : 'Escriba el año',
+                min : 'Debe ser mayor al 2000',
+                minlength : 'Formato 4 dígitos'
             }
         },
         errorElement : 'span',

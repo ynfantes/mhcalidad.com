@@ -11,8 +11,8 @@
 <!-- BREADCRUMBS -->
 <div id="breadcrumb">
     <ul>
-        <li class="home"><a href="{{ constant('ROOT') }}enlinea">MH Calidad Condominios</a></li>
-        <li>Estado de Cuenta</li>
+        <li class="home"><a href="{{constant('ROOT') }}enlinea">MH Calidad Condominios</a></li>
+        <li>Reportes</li>
     </ul>
 </div>
 <div class="row show-grid clear-both">
@@ -30,18 +30,28 @@
             </tr>
         </thead>
         <tbody>
-        {% for documento in documentos %}
+        {% if documentos %}
+            {% for documento in documentos %}
+                <tr>
+                <td style="text-align: center">{{ documento.inmueble }}</td>
+                <td style="text-align: center">
+                    {% if documento.existe %}
+                        <a href="{{ documento.link }}" target="_blank">{{ documento.documento }}</a>
+                    {% else %}
+                        {{ documento.documento }}
+                    {% endif %}
+                </td>
+                </tr>
+            {% endfor %}
+        {% else %}
             <tr>
-            <td style="text-align: center">{{ documento.inmueble }}</td>
-            <td style="text-align: center">
-                {% if documento.existe %}
-                    <a href="{{ documento.link }}" target="_blank">{{ documento.documento }}</a>
-                {% else %}
-                    {{ documento.documento }}
-                {% endif %}
+            <td colspan="2">
+            <div class="alert alert-error">
+                <p>No exiten documentos publicados</p>
+            </div>
             </td>
             </tr>
-        {% endfor %}
+        {% endif %}
         </tbody>
     </table>
        <br />
@@ -75,10 +85,10 @@
 <div class="row show-grid">
 <div class="col-sm-12 col-md-12 twitter-wrapper">
     <div id="nav_t"></div>
-    <div class="cartelera-slide" data-url="{{ constant('ROOT') }}">
+    <div class="cartelera-slide" data-url="{{constant('ROOT')}}">
         <ul class="slides"></ul>
     </div>
-    <span class="follow_img"><img alt="" src="{{ constant('ROOT') }}img/mhcalidad_informa.png" class="img-responsive" /></span>
+    <span class="follow_img"><img alt="" src="{{constant('ROOT'}}img/mhcalidad_informa.png" class="img-responsive" /></span>
 </div>
 </div>
 </div>
@@ -87,5 +97,5 @@
 {% endblock %}
 {% block js %}
 {{ parent() }}
-<script type="text/javascript" src="{{ constant('ROOT')}}js/condominio.js"></script>
+<script type="text/javascript" src="{{constant('ROOT')}}js/condominio.js"></script>
 {% endblock %}

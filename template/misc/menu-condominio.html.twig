@@ -64,6 +64,18 @@ Otros Documentos<i>Publicar</i>
     Documento Condominio
     </a>
 </li>
+<li class="single">
+    <a 
+    href="{{constant('URL_SISTEMA')}}/administracion/publicar-balance-general">
+    Balance General
+    </a>
+</li>
+<li class="single">
+    <a 
+    href="{{constant('URL_SISTEMA')}}/administracion/publicar-estado-resultados">
+    Estado de Resultados
+    </a>
+</li>
 </ul>
 </li>
 {% else %}
@@ -142,8 +154,7 @@ Para la Junta<i>de Condominio</i>
 </li>
 {% endif %}
 <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=FACTURAS_POR_CARGAR">Facturas pendientes a cargar en el Recibo del mes</a></li>
-<li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=INGRESOS">Ingresos y Egresos disponible</a>
-</li>
+<li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=INGRESOS">Ingresos y Egresos disponible</a></li>
 </ul>
 </li>
 {% endif %}
@@ -158,6 +169,10 @@ Otros Servicios<i>MH Calidad en Línea</i>
 <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=GAST_PRIN">Informe Gastos Principales</a>
 </li>
 <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=DOC_COND">Documento Condominio</a>
+</li>
+<li><a href="{{constant('URL_SISTEMA')}}/reportes/?doc=BALANCE_GENERAL">Balance General</a>
+</li>
+<li><a href="{{constant('URL_SISTEMA')}}/reportes/?doc=ESTADO_RESULTADO">Estado de Resultados</a>
 </li>
 </ul>
 </li>

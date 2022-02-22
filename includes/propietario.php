@@ -258,7 +258,7 @@ class propietario extends db implements crud  {
         //var_dump($res);
         //die("select sum(facturado) - sum(abonado) as deuda from facturas where id_inmueble='".$condominio."' and apto='".$apto."'");
         if ($res['suceed'] && count($res['data'])>0) {
-            $deuda = $res['data'][0]['deuda'];
+            $deuda = round($res['data'][0]['deuda'],2);
         }
         return $deuda;
     }
@@ -267,7 +267,7 @@ class propietario extends db implements crud  {
         $pagado = 0;
         $res = db::query("select IFNULL(sum(monto),0) as pagado from movimiento_caja where id_inmueble='".$condominio."' and id_apto='".$apto."'");
         if ($res['suceed'] && count($res['data'])>0) {
-            $pagado = $res['data'][0]['pagado'];
+            $pagado = round($res['data'][0]['pagado'],2);
         }
         return $pagado;
     }

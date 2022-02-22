@@ -9,31 +9,31 @@ if (!$_SESSION['cpanel']) {
 $accion = isset($_GET['accion']) ? filter_input(INPUT_GET, 'accion') : "cartelera";
 
 $session = $_SESSION;
-switch ($accion) {
+
+switch ($accion) {    
     
-    // <editor-fold defaultstate="collapsed" desc="cartelera condominio">
     case "cartelera":
     default :
         $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
         $ca = $db->select("*", "cartelera", "", "", Array("id_inmueble" => "ASC,", "id" => "DESC"));
 
-
         echo $twig->render('condominio/administrador.cartelera.html.twig', 
             array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "cartelera" => $ca['data']
+            'session'    => $session,
+            'inmuebles'  => $in['data'],
+            'cartelera'  => $ca['data']
                 )
         );
-        break; // </editor-fold>
+        break;
     
-    // <editor-fold defaultstate="collapsed" desc="prerecibo">
     case "prerecibo":
-        $id_inmueble = isset($_POST['id_inmueble']) ? $_POST['id_inmueble'] : '';
-        $periodo = isset($_POST['periodo']) ? $_POST['periodo'] : '';
-        $periodos = array();
-        $detalle = array();
-        $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
+        
+        $id_inmueble    = isset($_POST['id_inmueble']) ? $_POST['id_inmueble'] : '';
+        $periodo        = isset($_POST['periodo']) ? $_POST['periodo'] : '';
+        $periodos       = array();
+        $detalle        = array();
+        $in             = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
+        
         if ($periodo != '') {
             $pe = $db->select("distinct periodo", "prerecibo_soportes", Array("id_inmueble" => "'" . $id_inmueble . "'"), "", Array("periodo" => "ASC"));
             if ($pe['suceed'] && count($pe['data']) > 0) {
@@ -58,17 +58,16 @@ switch ($accion) {
         }
         echo $twig->render('condominio/administrador.prerecibo.html.twig', 
             array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "periodos" => $periodos,
-            "id_inmueble" => $id_inmueble,
-            "periodo" => $periodo,
-            "detalle" => $detalle
+            'session'       => $session,
+            'inmuebles'     => $in['data'],
+            'periodos'      => $periodos,
+            'id_inmueble'   => $id_inmueble,
+            'periodo'       => $periodo,
+            'detalle'       => $detalle
                 )
         );
         break; 
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="eliminar-itemprerecibo">
+    
     case "eliminar-itemprerecibo":
         $r = $db->delete("prerecibo_soportes", Array("id" => filter_input(INPUT_POST, "id")));
 
@@ -77,9 +76,8 @@ switch ($accion) {
         } else {
             echo filter_input(INPUT_POST, "id");
         }
-        break; 
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="periodos">
+        break;
+    
     case "periodos":
         $pe = $db->select("distinct periodo", "prerecibo_soportes", Array("id_inmueble" => $_POST['id']), "", Array("periodo" => "ASC"));
         if ($pe['suceed']) {
@@ -88,16 +86,17 @@ switch ($accion) {
             }
         }
         break; 
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="publicar-soporte">
+    
     case "publicar-soporte": 
-        $id_inmueble = isset($_POST['id_inmueble']) ? $_POST['id_inmueble'] : '';
-        $periodo = isset($_POST['periodo']) ? $_POST['periodo'] : '';
-        $periodos = array();
-        $detalle = array();
+        
+        $id_inmueble    = isset($_POST['id_inmueble']) ? $_POST['id_inmueble'] : '';
+        $periodo        = isset($_POST['periodo']) ? $_POST['periodo'] : '';
+        $periodos       = array();
+        $detalle        = array();
 
 
         if (isset($_FILES['archivo']) && isset($_POST['id'])) {
+            
             ini_set('max_execution_time', 20600);
             ini_set('max_input_time', 20600);
             ini_set('upload_max_filesize', '10M');
@@ -105,25 +104,33 @@ switch ($accion) {
             ini_set('memory_limit', '128M');
             $id = filter_input(INPUT_POST, "id");
             $filename = basename(html_entity_decode(strtolower($_FILES['archivo']['name']), ENT_QUOTES, 'UTF-8'));
+            
             if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../prerecibo/S" . $id . ".pdf")) {
-                $resultado['suceed'] = TRUE;
-                $resultado['titulo'] = 'Item ' . $id;
-                $resultado['mensaje'] = 'Soporte publicado con éxito';
+                
+                $resultado['suceed']    = TRUE;
+                $resultado['titulo']    = 'Item ' . $id;
+                $resultado['mensaje']   = 'Soporte publicado con éxito';
                 $re = $db->update("prerecibo_soportes", Array("archivo" => "S" . $id . ".pdf"), Array("id" => filter_input(INPUT_POST, 'id')));
+            
             } else {
-                $resultado['suceed'] = FALSE;
-                $resultado['titulo'] = 'Item ' . $id;
-                $resultado['mensaje'] = 'Ocurrio al subir el archivo al servidor. Inténtelo nuevamente';
+
+                $resultado['suceed']    = FALSE;
+                $resultado['titulo']    = 'Item ' . $id;
+                $resultado['mensaje']   = 'Ocurrio al subir el archivo al servidor. Inténtelo nuevamente';
+
             }
         }
         $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
         if ($periodo != '') {
+
             $pe = $db->select("distinct periodo", "prerecibo_soportes", Array("id_inmueble" => "'" . $id_inmueble . "'"), "", Array("periodo" => "ASC"));
             if ($pe['suceed'] && count($pe['data']) > 0) {
                 $periodos = $pe['data'];
             }
+
         }
         if ($id_inmueble != '' && $periodo != '') {
+
             $listado = $db->select("*", "prerecibo_soportes", Array("id_inmueble" =>$id_inmueble,"periodo"=>$periodo), "", Array("codigo_gasto" => "ASC"));
             if ($listado['suceed'] && count($listado['data']) > 0) {
                 for ($index = 0; $index < count($listado['data']); $index++) {
@@ -136,19 +143,19 @@ switch ($accion) {
                 $detalle = $listado['data'];
             }
         }
+
         echo $twig->render('condominio/administrador.prerecibo.html.twig', 
             array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "periodos" => $periodos,
-            "id_inmueble" => $id_inmueble,
-            "periodo" => $periodo,
-            "detalle" => $detalle
+            'session'       => $session,
+            'inmuebles'     => $in['data'],
+            'periodos'      => $periodos,
+            'id_inmueble'   => $id_inmueble,
+            'periodo'       => $periodo,
+            'detalle'       => $detalle
                 )
         );
         break; 
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="eliminar archivo soporte">
+    
     case "eliminar-archivo":
         $filename = "../prerecibo/" . filter_input(INPUT_POST, 'filename');
         
@@ -156,13 +163,11 @@ switch ($accion) {
             unlink(realpath($filename));
         }
         $db->update("prerecibo_soportes", Array("archivo" => ''), Array("id" => filter_input(INPUT_POST, 'id')));
-        break; // </editor-fold>
-        
-    // <editor-fold defaultstate="collapsed" desc="general-guardar">
+        break;     
+    
     case "general-guardar":
         $db = new db();
         $r = $db->insert("cartelerageneral", Array("detalle" => filter_input(INPUT_POST, "detalle")));
-
 
         if ($r["suceed"] == FALSE) {
             $r["titulo"] = "Ups!";
@@ -174,14 +179,14 @@ switch ($accion) {
         $ca = $db->select("*", "cartelerageneral", "", "", Array("id" => "DESC"));
         echo $twig->render('condominio/cartelera.general.html.twig', 
             array(
-            "session" => $session,
-            "cartelera" => $ca['data'],
-            "resultado" => $r
+            'session'    => $session,
+            'cartelera'  => $ca['data'],
+            'resultado'  => $r
                 )
         );
-        break; // </editor-fold>
+        break; 
     
-    // <editor-fold defaultstate="collapsed" desc="general-eliminar">
+    
     case "general-eliminar":
 
         $r = $db->delete("cartelerageneral", Array("id" => filter_input(INPUT_POST, "id")));
@@ -192,8 +197,7 @@ switch ($accion) {
             echo filter_input(INPUT_POST, "id");
         }
         break;
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="cartelera-general-listar">
+    
     case "general":
         $r = Array();
         $ca = $db->select("*", "cartelerageneral", "", "", Array("id" => "DESC"));
@@ -203,14 +207,14 @@ switch ($accion) {
         }
         echo $twig->render('condominio/cartelera.general.html.twig', 
             array(
-            "session" => $session,
-            "cartelera" => $ca['data'],
-            "resultado" => $r
+            'session'    => $session,
+            'cartelera'  => $ca['data'],
+            'resultado'  => $r
                 )
         );
-        break; // </editor-fold>
+        break; 
     
-    // <editor-fold defaultstate="collapsed" desc="eliminar publicación cartelera">
+    
     case "eliminar-publicacion":
 
 
@@ -221,67 +225,73 @@ switch ($accion) {
         } else {
             echo filter_input(INPUT_POST, "id");
         }
-        break; // </editor-fold>
+        break; 
         
-    // <editor-fold defaultstate="collapsed" desc="guardar publicación cartelera">
+    
     case "guardar-publicacion":
-        $id_inmueble = filter_input(INPUT_POST, "id_inmueble");
-        $detalle = filter_input(INPUT_POST, "detalle");
+        $id_inmueble    = filter_input(INPUT_POST, "id_inmueble");
+        $detalle        = filter_input(INPUT_POST, "detalle");
         
         $db = new db();
         $r = $db->insert("cartelera", Array(
-            "id_inmueble" => $id_inmueble,
-            "detalle" => $detalle));
-
+            'id_inmueble'   => $id_inmueble,
+            'detalle'       => $detalle));
 
         $in = $db->select("*", "inmueble", "", "", Array("nombre_inmueble" => "ASC"));
         $ca = $db->select("*", "cartelera", "", "", Array("id_inmueble" => "ASC,", "id" => "DESC"));
         
         if($r["suceed"]==FALSE){
-            $r["titulo"] = "Ups!";
-            $r["mensaje"] = $r['stats']['errno']."<br />".$r['stats']['error'];
+
+            $r["titulo"]    = "Ups!";
+            $r["mensaje"]   = $r['stats']['errno']."<br />".$r['stats']['error'];
+
         } else {
-            $r["titulo"] = "Muy Bien!";
-            $r["mensaje"]= "Publicación registrada con éxito. Consulte la lista";
+            
+            $r["titulo"]    = "Muy Bien!";
+            $r["mensaje"]   = "Publicación registrada con éxito. Consulte la lista";
+
         }
         
         echo $twig->render('condominio/administrador.cartelera.html.twig', 
             array(
-            "session" => $session,
-            "inmuebles" => $in['data'],
-            "cartelera" => $ca['data'],
-            "resultado" => $r
+            'session'    => $session,
+            'inmuebles'  => $in['data'],
+            'cartelera'  => $ca['data'],
+            'resultado'  => $r
                 )
         );
         
         break; // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="hidrocapital-listar">
+    
     case "hidrocapital":
         
         $re = $db->dame_query("select i.id as codigo_inmueble, i.nombre_inmueble, h.* from inmueble i left join inmueble_hidrocapital h 
         on i.id = h.id_inmueble");
         $resultado = Array();
+        
         if (!$re['suceed']) {
-            $resultado["titulo"] = "Ups! Ocurrio un error...";
-            $resultado["mensaje"] = "Durante el procesamiento de la información.\nNo se puede mostrar la lista";
+
+            $resultado["titulo"]    = "Ups! Ocurrio un error...";
+            $resultado["mensaje"]   = "Durante el procesamiento de la información.\nNo se puede mostrar la lista";
 
         }
+
         echo $twig->render('condominio/hidrocapital.html.twig', 
             array(
-            "session" => $session,
-            "listado" => $re['data'],
-            "resultado" => $resultado
+            'session'    => $session,
+            'listado'    => $re['data'],
+            'resultado'  => $resultado
                 )
         );
         break; // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="hidrocapital-guardar">
+    
     case "hidrocapital-guardar":
         $resultado = Array();
+        
         if (isset($_POST['guardar'])) {
             unset($_POST['guardar']);
-
 
             $_POST['monto_pago'] = str_replace(".", "", filter_input(INPUT_POST, 'monto_pago'));
             $_POST['monto_pago'] = str_replace(",", ".", filter_input(INPUT_POST, 'monto_pago'));
@@ -310,18 +320,16 @@ switch ($accion) {
         $re = $db->dame_query("select i.id as codigo_inmueble, i.nombre_inmueble, h.* from inmueble i left join inmueble_hidrocapital h 
         on i.id = h.id_inmueble");
 
-
-
-
         echo $twig->render('condominio/hidrocapital.html.twig', 
             array(
-            "session" => $session,
-            "listado" => $re['data'],
-            "resultado" => $resultado
+            'session'    => $session,
+            'listado'    => $re['data'],
+            'resultado'  => $resultado
                 )
         );
         break; // </editor-fold>
 
+    
     case (strpos($accion,'publicar-') !== false):
         $resultado  = array();
         $d_reporte  = array();
@@ -343,40 +351,41 @@ switch ($accion) {
 
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
             
-            $nombre_inmueble = '';
-            
             $id_inmueble    = filter_input(INPUT_POST, "id_inmueble");
-            $in = $db->select("*", "inmueble",Array("id" => $id_inmueble));
+            $in             = $db->select("*", "inmueble",Array("id" => $id_inmueble));
             
-            if ($in['suceed'] && count($in['data'])>0) {
-                $nombre_inmueble = $in['data'][0]['nombre_inmueble'];
-            }
+            $nombre_inmueble = ($in['suceed'] && count($in['data'])>0) ? $in['data'][0]['nombre_inmueble'] : '';
 
             $prefix         = $d_reporte["prefix"];
             $descripcion    = strtoupper($d_reporte["descripcion"]);
             
-            $filename = basename(html_entity_decode(strtolower($_FILES['archivo']['name']), ENT_QUOTES, 'UTF-8'));
+            //$filename = basename(html_entity_decode(strtolower($_FILES['archivo']['name']), ENT_QUOTES, 'UTF-8'));
             
-            if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/".$prefix.$id_inmueble.".pdf")) {
+            $filename = $prefix.$id_inmueble;
+
+            if (isset($_POST['mes'])) $filename.= '_'.filter_input(INPUT_POST,'mes'); 
+            if (isset($_POST['year'])) $filename.= '-'.filter_input(INPUT_POST,'year');
+
+            if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/$filename.pdf")) {
                 
-                $resultado['suceed'] = TRUE;
-                $resultado['titulo'] = 'Publicado con éxito!  👍';
-                $resultado['mensaje'] = $descripcion.' '.$nombre_inmueble;
+                $resultado['suceed']    = TRUE;
+                $resultado['titulo']    = 'Publicado con éxito! 👍';
+                $resultado['mensaje']   = $descripcion.' '.$nombre_inmueble;
                 
             } else {
                 
-                $resultado['suceed'] = FALSE;
-                $resultado['titulo'] = 'Error! No se ha podido publicar ☹';
-                $resultado['mensaje'] = $descripcion.' en '.$nombre_inmueble.'. Inténtelo nuevamente';
+                $resultado['suceed']    = FALSE;
+                $resultado['titulo']    = 'Error! No se ha podido publicar ☹';
+                $resultado['mensaje']   = $descripcion.' en '.$nombre_inmueble.'. Inténtelo nuevamente';
 
             }
         }
         echo $twig->render('condominio/administrador.publicar.html.twig', 
             array(
-            "session"   => $session,
-            "inmuebles" => $inmuebles,
-            "resultado" => $resultado,
-            "reporte"   => $d_reporte
+            'session'   => $session,
+            'inmuebles' => $inmuebles,
+            'resultado' => $resultado,
+            'reporte'   => $d_reporte
                 )
         );
         break;
