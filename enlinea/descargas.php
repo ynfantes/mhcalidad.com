@@ -7,7 +7,7 @@ $db = new db();
 
 $re = $db->select("id_inmueble","propiedades",Array("cedula"=>$_SESSION["cedula"]));
 
-if ($re["suceed"] == true ) {
+if ($re["suceed"] === true ) {
     
     if(count($re['data'])==0){
         echo "No se encuentra el recurso solicitado";
@@ -85,6 +85,12 @@ if ($re["suceed"] == true ) {
                 $content    = 'Content-type: application/pdf';
                 $titulo     = 'Facturas por cargar al recibo del mes';
                 break;
+
+            case 'CUENTAS_POR_COBRAR_CONSTRUCTORA':
+                $documento  = ".pdf";
+                $content    = 'Content-type: application/pdf';
+                $titulo     = 'Estado de cuenta accionistas';
+                break;
             
             default :
                 $documento  = ".pdf";
@@ -93,7 +99,7 @@ if ($re["suceed"] == true ) {
                 break;
         }
         
-        if ($_GET['doc']!='EDO_CTA_COMBINADO') {
+        if ($_GET['doc'] !== 'EDO_CTA_COMBINADO') {
             $documento = $_GET['doc']."_".$re['data'][0]['id_inmueble'].$documento;
         }
         if ($_GET['doc']=='Cobranza_General') {

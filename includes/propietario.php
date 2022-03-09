@@ -45,9 +45,9 @@ class propietario extends db implements crud  {
     
     public function login($cedula, $password) {
         $result = array();
-        if ($cedula!="" && $password!="") {
+        if ($cedula != "" && $password != "") {
             
-            if ($cedula == ADMIN) {
+            if ($cedula === ADMIN) {
                 session_start();
                 $_SESSION["cpanel"]     = 1;
                 $_SESSION["usuario"]    = "Administrador";
@@ -57,18 +57,21 @@ class propietario extends db implements crud  {
             }
             $result = db::select("*",self::tabla,Array("cedula" => $cedula));
             
-            if ($result['suceed'] == 'true' && count($result['data']) > 0) {
+            if ($result['suceed'] === true && count($result['data']) > 0) {
             
                 $res = db::select("*","junta_condominio",Array("cedula" => $cedula));
-                
                 $junta_condominio = '';
                 if ($res['suceed'] && count($res['data'])> 0) {
                     $junta_condominio = $res['data'][0]['id_inmueble'];
                 }
                 
+                $ext = db::select("id_inmueble","propiedades",["cedula" => $cedula,"id_inmueble" => '0010']);
+                
+                $menu_ext = $ext['suceed'] && $ext['stats']['affected_rows'] > 0 ? true : false; 
+                
                 foreach ($result['data'] as $propietario) {
                     
-                    if (strtolower($propietario['clave'])== strtolower($password)) {
+                    if (strtolower($propietario['clave']) == strtolower($password)) {
 
                         // registramos la sesion del usuario
                         $sesion = $this->generarIdInicioSesion($cedula);
@@ -85,6 +88,8 @@ class propietario extends db implements crud  {
                         $_SESSION["cedula"]     = $result['data'][0]['cedula'];
                         $_SESSION['status']     = 'logueado';
                         $_SESSION["cpanel"]     = 0;
+                        $_SESSION["menu_ext"]   = $menu_ext;
+
                         unset($result['query']);
                         return $result;
                     }
@@ -95,6 +100,7 @@ class propietario extends db implements crud  {
                 unset($result['data']);
                 unset($result['row']);
                 return $result;
+
             } else {
                 $result['suceed'] = false;
                 $result['error'] = "Cédula de Identidad no registrada.";

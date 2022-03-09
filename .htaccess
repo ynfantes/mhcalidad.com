@@ -6,8 +6,8 @@ AddCharset utf-8 .html
 Options +FollowSymLinks
 RewriteEngine on
 
-RewriteCond %{HTTP_HOST} ^mhcalidadadministrativa.com
-RewriteRule (.*) http://www.mhcalidadadministrativa.com/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^mhcalidadad.com
+RewriteRule (.*) https://www.mhcalidad.com/$1 [R=301,L]
 
 RewriteBase /
 Rewriterule ^([A-Za-z\-]+).html$ index.php?accion=$1 [L]

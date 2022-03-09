@@ -468,18 +468,18 @@ Class Misc {
     public static function error_handler($num, $err, $file, $line) {
         $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $headers .= 'From: MHCalidad <noreply@mhcalidadadministrativa.com>' . "\r\n";
+        $headers .= 'From: MHCalidad <noreply@mhcalidad.com>' . "\r\n";
         $html = "";
 
         // <editor-fold defaultstate="collapsed" desc="tipos de errores">
         $errortype = array(
-            1 => "Error",
-            2 => "Advertencia",
-            4 => "Error de interpretación",
-            8 => "Noticia",
-            16 => "Error en el núcleo",
-            32 => "Advertencia en el núcleo",
-            64 => "Error de compilación",
+            1   => "Error",
+            2   => "Advertencia",
+            4   => "Error de interpretación",
+            8   => "Noticia",
+            16  => "Error en el núcleo",
+            32  => "Advertencia en el núcleo",
+            64  => "Error de compilación",
             128 => "Advertencia de compilación",
             256 => "Error de Usuario",
             512 => "Advertencia de Usuario",
