@@ -1,6 +1,5 @@
 <?php
 include_once '../includes/constants.php';
-
 session_start();
 
 $accion     = isset($_GET['accion']) ? $_GET['accion'] : "";
@@ -49,7 +48,7 @@ function menuCliente($accion,$reporte_id,$twig) {
     
     $publicado = new publicacion();
     $reportes = new reporte();
-
+    
     $result = $reportes->obtenerReportePorMenu($reporte_id);
     
     if ($result['suceed'] && count($result['data'])>0) {

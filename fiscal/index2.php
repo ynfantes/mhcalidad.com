@@ -8,8 +8,8 @@ $re = $db->select("*","empresa",Array("clave"=>filter_input(INPUT_POST, "clave")
 
 if ($re["suceed"] == true ) {
     
-    if(count($re['data'])==0){
-        if (filter_input(INPUT_POST, "clave")== ADMIN) {
+    if(count($re['data']) === 0){
+        if (filter_input(INPUT_POST, "clave") === ADMIN) {
            session_start();
            $_SESSION["usuario"] = "Administrador";
            $_SESSION['status']  = 'logueado';
