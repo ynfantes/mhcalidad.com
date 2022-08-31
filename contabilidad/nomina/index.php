@@ -3,10 +3,10 @@ include_once '../includes/constants.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD']=='POST') {
+if ($_SERVER['REQUEST_METHOD']==='POST') {
     
     $data = $_POST;
-
+    
     if(isset($_FILES['archivo'])) {
         
         $reporte = $data['reporte'];

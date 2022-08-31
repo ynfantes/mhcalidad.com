@@ -16,7 +16,6 @@ $mensaje='';
 
 switch ($accion) {
     
-    // <editor-fold defaultstate="collapsed" desc="autorizar">
     case "autorizar":
 
 
@@ -67,9 +66,7 @@ switch ($accion) {
         $actualizar['mensaje'] = $mensaje;
         echo json_encode($actualizar);
         break; 
-    // </editor-fold>
             
-    // <editor-fold defaultstate="collapsed" desc="soportes">
     case "soportes":
         $propiedad = new propiedades();
         $resultado = Array();
@@ -121,9 +118,8 @@ switch ($accion) {
             "resultado" => $resultado,
             "prerecibos" => $prerecibos['data']));
         break; 
-    // </editor-fold>
+    
             
-    // <editor-fold defaultstate="collapsed" desc="listar">
     case "listar":
 
         $resultado = Array();
@@ -161,7 +157,7 @@ switch ($accion) {
             "prerecibos" => $prerecibos));
         break; // </editor-fold>
         
-    // <editor-fold defaultstate="collapsed" desc="publicar">
+    
     case "publicar":
         $prerecibos = new prerecibo();
         $data = Array("id_inmueble" => $_GET['id_inmueble'],
@@ -186,9 +182,8 @@ switch ($accion) {
             }
         }
         break; 
-// </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="ver">
+    
     case "ver":
         
         $titulo = $_GET['id'];
@@ -199,7 +194,7 @@ switch ($accion) {
         readfile($url);
         break; // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="prerecibo">
+    
     case "prerecibo":
     default:
         $db = new db();
@@ -248,9 +243,8 @@ switch ($accion) {
                 )
         );
         break; 
-    // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="periodos">
+    
     case "periodos":
         $db = new db();
         $pe = $db->select("distinct periodo", "prerecibo_soportes", Array("id_inmueble" => $_POST['id']), "", Array("periodo" => "ASC"));
@@ -260,9 +254,7 @@ switch ($accion) {
             }
         }
         break; 
-    // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="prerecibo">
     case "prerecibo":
         $db = new db();
         $id_inmueble = isset($_POST['id_inmueble']) ? $_POST['id_inmueble'] : '';
@@ -302,6 +294,5 @@ switch ($accion) {
                 )
         );
         break; 
-    // </editor-fold>
    
 }

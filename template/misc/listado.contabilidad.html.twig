@@ -17,8 +17,13 @@
     {% set pe = '' %}
     {% if reg.mes %}
         {% set periodo = reg.mes|split('-') %}
-        {% set yy = periodo[0] %}
-        {% set mm = periodo[1] %}
+        {% if periodo[0] != '00' %}
+            {% set yy = periodo[0] %}
+            {% set mm = periodo[1] %}
+        {% else %}
+            {% set yy = '-' %}
+            {% set mm = '-' %}
+        {% endif %}
     {% endif %}
     {% if reg.periodicidad %}
         {% set pe = reg.periodicidad =='' ? '' : reg.periodicidad ~ 'º Quin. ' %}

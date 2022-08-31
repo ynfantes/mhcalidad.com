@@ -2,15 +2,16 @@
 session_start();
 include_once '../../includes/constants.php';
 
-$db     = new db();
-$re     = $db->select("id_inmueble", "propiedades", Array("cedula" => $_SESSION["cedula"]));
-$session = $_SESSION;
+$db         = new db();
+$criterio   = ["cedula" => $_SESSION["cedula"]];
+$re         = $db->select("id_inmueble", "propiedades", $criterio);
+$session    = $_SESSION;
 $documentos = Array();
 
 if ($_GET['doc']  == 'BALANCE_GENERAL' || $_GET['doc'] == 'ESTADO_RESULTADO') {
     $files = scandir('../documentos/');
-
-    if ($re["suceed"] == true && count($re['data'])>0) {
+    
+    if ($re["suceed"] === true && count($re['data'])>0) {
         
         foreach ($re['data'] as $value) {
 
@@ -131,9 +132,5 @@ if ($_GET['doc']  == 'BALANCE_GENERAL' || $_GET['doc'] == 'ESTADO_RESULTADO') {
     }
 
 }
-
-echo $twig->render('condominio/reportes.html.twig', array(
-    "session"       => $session,
-    "documentos"    => $documentos)
-);
-die();
+$params = ["session" => $session,"documentos" => $documentos];
+echo $twig->render('condominio/reportes.html.twig', $params);

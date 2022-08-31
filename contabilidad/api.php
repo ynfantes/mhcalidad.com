@@ -10,7 +10,7 @@ $request_body = file_get_contents('php://input');
 //$result['method'] = $_SERVER['REQUEST_METHOD'];
 $data = json_decode($request_body);
 
-if ($_SERVER['REQUEST_METHOD']=='POST') {
+if ($_SERVER['REQUEST_METHOD']==='POST') {
     
     $reporte =  $data->reporte;
     $criterio = Array("id_empresa"=>$data->id_empresa);
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
     $result['reporte']  = $reporte;
     echo json_encode($result);
 
-} elseif ($_SERVER['REQUEST_METHOD']=='DELETE'){
+} elseif ($_SERVER['REQUEST_METHOD']==='DELETE'){
 
     $result = Array();
     $reporte =  $data->table;

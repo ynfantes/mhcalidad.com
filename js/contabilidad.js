@@ -28,10 +28,11 @@ function listarPublicaciones(datos) {
             let yy = '';
             let mm = '';
             let pe = '';
+            
             if (reg.mes) {
                 periodo = reg.mes.split('-');
-                yy = periodo[0];
-                mm = periodo[1];
+                yy = periodo[0] === '0000' ? '-' : periodo[0];
+                mm = periodo[1] === '00' ? '-' : periodo[1];
             }
             if( reg.periodicidad) {
                pe = periodicidad =='' ? '' : reg.periodicidad + 'º Quin. '; 

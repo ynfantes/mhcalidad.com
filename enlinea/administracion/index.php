@@ -348,7 +348,7 @@ switch ($accion) {
             }
         }
         
-
+        
         if (isset($_FILES['archivo']) && isset($_POST['id_inmueble'])) {
             
             $id_inmueble    = filter_input(INPUT_POST, "id_inmueble");
@@ -365,7 +365,7 @@ switch ($accion) {
 
             if (isset($_POST['mes'])) $filename.= '_'.filter_input(INPUT_POST,'mes'); 
             if (isset($_POST['year'])) $filename.= '-'.filter_input(INPUT_POST,'year');
-
+            
             if (@move_uploaded_file($_FILES['archivo']['tmp_name'], "../documentos/$filename.pdf")) {
                 
                 $resultado['suceed']    = TRUE;
