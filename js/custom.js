@@ -256,13 +256,13 @@ jQuery(document).ready(function ($) {
     if (tasa_cambio.length>0) {
         $.ajax({ // get content cartelera
 
-            url: 'https://pronet21.net/bcv/',
+            url: 'https://bcv.pronet21.net',
             dataType: 'json',
             type: 'GET',
             success: function (data) {
                 if(data.usd !== null) {
                 console.log(`Tasa del día: ${data.usd}`);
-                const tasa = `<span id='tasabcv' class="bold" style="font-size:16px">${data.usd.formatCurrency()}<span>`;
+                const tasa = `<span id='tasabcv' class="bold" style="font-size:16px">${data.usd}<span>`;
                 const t = Date.now();
                 const fecha = new Date(t);
                 console.log(fecha.toLocaleDateString());
@@ -359,22 +359,3 @@ jQuery(window).load(function () {
     });
 });
 
-Number.prototype.formatCurrency = function () {
-    var number = new String(this);
-    var splitStr = number.split('.');
-    var splitLef = splitStr[0];
-    if (splitStr.length > 1) {
-        if (splitStr[1].length > 2) {
-            var decimale = parseInt(splitStr[1].substring(0, 3) / 10);
-            splitStr[1] = decimale.toString();
-        }
-        if (splitStr[1].length == 1) splitStr[1] += '0';
-    }
-    var splitRig = splitStr.length > 1 ? ',' + splitStr[1] : ',00';
-    var regx = /(\d+)(\d{3})/;
-
-    while (regx.test(splitLef)) {
-        splitLef = splitLef.replace(regx, '$1' + '.' + '$2');
-    }
-    return splitLef + splitRig;
-};
