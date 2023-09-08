@@ -26,7 +26,7 @@
                 <li class="single"><a href="{{constant('URL_SISTEMA')}}/administracion/publicar-informe-gastos-principales">Informe Gastos Principales</a></li>
                 <li class="single"><a href="{{constant('URL_SISTEMA')}}/administracion/publicar-documento-condominio">Documento Condominio</a></li>
                 <li class="single"><a href="{{constant('URL_SISTEMA')}}/administracion/publicar-balance-general">Balance General</a></li>
-                <li class="single"><a href="{{constant('URL_SISTEMA')}}/administracion/publicar-estado-resultados">Estado de Resultados</a></li>
+                <li class="single"><a href="{{constant('URL_SISTEMA')}}/administracion/publicar-comunicado">Comunicados</a></li>
             </ul>
         </li>
         {% else %}
@@ -44,6 +44,9 @@
         <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">Consultas<i>y Reportes</i></a>
             <ul class="dropdown-menu">
                 <li><a href="{{constant('URL_SISTEMA')}}/cuenta/usd">Estado de Cuenta</a></li>
+                {% if session.edoCtaConJunta %}
+                <li><a href="{{constant('URL_SISTEMA')}}/generarEstadoDeCuentaPDF.php" target="_blank">Estado de Cuenta Cartelera</a></li>
+                {% endif %}
                 {% if session.menu_ext %}
                 <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=ESTADO_DE_CUENTA_CONFIDENCIAL_JUNTA">Estado de Cuenta Inmueble</a></li>
                 <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=CUENTAS_POR_COBRAR_CONSTRUCTORA">Estado de Cuenta Constructora</a></li>
@@ -84,7 +87,7 @@
                 {% if (session.junta == '0002' or session.junta == '0003') %}
                 <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=EDO_CTA_COMBINADO">Estado de Cuenta Combinado</a></li>
                 {% endif %}
-                <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=FACTURAS_POR_CARGAR">Facturas pendientes a cargar en el Recibo del mes</a></li>
+                <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=FACTURAS_POR_CARGAR">Tesorería - Flujo de Caja</a></li>
                 <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=INGRESOS">Ingresos y Egresos disponible</a></li>
             </ul>
         </li>
@@ -96,7 +99,7 @@
                 <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=GAST_PRIN">Informe Gastos Principales</a></li>
                 <li><a href="{{constant('URL_SISTEMA')}}/descargas.php?doc=DOC_COND">Documento Condominio</a></li>
                 <li><a href="{{constant('URL_SISTEMA')}}/reportes/?doc=BALANCE_GENERAL">Balance General</a></li>
-                <li><a href="{{constant('URL_SISTEMA')}}/reportes/?doc=ESTADO_RESULTADO">Estado de Resultados</a></li>
+                <li><a href="{{constant('URL_SISTEMA')}}/reportes/?doc=COMUNICADO">Comunicados</a></li>
             </ul>
         </li>
         <li class="single"><a href="{{constant('URL_SISTEMA')}}/propietario/contacto">Buzón<i>de Contacto</i></a></li>

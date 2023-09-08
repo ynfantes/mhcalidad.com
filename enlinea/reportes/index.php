@@ -8,7 +8,8 @@ $re         = $db->select("id_inmueble", "propiedades", $criterio);
 $session    = $_SESSION;
 $documentos = Array();
 
-if ($_GET['doc']  == 'BALANCE_GENERAL' || $_GET['doc'] == 'ESTADO_RESULTADO') {
+if ($_GET['doc']  == 'BALANCE_GENERAL' || $_GET['doc'] == 'COMUNICADO') {
+
     $files = scandir('../documentos/');
     
     if ($re["suceed"] === true && count($re['data'])>0) {

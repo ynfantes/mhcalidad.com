@@ -69,6 +69,11 @@ class propietario extends db implements crud  {
                 
                 $menu_ext = $ext['suceed'] && $ext['stats']['affected_rows'] > 0 ? true : false; 
                 
+                $res = db::select("id_inmueble","propiedades",["cedula" => $cedula,"id_inmueble" => '0009']);
+
+                $edoCtaConJunta = $res['suceed'] && $res['stats']['affected_rows'] > 0 ? true : false; 
+
+
                 foreach ($result['data'] as $propietario) {
                     
                     if (strtolower($propietario['clave']) == strtolower($password)) {
@@ -89,6 +94,7 @@ class propietario extends db implements crud  {
                         $_SESSION['status']     = 'logueado';
                         $_SESSION["cpanel"]     = 0;
                         $_SESSION["menu_ext"]   = $menu_ext;
+                        $_SESSION["edoCtaConJunta"]   = $edoCtaConJunta;
 
                         unset($result['query']);
                         return $result;

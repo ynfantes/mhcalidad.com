@@ -83,7 +83,7 @@ if ($re["suceed"] === true ) {
             case 'FACTURAS_POR_CARGAR':
                 $documento  = ".pdf";
                 $content    = 'Content-type: application/pdf';
-                $titulo     = 'Facturas por cargar al recibo del mes';
+                $titulo     = 'Tesorería - Flujo de Caja';
                 break;
 
             case 'CUENTAS_POR_COBRAR_CONSTRUCTORA':
