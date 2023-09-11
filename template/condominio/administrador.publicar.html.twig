@@ -41,9 +41,9 @@
             </div>                                         
         </div>
         {# PERIODO #}
-        {% if reporte.mes or repote.año %}
+        {% if (not reporte.mes is null) or (not reporte.año is null) %}
         <div class="form-row">
-            {% if reporte.mes %}
+            {% if not reporte.mes is null %}
             <div class="form-group col-md-2">
                 <label for="mes">Mes<sup>*</sup></label>
                 <select class="required form-control" name="mes" id="mes">
@@ -62,7 +62,7 @@
                 </select>
             </div>
             {% endif %}
-            {% if reporte.año %}
+            {% if not reporte.año is null %}
             <div class="form-group col-md-2">
                 <label for="year">Año<sup>*</sup></label>
                 <input type="number" class="required form-control" id="year" name="year" maxlength="4">
