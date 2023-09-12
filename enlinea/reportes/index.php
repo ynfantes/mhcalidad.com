@@ -8,7 +8,11 @@ $re         = $db->select("id_inmueble", "propiedades", $criterio);
 $session    = $_SESSION;
 $documentos = Array();
 
-if ($_GET['doc']  == 'BALANCE_GENERAL' || $_GET['doc'] == 'COMUNICADO') {
+if (
+    $_GET['doc']  == 'BALANCE_GENERAL' 
+    || $_GET['doc'] == 'COMUNICADO'
+    || $_GET['doc'] == 'FLUJO_DE_CAJA'
+    ) {
 
     $files = scandir('../documentos/');
     
