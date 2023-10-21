@@ -117,18 +117,19 @@ function menuAdministrador($accion,$reporte,$twig) {
     }
     $empresas = new empresa();
     $clientes = $empresas->listarEmpresasActivas();
-    $data = array();
-    if ($clientes['suceed'] && count($clientes['data'])>0) {
+    $data     = [];
+    
+    if ( $clientes['suceed'] && !empty($clientes['data']) ) {
         $data = $clientes['data'];
     }
-    echo $twig->render(
-        'contabilidad/cargas.html.twig',
-        array(
-            'reporte' => $reporte,
-            'clients' => $data,
-            'session' => $_SESSION
-            )
-    );
+
+    $options = [
+        'reporte' => $reporte,
+        'clients' => $data,
+        'session' => $_SESSION
+    ];
+
+    echo $twig->render('contabilidad/cargas.html.twig', $options);
 }
 
 function menuCliente($accion,$reporte,$twig) {
@@ -148,10 +149,8 @@ function menuCliente($accion,$reporte,$twig) {
         case 'vacaciones':
             $titulo = "cálculo $reporte";
             $tabla = "calculo_".$reporte;
-            $order = ($reporte == 'nomina') ? 
-                Array("mes"=>"DESC","periodicidad"=>"ASC") :
-                $reporte == 'vacaciones' ? Array("id"=>"DESC") :
-                Array("mes"=>"DESC");
+            $order = $reporte == 'nomina' ? ["mes"=>"DESC","periodicidad"=>"ASC"] : 
+                ($reporte == 'vacaciones' ? ["id"=>"DESC"] :["mes"=>"DESC"]);
             break; 
         
         case 'recibos-pago-nomina':

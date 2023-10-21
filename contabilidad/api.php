@@ -22,11 +22,9 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         case 'vacaciones':
 
             $tabla = "calculo_".$reporte;
-            $order = ($reporte == 'nomina') ? 
-                Array("mes"=>"DESC","periodicidad"=>"ASC") :
-                $reporte == 'vacaciones' ?
-                Array("id" => "DESC") :
-                Array("mes"=>"DESC");
+            $order = $reporte == 'nomina' ? 
+                ["mes"=>"DESC","periodicidad"=>"ASC"] :
+                ($reporte == 'vacaciones' ? ["id" => "DESC"] : ["mes"=>"DESC"]);
             break; 
         
         case 'recibos-pago-nomina':

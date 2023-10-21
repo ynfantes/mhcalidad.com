@@ -6,7 +6,7 @@ $db         = new db();
 $criterio   = ["cedula" => $_SESSION["cedula"]];
 $re         = $db->select("id_inmueble", "propiedades", $criterio);
 $session    = $_SESSION;
-$documentos = Array();
+$documentos = [];
 
 if (
     $_GET['doc']  == 'BALANCE_GENERAL' 
@@ -137,5 +137,8 @@ if (
     }
 
 }
-$params = ["session" => $session,"documentos" => $documentos];
+$params = [
+    'session'    => $session,
+    'documentos' => $documentos
+];
 echo $twig->render('condominio/reportes.html.twig', $params);

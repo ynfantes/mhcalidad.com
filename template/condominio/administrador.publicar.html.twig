@@ -1,189 +1,287 @@
 {# indice #}
 {% extends 'layout/condominio.html.twig'%}
-{% block titulo %}
-{% endblock %}
+{% block titulo %}{% endblock %}
 {% block contenido %}
-<!-- MAIN CONTENT AREA -->
-<div class="main-content">
-<div class="container">
-<div class="row show-grid">
-<div class="col-md-12 col-sm-12">
-<!-- BREADCRUMBS -->
-<div id="breadcrumb">
-<ul>
-<li class="home"><a href="{{constant('URL_SISTEMA')}}/administracion">MH Calidad Condominios</a></li>
-<li>{{'Publicar ' ~ reporte.descripcion}}</li>
-</ul>
-</div>
-<div class="row show-grid clear-both">
-<!-- BEGIN ARTICLE CONTENT AREA -->
-<div class="col-md-12 col-sm-12 main-column">
-<article>
-<h2><a href="#">{{'Publicar ' ~ reporte.descripcion}}</a></h2> 
-{% if resultado is defined %}
-{% include 'misc/resultado.html.twig' %}
-{% endif %}
-<form id="publicacion" 
-    action="{{constant('URL_SISTEMA')}}/administracion/publicar-{{reporte.menu}}" 
-    method="post" 
-    class="form-horizontal contact-agent-form" 
-    enctype="multipart/form-data">
-    <div class="container">
-        <div class="row">
-            <div class="control-group col-md-6 col-sm-6">
-                <label class="control-label" for="inputName">Condominio<sup>*</sup></label>
-                <select class="required form-control" name="id_inmueble" style="height: 30px">"
-                    <option value="">Seleccione</option>
-                    {% for inmueble in inmuebles %}
-                        <option value="{{inmueble.id }}">{{ inmueble.nombre_inmueble }}</option>
-                    {% endfor %}
-                </select>
-            </div>                                         
-        </div>
-        {# PERIODO #}
-        {% if (not reporte.mes is null) or (not reporte.año is null) %}
-        <div class="form-row">
-            {% if not reporte.mes is null %}
-            <div class="form-group col-md-2">
-                <label for="mes">Mes<sup>*</sup></label>
-                <select class="required form-control" name="mes" id="mes">
-                    <option value="01">Enero</option>
-                    <option value="02">Febrero</option>
-                    <option value="03">Marzo</option>
-                    <option value="04">Abril</option>
-                    <option value="05">Mayo</option>
-                    <option value="06">Junio</option>
-                    <option value="07">Julio</option>
-                    <option value="08">Agosto</option>
-                    <option value="09">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
-                </select>
-            </div>
-            {% endif %}
-            {% if not reporte.año is null %}
-            <div class="form-group col-md-2">
-                <label for="year">Año<sup>*</sup></label>
-                <input type="number" class="required form-control" id="year" name="year" maxlength="4">
-            </div>
-            {% endif %}
-        </div>
-        {% endif %}
-        <div class="row">
-            <div class="control-group col-md-8 col-sm-8">
-                <label for="textarea" class="control-label">
-                {{'Seleccione el archivo ' ~ reporte.descripcion}}<sup>*</sup>
-                </label>
-                <input type="file" id="archivo" name="archivo" accept="application/pdf">
-            </div>
-        </div>
-        <div class="row">
-            <div class="control-group form-button-offset col-md-6 col-sm-6">
-                <input type="submit" value="Publicar" class="btn btn-default">
-            </div>
-        </div>
-    </div>
-</form>
-<br />
-<div class="text-divider5">
-    <span></span>
-</div>
-{% if cartelera %}
-    <table id="cartelera-publicaciones" 
-        class="table table-bordered table-striped" 
-        data-url="{{constant("URL_SISTEMA")}}/administracion/eliminar-publicacion">
-    <colgroup>
-        <col class="col-md-1 col-sm-1">
-        <col class="col-md-9 col-sm-9">
-        <col class="col-md-2 col-sm-2">
-        </colgroup>
-    <thead>
-        <tr>
-        <th>Inmueble</th>
-        <th>Publicación</th>
-        <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in cartelera %}
-        <tr id="fila{{item.id}}">
-        <td>{{item.id_inmueble}}</td>
-        <td>{{item.detalle}}</td>
-        <td><a href="#" id="{{item.id}}" class="item">Eliminar</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    </table>
-{% endif %}
-</article>
-                <!-- END ARTICLE CONTENT AREA -->
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+	<!-- MAIN CONTENT AREA -->
+	<div class="main-content">
+		<div class="container">
+			<div class="row show-grid">
+				<div
+					class="col-md-12 col-sm-12">
+					<!-- BREADCRUMBS -->
+					<div id="breadcrumb">
+						<ul>
+							<li class="home">
+								<a href="{{constant('URL_SISTEMA')}}/administracion">MH Calidad Condominios</a>
+							</li>
+							<li>{{'Publicar ' ~ reporte.descripcion}}</li>
+						</ul>
+					</div>
+					<div
+						class="row show-grid clear-both">
+						<!-- BEGIN ARTICLE CONTENT AREA -->
+						<div class="col-md-7 col-sm-7">
+							<div class="col-md-12 col-sm-12 main-column">
+                                <article>
+                                    <h2>
+                                        <a href="#">{{'Publicar ' ~ reporte.descripcion}}</a>
+                                    </h2>
+                                    
+                                    {% if resultado is defined %}
+                                        {% include 'misc/resultado.html.twig' %}
+                                    {% endif %}
+                                    <form 
+                                        id="publicacion" 
+                                        action="{{constant('URL_SISTEMA')}}/administracion/publicar-{{reporte.menu}}" 
+                                        method="post" 
+                                        class="form-horizontal contact-agent-form" 
+                                        enctype="multipart/form-data"
+                                    >
+                                            <input type="hidden" name="prefix" value="{{reporte.prefix}}" />
+                                            <div class="form-group">
+                                                <label class="control-label" for="inputName">Condominio<sup>*</sup>
+                                                </label>
+                                                <select class="required form-control" name="id_inmueble" style="height: 30px">"
+                                                    <option value="">Seleccione</option>
+                                                    {% for inmueble in inmuebles %}
+                                                        <option value="{{inmueble.id }}">{{ inmueble.nombre_inmueble }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {# PERIODO #}
+                                            {% if (not reporte.mes is null) or (not reporte.año is null) %}
+                                                <div class="form-row">
+                                                    {% if not reporte.mes is null %}
+                                                        <div class="form-group col-md-2">
+                                                            <label for="mes">Mes<sup>*</sup></label>
+                                                            <select class="required form-control" name="mes" id="mes">
+                                                                <option value="01">Enero</option>
+                                                                <option value="02">Febrero</option>
+                                                                <option value="03">Marzo</option>
+                                                                <option value="04">Abril</option>
+                                                                <option value="05">Mayo</option>
+                                                                <option value="06">Junio</option>
+                                                                <option value="07">Julio</option>
+                                                                <option value="08">Agosto</option>
+                                                                <option value="09">Septiembre</option>
+                                                                <option value="10">Octubre</option>
+                                                                <option value="11">Noviembre</option>
+                                                                <option value="12">Diciembre</option>
+                                                            </select>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if not reporte.año is null %}
+                                                        <div class="form-group col-md-2">
+                                                            <label for="year">Año<sup>*</sup></label>
+                                                            <input type="number" class="required form-control" id="year" name="year" maxlength="4">
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                            <div class="form-row">                                        
+                                                <div class="form-group">
+                                                <label for="textarea" class="control-label">{{'Seleccione el archivo ' ~ reporte.descripcion}}<sup>*</sup>
+                                                </label>
+                                                <input type="file" id="archivo" name="archivo" accept="application/pdf">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="control-group form-button-offset col-md-6 col-sm-6">
+                                                    <input type="submit" value="Publicar" class="btn btn-danger">
+                                                </div>
+                                            </div>
+                                    </form>
+                                    <br/>
+                                    <div class="text-divider5">
+                                        <span></span>
+                                    </div>
+                                </article>
+                            </div>
+							<!-- END ARTICLE CONTENT AREA -->
+						</div>
+                        <!-- BEGIN LISTA ARCHIVOS PUBLICADOS -->
+                        {% if reporte.id in ['10','11','12'] %}
+                        <div id="left-sidebar" class="col-md-5 col-sm-5">
+                            <div class="side-nav sidebar-block">
+                                <h2 style="border-bottom:none">Publicaciones</h4>
+                                <div class="text-divider5">
+                                    <span></span>
+                                </div>
+                                <div id="lista_publicaciones">
+                                <div class="alert alert-info">
+                                <span>Seleccione un cliente de la lista para ver las publicaciones asociadas a ese cliente.</span>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <!-- END LISTA ARCHIVOS PUBLICADOS -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 {% block js %}
-{{ parent() }}
-<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-validate/jquery.validate.js"></script>
-<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
-<script type="text/javascript">
-jQuery(document).ready(function($) {
+	{{ parent() }}
+	<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-validate/jquery.validate.js"></script>
+	<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="{{constant('ROOT')}}js/jquery-validate/localization/messages_es.js"></script>
+	<script type="text/javascript">
     
-    $('a.item').live('click', function() {
-        var url = $("#cartelera-publicaciones").attr("data-url");
-        console.log(url);
-        $.post(url,{id: this.id},
-        function(data) {
-            $("tr#fila" + data ).css("display","none");
+    jQuery(document).ready(function ($) {
 
+        const selCondo = $('select[name="id_inmueble"]');
+        const inputPrefix = $('input[name="prefix"]');
+        const listado = $('div#lista_publicaciones');
+
+        function listarPublicaciones(datos) {
+        
+            
+            let contenido;
+            if (datos.length === 0) {
+                contenido = '<div class="alert alert-danger">\
+                <span>No hay publicados reportes, de este tipo, para este cliente.</span>\
+                </div>'
+            } else {
+                contenido = `<table class="table table-bordered table-striped responsive-utilities">
+                <thead>
+                    <tr>
+                        <th style="text-align: center">Archivo</th>
+                        <th style="text-align: center">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>`
+                
+                datos.forEach( reg => {
+                    
+                    contenido = contenido + `<tr>
+                        <td><a href="{{constant('URL_SISTEMA')}}/documentos/${reg}" target="_blank">${reg}</a></td>
+                        <td><a href="#" data-item="${reg}" class="btn-eliminar">Eliminar</a></td>
+                    </tr>`;
+                
+                }
+
+                    
+                )
+                contenido = contenido + `</tbody></table>`;
+            }
+            
+            listado.html(contenido);
+        }
+        selCondo.on('change', function () {
+        
+            const idcondo = selCondo.val();
+            const prefix = inputPrefix.val();
+            
+            if ( idcondo!='' ) {
+                
+                contenido = '<div class="alert alert-info">\
+                <span>Espere un momento, estamos consultando las publicaciones de este cliente...</span></div>';
+                listado.html(contenido);
+
+                const data = {
+                    prefix: prefix,
+                    condo: idcondo
+                };
+                const url = '{{constant("URL_SISTEMA")}}/administracion/?accion=listar-publicaciones';
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify( data )
+                })
+                .then( res => res.json() )
+                .then( res => listarPublicaciones(res))
+                .catch( err => console.log( 'POST error:', err ));
+            }
+        
+        })
+
+        // Eliminar publicacion
+        $(document).on('click', '.btn-eliminar', function(e) {
+            e.preventDefault();
+            
+            const confirma = confirm("¿Seguro desea eliminar el registro seleccionado?");
+            
+            if (confirma) {
+                const data = { file: $(this).data('item') };
+                const respuesta = fetch('{{constant("URL_SISTEMA")}}/administracion', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify( data )
+                })
+                .then( res => { return res.json() })
+                .catch( err => console.log( 'DELETE error:', err ));    
+
+                respuesta.then(data => {
+                    if (data.suceed) {
+                        $(this).closest('tr').remove();
+                        console.log('[v] Registro actualizado con éxito.');
+                    } else {
+                        console.log("Error: ", data);
+                    }
+                });
+            }
+            
         });
-        return false;
-    });
 
-    $("#publicacion").validate({
-        rules : {
-            id_inmueble : {
-                required : true
+
+        $('a.item').live('click', function () {
+            
+            const url = $("#cartelera-publicaciones").attr("data-url");
+            
+            $.post(url, { id: this.id}, function (data) {
+                $("tr#fila" + data).css("display", "none");
+
+            });
+            return false;
+        });
+
+        $("#publicacion").validate({
+        rules: {
+            id_inmueble: {
+                required: true
             },
-            archivo : {
-                required : true
+            archivo: {
+                required: true
             },
-            year : {
-                min : 2000,
-                minlength : 4
+            year: {
+                min: 2000,
+                minlength: 4
             }
         },
-        messages : {
+        messages: {
             id_inmueble: {
                 required: "Seleccione un condominio de la lista"
             },
-            archivo : {
+            archivo: {
                 required: 'Debe seleccionar el acta de junta'
             },
-            year : {
-                required : 'Escriba el año',
-                min : 'Debe ser mayor al 2000',
-                minlength : 'Formato 4 dígitos'
+            year: {
+                required: 'Escriba el año',
+                min: 'Debe ser mayor al 2000',
+                minlength: 'Formato 4 dígitos'
             }
         },
-        errorElement : 'span',
-        errorClass : 'error',
-        errorPlacement : function(error, element) {
-            if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+        errorElement: 'span',
+        errorClass: 'error',
+        errorPlacement: function (error, element) {
+            if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
                 $(".error").show();
             } else {
                 if (element.parent('.input-group').length) {
-                        error.insertAfter(element.parent());
+                    error.insertAfter(element.parent());
                 } else {
-                        error.insertAfter(element);
+                    error.insertAfter(element);
                 }
             }
         }
+        });
+
     });
-});
 </script>
 {% endblock %}
