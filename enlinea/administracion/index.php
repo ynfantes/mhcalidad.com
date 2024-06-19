@@ -10,6 +10,14 @@ if (!$_SESSION['cpanel']) {
 
 $session = $_SESSION;
 
+// Función de comparación personalizada
+function compareByNameReversed($a, $b) {
+    // Invierte las cadenas antes de comparar
+    $reversedA = strrev($a);
+    $reversedB = strrev($b);
+    return strcmp($reversedA, $reversedB);
+}
+
 if ($_SERVER['REQUEST_METHOD']==='DELETE') {
     
     $result = [];
@@ -39,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD']==='DELETE') {
             foreach ($files as $file ) {
                 $result[] = basename($file);
             }
+            
+            usort($result, 'compareByNameReversed');
             echo json_encode($result);
             break;
 
